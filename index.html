@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RATS WARS - A Space Opera</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: #000;
+            color: #ffd700;
+            overflow-x: hidden;
+        }
+        
+        /* Starfield background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Scanlines effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            z-index: 1000;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(0,0,50,0.8) 0%, rgba(0,0,0,0.5) 100%);
+            border: 3px solid #ffd700;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3),
+                        inset 0 0 30px rgba(255, 215, 0, 0.1);
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 
+                0 0 10px #ffd700,
+                0 0 20px #ffd700,
+                0 0 30px #ff6b00,
+                0 0 40px #ff6b00,
+                2px 2px 0px #000,
+                4px 4px 0px #333;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ff6b00, 2px 2px 0px #000; }
+            to { text-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700, 0 0 40px #ff6b00, 0 0 50px #ff6b00, 2px 2px 0px #000; }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+            letter-spacing: 4px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(0, 0, 50, 0.9);
+            padding: 20px;
+            margin-bottom: 40px;
+            border: 2px solid #00ffff;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border: 2px solid #00ffff;
+            border-radius: 3px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        nav a:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
+            transform: scale(1.05);
+        }
+        
+        /* Sections */
+        section {
+            background: rgba(0, 0, 50, 0.7);
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 2px solid #ffd700;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+        
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #ffd700;
+            text-shadow: 0 0 10px #ffd700;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 4px;
+        }
+        
+        /* Character Grid */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .character-card {
+            background: rgba(0, 0, 100, 0.5);
+            border: 2px solid #00ffff;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            border-color: #ffd700;
+        }
+        
+        .character-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 2px solid #ffd700;
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+        
+        .character-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        /* Merchandise */
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .merch-item {
+            background: rgba(0, 0, 100, 0.5);
+            border: 2px solid #ff6b00;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .merch-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.5);
+        }
+        
+        .merch-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 2px solid #ffd700;
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+        
+        .merch-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .merch-price {
+            color: #00ffff;
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #ff6b00;
+            color: #fff;
+            border: 2px solid #ffd700;
+            border-radius: 3px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #ffd700;
+            color: #000;
+            box-shadow: 0 0 20px #ffd700;
+        }
+        
+        /* Fan Fiction */
+        .fanfic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .fanfic-item {
+            background: rgba(0, 0, 100, 0.5);
+            border: 2px solid #00ffff;
+            border-radius: 5px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .fanfic-item:hover {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .fanfic-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .fanfic-author {
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+        
+        .fanfic-excerpt {
+            color: #fff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #ffd700;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 50, 0.8);
+            border: 2px solid #00ffff;
+            border-radius: 3px;
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #00ffff;
+            margin-top: 40px;
+            border-top: 2px solid #ffd700;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            nav ul { flex-direction: column; gap: 15px; }
+            .character-grid, .merch-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="scanlines"></div>
+    
+    <div class="container">
+        <header>
+            <h1>RATS WARS</h1>
+            <p class="subtitle">An Epic Space Opera Saga</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#characters">Characters</a></li>
+                <li><a href="#merchandise">Merchandise</a></li>
+                <li><a href="#fanfiction">Fan Fiction</a></li>
+                <li><a href="#submit">Submit Story</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Characters Section -->
+        <section id="characters">
+            <h2>Cast of Characters</h2>
+            <div class="character-grid">
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000023535.png" alt="Character">
+                    <div class="character-name">Hero Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022721.png" alt="Character">
+                    <div class="character-name">Warrior Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000023210.png" alt="Character">
+                    <div class="character-name">Guardian Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000023248.png" alt="Character">
+                    <div class="character-name">Commander Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000023201.png" alt="Character">
+                    <div class="character-name">Pilot Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022573.png" alt="Character">
+                    <div class="character-name">Scout Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022571.png" alt="Character">
+                    <div class="character-name">Tech Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022568.png" alt="Character">
+                    <div class="character-name">Scientist Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022572.png" alt="Character">
+                    <div class="character-name">Medic Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022565.png" alt="Character">
+                    <div class="character-name">Engineer Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022500.png" alt="Character">
+                    <div class="character-name">Navigator Rat</div>
+                </div>
+                <div class="character-card">
+                    <img src="https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000021924.jpg" alt="Character">
+                    <div class="character-name">Captain Rat</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Merchandise Section -->
+        <section id="merchandise">
+            <h2>Galactic Merchandise</h2>
+            <p style="text-align: center; color: #00ffff; margin-bottom: 30px;">
+                Equip yourself with official Rats Wars gear from across the galaxy!
+            </p>
+            <div class="merch-grid">
+                <div class="merch-item">
+                    <img src="https://via.placeholder.com/300x300/001a4d/ffd700?text=T-Shirt" alt="T-Shirt">
+                    <div class="merch-title">Classic Logo T-Shirt</div>
+                    <div class="merch-price">$24.99</div>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+                <div class="merch-item">
+                    <img src="https://via.placeholder.com/300x300/001a4d/ffd700?text=Hoodie" alt="Hoodie">
+                    <div class="merch-title">Space Fleet Hoodie</div>
+                    <div class="merch-price">$44.99</div>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+                <div class="merch-item">
+                    <img src="https://via.placeholder.com/300x300/001a4d/ffd700?text=Mug" alt="Mug">
+                    <div class="merch-title">Galactic Commander Mug</div>
+                    <div class="merch-price">$14.99</div>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+                <div class="merch-item">
+                    <img src="https://via.placeholder.com/300x300/001a4d/ffd700?text=Poster" alt="Poster">
+                    <div class="merch-title">Vintage Movie Poster</div>
+                    <div class="merch-price">$19.99</div>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Fan Fiction Section -->
+        <section id="fanfiction">
+            <h2>Fan Fiction Archives</h2>
+            <p style="text-align: center; color: #00ffff; margin-bottom: 30px;">
+                Explore stories from across the Rats Wars universe, written by fans like you!
+            </p>
+            <div class="fanfic-list">
+                <div class="fanfic-item">
+                    <div class="fanfic-title">The Battle of Cheese Station</div>
+                    <div class="fanfic-author">By: SpaceRodent42</div>
+                    <p class="fanfic-excerpt">
+                        When the Empire discovered the hidden rebel base on Cheese Station, Captain Whiskers knew 
+                        they had only hours to evacuate. But leaving behind the vast stores of aged cheddar was 
+                        unthinkable...
+                    </p>
+                    <a href="#" class="btn">Read More</a>
+                </div>
+                <div class="fanfic-item">
+                    <div class="fanfic-title">Commander Squeak's First Flight</div>
+                    <div class="fanfic-author">By: GalacticTail</div>
+                    <p class="fanfic-excerpt">
+                        Before she became the legendary pilot of the Millennium Hamster, Commander Squeak was just 
+                        another trainee at the Academy. This is the story of how she earned her wings...
+                    </p>
+                    <a href="#" class="btn">Read More</a>
+                </div>
+                <div class="fanfic-item">
+                    <div class="fanfic-title">The Mystery of the Dark Rodent</div>
+                    <div class="fanfic-author">By: TailWriter99</div>
+                    <p class="fanfic-excerpt">
+                        Rumors of a mysterious figure have been spreading through the fleet. Some say it's a ghost, 
+                        others claim it's a weapon. Agent Scurry is determined to uncover the truth...
+                    </p>
+                    <a href="#" class="btn">Read More</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Submit Fan Fiction Section -->
+        <section id="submit">
+            <h2>Submit Your Story</h2>
+            <p style="text-align: center; color: #00ffff; margin-bottom: 30px;">
+                Share your Rats Wars adventures with the galaxy!
+            </p>
+            <form id="fanficForm">
+                <div class="form-group">
+                    <label for="authorName">Author Name:</label>
+                    <input type="text" id="authorName" name="authorName" required>
+                </div>
+                <div class="form-group">
+                    <label for="storyTitle">Story Title:</label>
+                    <input type="text" id="storyTitle" name="storyTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="storyContent">Your Story:</label>
+                    <textarea id="storyContent" name="storyContent" required></textarea>
+                </div>
+                <button type="submit" class="btn">Transmit Story</button>
+            </form>
+        </section>
+        
+        <footer>
+            <p>&copy; 2026 RATS WARS. All Rights Reserved.</p>
+            <p>May the Cheese be with you.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Generate starfield
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Fan fiction form submission
+        document.getElementById('fanficForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Transmission received! Your story has been submitted for review by the Galactic Council.');
+            this.reset();
+        });
+        
+        // Placeholder for merchandise cart functionality
+        document.querySelectorAll('.merch-item .btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Item added to your cart! (This is a demo - integrate with your preferred e-commerce solution)');
+            });
+        });
+    </script>
+</body>
+</html>
