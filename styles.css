@@ -155,68 +155,32 @@ body {
 .logo-container {
     position: relative;
     margin-bottom: 30px;
-}
-
-.main-title {
-    font-family: var(--font-display);
-    font-size: clamp(4rem, 15vw, 10rem);
-    font-weight: 900;
-    letter-spacing: 0.15em;
-    margin: 0;
-    position: relative;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 0;
 }
 
-.title-word {
-    display: block;
-    color: var(--color-gold);
-    text-shadow:
-        0 0 10px var(--color-gold),
-        0 0 20px var(--color-gold),
-        0 0 30px var(--color-orange),
-        0 0 40px var(--color-orange),
-        0 0 50px var(--color-orange),
-        3px 3px 0px rgba(0, 0, 0, 0.8),
-        6px 6px 0px rgba(0, 0, 0, 0.6);
-    animation: titleGlow 3s ease-in-out infinite alternate;
-    line-height: 0.85;
+.main-logo {
+    max-width: 90%;
+    width: 900px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6))
+            drop-shadow(0 0 40px rgba(255, 215, 0, 0.4))
+            drop-shadow(0 0 60px rgba(255, 107, 0, 0.3));
+    animation: logoGlow 3s ease-in-out infinite alternate;
 }
 
-@keyframes titleGlow {
+@keyframes logoGlow {
     from {
-        text-shadow:
-            0 0 10px var(--color-gold),
-            0 0 20px var(--color-gold),
-            0 0 30px var(--color-orange),
-            3px 3px 0px rgba(0, 0, 0, 0.8);
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5))
+                drop-shadow(0 0 30px rgba(255, 215, 0, 0.3))
+                drop-shadow(0 0 45px rgba(255, 107, 0, 0.2));
     }
     to {
-        text-shadow:
-            0 0 20px var(--color-gold),
-            0 0 30px var(--color-gold),
-            0 0 40px var(--color-orange),
-            0 0 50px var(--color-orange),
-            0 0 60px var(--color-red),
-            3px 3px 0px rgba(0, 0, 0, 0.8);
+        filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.7))
+                drop-shadow(0 0 50px rgba(255, 215, 0, 0.5))
+                drop-shadow(0 0 75px rgba(255, 107, 0, 0.4));
     }
-}
-
-.title-perspective {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) perspective(200px) rotateX(25deg) scale(1.5);
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 12vw, 8rem);
-    font-weight: 900;
-    letter-spacing: 0.15em;
-    color: var(--color-orange);
-    opacity: 0.15;
-    z-index: -1;
-    pointer-events: none;
 }
 
 .tagline {
@@ -434,13 +398,10 @@ body {
 }
 
 .character-card {
-    background: linear-gradient(135deg,
-        rgba(0, 0, 100, 0.6) 0%,
-        rgba(0, 0, 50, 0.4) 100%
-    );
-    border: 3px solid var(--color-cyan);
-    border-radius: 5px;
-    overflow: hidden;
+    background: transparent;
+    border: none;
+    border-radius: 20px;
+    overflow: visible;
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
@@ -452,9 +413,6 @@ body {
 
 .character-card:active {
     transform: scale(0.98);
-    box-shadow:
-        0 5px 20px rgba(0, 255, 255, 0.4),
-        0 0 20px rgba(255, 215, 0, 0.3);
 }
 
 .character-image {
@@ -462,7 +420,19 @@ body {
     width: 100%;
     height: 350px;
     overflow: hidden;
-    background: var(--color-black);
+    background: transparent;
+    border-radius: 20px;
+    border: 3px solid var(--color-cyan);
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.4),
+        0 0 30px rgba(0, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.character-card:active .character-image {
+    box-shadow:
+        0 5px 20px rgba(0, 255, 255, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.4);
 }
 
 .character-image img {
@@ -486,6 +456,7 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+    border-radius: 17px;
 }
 
 .character-overlay.show {
