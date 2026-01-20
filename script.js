@@ -445,6 +445,55 @@ function initCharacterAnimations() {
     document.querySelectorAll('.character-card, .merch-item, .fanfic-item').forEach(card => {
         observer.observe(card);
     });
+
+    // Initialize tap-and-hold for character cards
+    initCharacterTapAndHold();
+}
+
+// === CHARACTER TAP AND HOLD ===
+function initCharacterTapAndHold() {
+    const characterCards = document.querySelectorAll('.character-card');
+
+    characterCards.forEach(card => {
+        const overlay = card.querySelector('.character-overlay');
+        let pressTimer;
+
+        // Touch events (mobile)
+        card.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            overlay.classList.add('show');
+        });
+
+        card.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            overlay.classList.remove('show');
+        });
+
+        card.addEventListener('touchcancel', function(e) {
+            e.preventDefault();
+            overlay.classList.remove('show');
+        });
+
+        // Mouse events (desktop) - press and hold
+        card.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            overlay.classList.add('show');
+        });
+
+        card.addEventListener('mouseup', function(e) {
+            e.preventDefault();
+            overlay.classList.remove('show');
+        });
+
+        card.addEventListener('mouseleave', function(e) {
+            overlay.classList.remove('show');
+        });
+
+        // Prevent context menu on long press
+        card.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    });
 }
 
 // === NOTIFICATION SYSTEM ===
