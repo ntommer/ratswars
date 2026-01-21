@@ -456,42 +456,57 @@ function initCharacterTapAndHold() {
 
     characterCards.forEach(card => {
         const overlay = card.querySelector('.character-overlay');
-        let pressTimer;
+        const imageContainer = card.querySelector('.character-image');
+
+        // Helper function to check if touch/click is in bottom third
+        function isInBottomThird(event, element) {
+            const rect = element.getBoundingClientRect();
+            const y = event.clientY || (event.touches && event.touches[0].clientY);
+            const relativeY = y - rect.top;
+            const threshold = rect.height * (2/3); // Bottom third starts at 2/3 down
+            return relativeY >= threshold;
+        }
 
         // Touch events (mobile)
-        card.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            overlay.classList.add('show');
+        imageContainer.addEventListener('touchstart', function(e) {
+            if (isInBottomThird(e, imageContainer)) {
+                e.preventDefault();
+                overlay.classList.add('show');
+            }
         });
 
-        card.addEventListener('touchend', function(e) {
+        imageContainer.addEventListener('touchend', function(e) {
             e.preventDefault();
             overlay.classList.remove('show');
         });
 
-        card.addEventListener('touchcancel', function(e) {
+        imageContainer.addEventListener('touchcancel', function(e) {
             e.preventDefault();
             overlay.classList.remove('show');
         });
 
         // Mouse events (desktop) - press and hold
-        card.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            overlay.classList.add('show');
+        imageContainer.addEventListener('mousedown', function(e) {
+            if (isInBottomThird(e, imageContainer)) {
+                e.preventDefault();
+                overlay.classList.add('show');
+            }
         });
 
-        card.addEventListener('mouseup', function(e) {
+        imageContainer.addEventListener('mouseup', function(e) {
             e.preventDefault();
             overlay.classList.remove('show');
         });
 
-        card.addEventListener('mouseleave', function(e) {
+        imageContainer.addEventListener('mouseleave', function(e) {
             overlay.classList.remove('show');
         });
 
-        // Prevent context menu on long press
-        card.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
+        // Prevent context menu on long press in bottom third only
+        imageContainer.addEventListener('contextmenu', function(e) {
+            if (isInBottomThird(e, imageContainer)) {
+                e.preventDefault();
+            }
         });
     });
 }
