@@ -457,6 +457,7 @@ function initCharacterTapAndHold() {
     characterCards.forEach(card => {
         const overlay = card.querySelector('.character-overlay');
         const imageContainer = card.querySelector('.character-image');
+        let isTouchingBottomThird = false;
 
         // Helper function to check if touch/click is in bottom third
         function isInBottomThird(event, element) {
@@ -470,20 +471,29 @@ function initCharacterTapAndHold() {
         // Touch events (mobile)
         imageContainer.addEventListener('touchstart', function(e) {
             if (isInBottomThird(e, imageContainer)) {
+                isTouchingBottomThird = true;
                 e.preventDefault();
                 overlay.classList.add('show');
+            } else {
+                isTouchingBottomThird = false;
             }
-        });
+        }, { passive: false });
 
         imageContainer.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            overlay.classList.remove('show');
-        });
+            if (isTouchingBottomThird) {
+                e.preventDefault();
+                overlay.classList.remove('show');
+                isTouchingBottomThird = false;
+            }
+        }, { passive: false });
 
         imageContainer.addEventListener('touchcancel', function(e) {
-            e.preventDefault();
+            if (isTouchingBottomThird) {
+                e.preventDefault();
+            }
             overlay.classList.remove('show');
-        });
+            isTouchingBottomThird = false;
+        }, { passive: false });
 
         // Mouse events (desktop) - press and hold
         imageContainer.addEventListener('mousedown', function(e) {
@@ -494,7 +504,6 @@ function initCharacterTapAndHold() {
         });
 
         imageContainer.addEventListener('mouseup', function(e) {
-            e.preventDefault();
             overlay.classList.remove('show');
         });
 
