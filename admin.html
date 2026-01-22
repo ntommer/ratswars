@@ -2,7 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RATS WARS Editor">
+    <meta name="theme-color" content="#00ffff">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/logo.png">
     <title>RATS WARS - Content Editor</title>
     <style>
         * {
@@ -271,6 +278,59 @@
             transform: scale(1.05);
         }
 
+        .install-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #00ffff, #0088ff);
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.5);
+            display: none;
+            align-items: center;
+            gap: 15px;
+            z-index: 10000;
+            font-weight: 600;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .install-banner button {
+            background: #000;
+            color: #00ffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .install-banner button:hover {
+            background: #1a1a1a;
+            transform: scale(1.05);
+        }
+
+        .install-banner .close-btn {
+            background: transparent;
+            color: #000;
+            font-size: 1.5rem;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
         @media (max-width: 768px) {
             .characters-grid {
                 grid-template-columns: 1fr;
@@ -291,10 +351,20 @@
     </style>
 </head>
 <body>
+    <!-- Install App Banner -->
+    <div id="install-banner" class="install-banner">
+        <span>📱 Install app to your home screen!</span>
+        <button onclick="installApp()">Install</button>
+        <span class="close-btn" onclick="closeInstallBanner()">×</span>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>🚀 RATS WARS Content Editor</h1>
             <p>Edit your character gallery with ease</p>
+            <button id="install-btn-header" class="btn btn-secondary" onclick="installApp()" style="display: none; margin-top: 15px;">
+                📱 Install as App
+            </button>
         </div>
 
         <div class="instructions">
@@ -522,6 +592,84 @@
 
         // Initialize
         renderCharacters();
+
+        // ===== PWA INSTALL FUNCTIONALITY =====
+        let deferredPrompt;
+        const installBanner = document.getElementById('install-banner');
+        const installBtnHeader = document.getElementById('install-btn-header');
+
+        // Listen for beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Save the event so it can be triggered later
+            deferredPrompt = e;
+            // Show install banner
+            installBanner.style.display = 'flex';
+            installBtnHeader.style.display = 'inline-block';
+        });
+
+        function installApp() {
+            if (!deferredPrompt) {
+                // If no prompt available, show instructions
+                if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+                    alert('To install this app on iOS:\n\n1. Tap the Share button (box with arrow)\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add" in the top right corner');
+                } else {
+                    alert('To install this app:\n\n1. Open the browser menu (⋮)\n2. Tap "Add to Home screen" or "Install app"\n3. Follow the prompts');
+                }
+                return;
+            }
+
+            // Hide the banner
+            installBanner.style.display = 'none';
+
+            // Show the install prompt
+            deferredPrompt.prompt();
+
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                    showSuccessMessage('✅ App installed! Check your home screen.');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+            });
+        }
+
+        function closeInstallBanner() {
+            installBanner.style.display = 'none';
+        }
+
+        // Listen for app installed event
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed');
+            installBanner.style.display = 'none';
+            installBtnHeader.style.display = 'none';
+            showSuccessMessage('🎉 App installed successfully!');
+        });
+
+        // Check if app is already installed
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            console.log('App is running in standalone mode');
+            // Hide install buttons if already installed
+            installBanner.style.display = 'none';
+            installBtnHeader.style.display = 'none';
+        }
+
+        // Register service worker for offline functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registered:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
