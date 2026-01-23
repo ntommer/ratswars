@@ -154,15 +154,15 @@ body {
 
 .logo-container {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .main-logo {
-    max-width: 90%;
-    width: 900px;
+    max-width: 98%;
+    width: 1200px;
     height: auto;
     filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.8))
             drop-shadow(0 0 40px rgba(0, 0, 0, 0.6))
