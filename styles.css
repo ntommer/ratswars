@@ -195,6 +195,35 @@ body {
     flex-wrap: wrap;
 }
 
+/* === FEATURED SHIP === */
+.featured-ship {
+    text-align: center;
+    margin: 40px 0;
+    padding: 30px;
+    background: linear-gradient(135deg,
+        rgba(0, 0, 50, 0.7) 0%,
+        rgba(0, 0, 30, 0.6) 100%
+    );
+    border: 3px solid var(--color-cyan);
+    border-radius: 5px;
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.4),
+        inset 0 0 30px rgba(0, 255, 255, 0.05);
+}
+
+.ship-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.ship-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 50px rgba(0, 255, 255, 0.3);
+}
+
 /* === NAVIGATION === */
 .main-nav {
     background: rgba(0, 0, 50, 0.95);
