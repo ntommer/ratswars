@@ -8,9 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="RATS WARS Editor">
     <meta name="theme-color" content="#00ffff">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="images/logo.png">
-    <title>RATS WARS - Content Editor</title>
+    <title>RATS WARS - Content Manager</title>
     <style>
         * {
             margin: 0;
@@ -19,93 +17,110 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
             color: #ffffff;
-            padding: 20px;
             min-height: 100vh;
+            padding-bottom: 50px;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            padding: 30px 20px;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 20px;
             border: 2px solid rgba(0, 255, 255, 0.3);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
         }
 
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #00ffff;
             margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
         }
 
         .header p {
             color: #ffd700;
             font-size: 1.1rem;
+            margin-bottom: 20px;
         }
 
-        .section-title {
-            font-size: 1.8rem;
-            color: #ffd700;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
         }
 
-        .characters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+        .status-connected {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 2px solid rgba(0, 255, 0, 0.5);
         }
 
-        .character-editor {
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(0, 255, 255, 0.4);
+        .status-disconnected {
+            background: rgba(255, 100, 100, 0.2);
+            color: #ff6464;
+            border: 2px solid rgba(255, 100, 100, 0.5);
+        }
+
+        .setup-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.4);
             border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s ease;
+            padding: 25px;
+            margin-bottom: 30px;
         }
 
-        .character-editor:hover {
-            border-color: rgba(255, 215, 0, 0.6);
-            box-shadow: 0 5px 25px rgba(0, 255, 255, 0.3);
-            transform: translateY(-3px);
-        }
-
-        .character-thumbnail {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid rgba(0, 255, 255, 0.3);
+        .setup-section h2 {
+            color: #ffd700;
             margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .setup-section.collapsed .setup-content {
+            display: none;
+        }
+
+        .setup-toggle {
+            background: transparent;
+            border: none;
+            color: #00ffff;
+            cursor: pointer;
+            font-size: 1.5rem;
+            float: right;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
             color: #00ffff;
             font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 12px;
             background: rgba(0, 0, 0, 0.4);
@@ -125,12 +140,6 @@
             background: rgba(0, 0, 0, 0.6);
         }
 
-        .form-group textarea {
-            min-height: 80px;
-            resize: vertical;
-            line-height: 1.5;
-        }
-
         .form-group small {
             display: block;
             color: #888;
@@ -138,34 +147,16 @@
             font-size: 0.85rem;
         }
 
-        .character-id {
-            background: rgba(0, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            color: #00ffff;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
         .btn {
-            padding: 15px 35px;
-            font-size: 1.1rem;
+            padding: 12px 24px;
+            font-size: 1rem;
             font-weight: 600;
             border: 2px solid;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
@@ -174,21 +165,20 @@
             color: #000;
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
         }
 
-        .btn-secondary {
-            background: transparent;
-            border-color: #ffd700;
-            color: #ffd700;
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
-        .btn-secondary:hover {
-            background: #ffd700;
-            color: #000;
-            transform: translateY(-2px);
+        .btn-success {
+            background: rgba(0, 255, 0, 0.2);
+            border-color: #00ff00;
+            color: #00ff00;
         }
 
         .btn-danger {
@@ -200,135 +190,150 @@
         .btn-danger:hover {
             background: #ff4444;
             color: #fff;
-            transform: translateY(-2px);
         }
 
-        .output-section {
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 40px;
+        .section-title {
+            font-size: 1.6rem;
+            color: #ffd700;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
         }
 
-        .output-box {
-            background: #1a1a1a;
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.05);
             border: 2px solid rgba(0, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 20px;
-            max-height: 400px;
-            overflow: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #00ff00;
-            line-height: 1.6;
-        }
-
-        .success-message {
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid rgba(0, 255, 0, 0.5);
-            color: #00ff00;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-            display: none;
-        }
-
-        .add-character-section {
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px dashed rgba(255, 215, 0, 0.5);
             border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .instructions {
-            background: rgba(0, 200, 255, 0.1);
-            border-left: 4px solid #00ffff;
             padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
+            transition: all 0.3s ease;
         }
 
-        .instructions h3 {
-            color: #00ffff;
+        .character-card:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 5px 25px rgba(0, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .character-image-preview {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .image-upload-btn {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px dashed rgba(255, 215, 0, 0.5);
+            border-radius: 8px;
+            color: #ffd700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
             margin-bottom: 10px;
         }
 
-        .instructions ul {
+        .image-upload-btn:hover {
+            background: rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+        }
+
+        .image-upload-btn input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            left: 0;
+            top: 0;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            color: #00ff00;
+        }
+
+        .alert-error {
+            background: rgba(255, 100, 100, 0.1);
+            border: 2px solid rgba(255, 100, 100, 0.5);
+            color: #ff6464;
+        }
+
+        .alert-warning {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            color: #ffd700;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00ffff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: rgba(0, 200, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .info-box ul {
             margin-left: 20px;
             line-height: 1.8;
         }
 
-        .copy-btn {
-            background: #ffd700;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            background: #ffed4e;
-            transform: scale(1.05);
-        }
-
-        .install-banner {
+        .save-bar {
             position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #00ffff, #0088ff);
-            color: #000;
-            padding: 15px 30px;
-            border-radius: 50px;
-            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.5);
-            display: none;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 2px solid rgba(0, 255, 255, 0.5);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
             align-items: center;
             gap: 15px;
-            z-index: 10000;
-            font-weight: 600;
-            animation: slideUp 0.5s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateX(-50%) translateY(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(-50%) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .install-banner button {
-            background: #000;
-            color: #00ffff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .install-banner button:hover {
-            background: #1a1a1a;
-            transform: scale(1.05);
-        }
-
-        .install-banner .close-btn {
-            background: transparent;
-            color: #000;
-            font-size: 1.5rem;
-            padding: 0 10px;
-            cursor: pointer;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         @media (max-width: 768px) {
@@ -340,210 +345,420 @@
                 font-size: 1.8rem;
             }
 
-            .btn-group {
+            .save-bar {
                 flex-direction: column;
+                gap: 10px;
             }
 
-            .btn {
+            .save-bar .btn {
                 width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Install App Banner -->
-    <div id="install-banner" class="install-banner">
-        <span>📱 Install app to your home screen!</span>
-        <button onclick="installApp()">Install</button>
-        <span class="close-btn" onclick="closeInstallBanner()">×</span>
-    </div>
-
     <div class="container">
         <div class="header">
-            <h1>🚀 RATS WARS Content Editor</h1>
-            <p>Edit your character gallery with ease</p>
-            <button id="install-btn-header" class="btn btn-secondary" onclick="installApp()" style="display: none; margin-top: 15px;">
-                📱 Install as App
-            </button>
-        </div>
-
-        <div class="instructions">
-            <h3>📝 How to Use This Editor</h3>
-            <ul>
-                <li><strong>Edit Characters:</strong> Update image URLs and descriptions below</li>
-                <li><strong>Preview Changes:</strong> Click "Generate HTML Code" to see your updates</li>
-                <li><strong>Copy Code:</strong> Copy the generated HTML and replace the character section in index.html</li>
-                <li><strong>Remove Characters:</strong> Click "Remove" on any character you want to delete</li>
-                <li><strong>Add Characters:</strong> Use the "Add New Character" section</li>
-            </ul>
-        </div>
-
-        <div class="add-character-section">
-            <h2 class="section-title">➕ Add New Character</h2>
-            <div class="character-editor">
-                <div class="form-group">
-                    <label>Character ID (lowercase, no spaces)</label>
-                    <input type="text" id="new-char-id" placeholder="e.g., pilot">
-                </div>
-                <div class="form-group">
-                    <label>Image URL</label>
-                    <input type="url" id="new-char-url" placeholder="https://www.ratswars.com/...">
-                </div>
-                <div class="form-group">
-                    <label>Character Description</label>
-                    <textarea id="new-char-desc" placeholder="Enter character description..."></textarea>
-                </div>
-                <button class="btn btn-primary" onclick="addNewCharacter()">Add Character</button>
+            <h1>🚀 RATS WARS Content Manager</h1>
+            <p>Edit your website directly from your phone</p>
+            <div id="connection-status" class="status-badge status-disconnected">
+                ⚠️ Setup Required
             </div>
         </div>
 
-        <h2 class="section-title">🎭 Current Characters</h2>
-        <div id="characters-container" class="characters-grid"></div>
+        <div id="alert-container"></div>
 
-        <div class="btn-group">
-            <button class="btn btn-primary" onclick="generateHTML()">Generate HTML Code</button>
-            <button class="btn btn-secondary" onclick="resetAll()">Reset to Current Website</button>
+        <!-- Setup Section -->
+        <div id="setup-section" class="setup-section">
+            <button class="setup-toggle" onclick="toggleSetup()">▼</button>
+            <h2>⚙️ GitHub Connection Setup</h2>
+            <div class="setup-content">
+                <div class="info-box">
+                    <h3>📝 Quick Setup (One-time only)</h3>
+                    <ul>
+                        <li>Create a GitHub Personal Access Token with <strong>repo</strong> permissions</li>
+                        <li>Go to: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)</li>
+                        <li>Click "Generate new token (classic)"</li>
+                        <li>Name it "RATS WARS Editor" and check the <strong>repo</strong> checkbox</li>
+                        <li>Copy the token and paste it below (it will be saved in your browser)</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label>GitHub Username</label>
+                    <input type="text" id="github-owner" placeholder="your-username">
+                    <small>Your GitHub username</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Repository Name</label>
+                    <input type="text" id="github-repo" placeholder="ratswars">
+                    <small>The name of your repository</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Branch Name</label>
+                    <input type="text" id="github-branch" placeholder="claude/space-opera-website-fnVkw">
+                    <small>The branch you want to commit to</small>
+                </div>
+
+                <div class="form-group">
+                    <label>GitHub Personal Access Token</label>
+                    <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxxx">
+                    <small>Your token will be stored securely in browser localStorage</small>
+                </div>
+
+                <button class="btn btn-primary" onclick="saveGitHubConfig()">💾 Save Configuration</button>
+            </div>
         </div>
 
-        <div id="success-msg" class="success-message"></div>
+        <!-- Character Editor -->
+        <h2 class="section-title">🎭 Character Gallery</h2>
 
-        <div class="output-section" id="output-section" style="display: none;">
-            <h2 class="section-title">📋 Generated HTML Code</h2>
-            <p style="margin-bottom: 15px; color: #00ffff;">Copy this code and paste it into your index.html file, replacing the character-grid section.</p>
-            <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
-            <div class="output-box" id="output-box"></div>
+        <div class="info-box">
+            <h3>How to Edit Characters</h3>
+            <ul>
+                <li><strong>Upload Image:</strong> Click "Upload New Image" to select from your phone</li>
+                <li><strong>Edit Description:</strong> Type directly in the text box</li>
+                <li><strong>Save:</strong> Click "Publish Changes" at the bottom when you're done</li>
+                <li><strong>Changes are live:</strong> Your website updates automatically!</li>
+            </ul>
+        </div>
+
+        <div id="characters-container" class="characters-grid">
+            <!-- Characters will be loaded here -->
         </div>
     </div>
 
+    <!-- Save Bar -->
+    <div class="save-bar">
+        <button class="btn btn-primary" id="save-btn" onclick="publishChanges()" disabled>
+            📤 Publish Changes to Website
+        </button>
+        <button class="btn btn-danger" onclick="resetChanges()">
+            ↺ Reset Changes
+        </button>
+    </div>
+
     <script>
-        // Initial character data from the current website
-        let characters = [
-            {
-                id: 'hero',
-                imageUrl: 'https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000023535.png',
-                description: 'The chosen one who will bring balance to the galaxy'
-            },
-            {
-                id: 'guardian',
-                imageUrl: 'https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000023210.png',
-                description: 'Protector of ancient secrets and keeper of the old ways'
-            },
-            {
-                id: 'commander',
-                imageUrl: 'https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000023248.png',
-                description: 'Strategic mastermind of the rebel fleet'
-            },
-            {
-                id: 'scout',
-                imageUrl: 'https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022573.png',
-                description: 'Eyes and ears of the rebellion'
-            },
-            {
-                id: 'tech',
-                imageUrl: 'https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022571.png',
-                description: 'Tech genius who can hack any system'
-            },
-            {
-                id: 'scientist',
-                imageUrl: 'https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022568.png',
-                description: 'Brilliant mind behind the rebellion\'s technology'
-            },
-            {
-                id: 'engineer',
-                imageUrl: 'https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022565.png',
-                description: 'Master builder and ship mechanic'
-            },
-            {
-                id: 'navigator',
-                imageUrl: 'https://www.ratswars.com/storage/329/a03d1458-38b5-426d-a735-97849b7e8d0c/1000022500.png',
-                description: 'Guides the fleet through hyperspace'
-            },
-            {
-                id: 'r4t5',
-                imageUrl: 'images/characters/R4T5%20v2.png',
-                description: 'A helpful if nervous little guy, R4T5 may be the main character to the history of the galaxy'
+        // Configuration
+        let config = {
+            owner: '',
+            repo: '',
+            branch: '',
+            token: ''
+        };
+
+        // Character data
+        let characters = [];
+        let originalHTML = '';
+        let hasChanges = false;
+
+        // Load configuration from localStorage
+        function loadConfig() {
+            const saved = localStorage.getItem('ratswars-github-config');
+            if (saved) {
+                config = JSON.parse(saved);
+                document.getElementById('github-owner').value = config.owner || '';
+                document.getElementById('github-repo').value = config.repo || '';
+                document.getElementById('github-branch').value = config.branch || '';
+                document.getElementById('github-token').value = config.token || '';
+
+                if (config.owner && config.repo && config.token) {
+                    updateConnectionStatus(true);
+                    loadCharactersFromGitHub();
+                }
             }
-        ];
+        }
 
-        const initialCharacters = JSON.parse(JSON.stringify(characters));
+        // Save GitHub configuration
+        function saveGitHubConfig() {
+            config.owner = document.getElementById('github-owner').value.trim();
+            config.repo = document.getElementById('github-repo').value.trim();
+            config.branch = document.getElementById('github-branch').value.trim();
+            config.token = document.getElementById('github-token').value.trim();
 
+            if (!config.owner || !config.repo || !config.branch || !config.token) {
+                showAlert('Please fill in all fields', 'error');
+                return;
+            }
+
+            localStorage.setItem('ratswars-github-config', JSON.stringify(config));
+            showAlert('✅ Configuration saved! Loading your website...', 'success');
+            updateConnectionStatus(true);
+            loadCharactersFromGitHub();
+        }
+
+        // Update connection status
+        function updateConnectionStatus(connected) {
+            const status = document.getElementById('connection-status');
+            if (connected) {
+                status.className = 'status-badge status-connected';
+                status.textContent = '✅ Connected to GitHub';
+                document.getElementById('setup-section').classList.add('collapsed');
+            } else {
+                status.className = 'status-badge status-disconnected';
+                status.textContent = '⚠️ Setup Required';
+            }
+        }
+
+        // Toggle setup section
+        function toggleSetup() {
+            const section = document.getElementById('setup-section');
+            const btn = section.querySelector('.setup-toggle');
+            section.classList.toggle('collapsed');
+            btn.textContent = section.classList.contains('collapsed') ? '▶' : '▼';
+        }
+
+        // Show alert message
+        function showAlert(message, type = 'success') {
+            const container = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            container.innerHTML = '';
+            container.appendChild(alert);
+
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+
+        // Load characters from GitHub
+        async function loadCharactersFromGitHub() {
+            try {
+                showAlert('Loading your website data...', 'warning');
+
+                const response = await fetch(
+                    `https://api.github.com/repos/${config.owner}/${config.repo}/contents/index.html?ref=${config.branch}`,
+                    {
+                        headers: {
+                            'Authorization': `token ${config.token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                originalHTML = atob(data.content);
+
+                // Parse characters from HTML
+                parseCharactersFromHTML(originalHTML);
+                renderCharacters();
+                showAlert('✅ Website loaded! Make your changes and click Publish.', 'success');
+
+            } catch (error) {
+                console.error('Error loading from GitHub:', error);
+                showAlert(`❌ Error loading website: ${error.message}. Check your configuration.`, 'error');
+            }
+        }
+
+        // Parse characters from HTML
+        function parseCharactersFromHTML(html) {
+            characters = [];
+
+            // Extract character cards using regex
+            const cardRegex = /<div class="character-card" data-character="([^"]+)">\s*<div class="character-image">\s*<img src="([^"]+)" alt="([^"]+)"[^>]*>\s*<div class="character-overlay">\s*<p>([^<]+)<\/p>/g;
+
+            let match;
+            while ((match = cardRegex.exec(html)) !== null) {
+                characters.push({
+                    id: match[1],
+                    imageUrl: match[2],
+                    alt: match[3],
+                    description: match[4]
+                });
+            }
+        }
+
+        // Render characters
         function renderCharacters() {
             const container = document.getElementById('characters-container');
             container.innerHTML = '';
 
             characters.forEach((char, index) => {
-                const div = document.createElement('div');
-                div.className = 'character-editor';
-                div.innerHTML = `
-                    <span class="character-id">ID: ${char.id}</span>
-                    <img src="${char.imageUrl}" class="character-thumbnail" alt="${char.id}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22250%22%3E%3Crect fill=%22%23333%22 width=%22300%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%23fff%22 text-anchor=%22middle%22 dy=%22.3em%22%3EImage Not Found%3C/text%3E%3C/svg%3E'">
+                const card = document.createElement('div');
+                card.className = 'character-card';
+                card.innerHTML = `
+                    <img src="${char.imageUrl}" class="character-image-preview" alt="${char.alt}">
+
+                    <label class="image-upload-btn">
+                        📷 Upload New Image
+                        <input type="file" accept="image/*" onchange="handleImageUpload(${index}, this)">
+                    </label>
+
                     <div class="form-group">
-                        <label>Character ID</label>
-                        <input type="text" value="${char.id}" onchange="updateCharacter(${index}, 'id', this.value)">
-                        <small>Lowercase, no spaces (e.g., pilot, warrior)</small>
+                        <label>Character Name</label>
+                        <input type="text" value="${char.alt}" onchange="updateCharacter(${index}, 'alt', this.value)">
                     </div>
-                    <div class="form-group">
-                        <label>Image URL</label>
-                        <input type="url" value="${char.imageUrl}" onchange="updateCharacter(${index}, 'imageUrl', this.value)">
-                        <small>Full URL to the character image</small>
-                    </div>
+
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea onchange="updateCharacter(${index}, 'description', this.value)">${char.description}</textarea>
-                        <small>Brief description shown on tap/hold</small>
+                        <textarea rows="3" onchange="updateCharacter(${index}, 'description', this.value)">${char.description}</textarea>
                     </div>
-                    <button class="btn btn-danger" onclick="removeCharacter(${index})" style="width: 100%; margin-top: 10px;">Remove Character</button>
+
+                    <small style="color: #666; display: block; margin-top: 10px;">ID: ${char.id}</small>
                 `;
-                container.appendChild(div);
+                container.appendChild(card);
             });
         }
 
+        // Update character data
         function updateCharacter(index, field, value) {
             characters[index][field] = value;
-            showSuccessMessage('Changes saved! Click "Generate HTML Code" to see the updated code.');
+            markAsChanged();
         }
 
-        function removeCharacter(index) {
-            if (confirm('Are you sure you want to remove this character?')) {
-                characters.splice(index, 1);
-                renderCharacters();
-                showSuccessMessage('Character removed!');
-            }
-        }
+        // Handle image upload
+        async function handleImageUpload(index, input) {
+            const file = input.files[0];
+            if (!file) return;
 
-        function addNewCharacter() {
-            const id = document.getElementById('new-char-id').value.trim();
-            const url = document.getElementById('new-char-url').value.trim();
-            const desc = document.getElementById('new-char-desc').value.trim();
-
-            if (!id || !url || !desc) {
-                alert('Please fill in all fields for the new character.');
+            if (!file.type.startsWith('image/')) {
+                showAlert('Please select an image file', 'error');
                 return;
             }
 
-            characters.push({
-                id: id,
-                imageUrl: url,
-                description: desc
-            });
+            showAlert('Uploading image to GitHub...', 'warning');
 
-            // Clear form
-            document.getElementById('new-char-id').value = '';
-            document.getElementById('new-char-url').value = '';
-            document.getElementById('new-char-desc').value = '';
+            try {
+                // Convert to base64
+                const base64 = await fileToBase64(file);
 
-            renderCharacters();
-            showSuccessMessage('New character added! Click "Generate HTML Code" to see the updated code.');
+                // Generate filename
+                const ext = file.name.split('.').pop();
+                const filename = `${characters[index].id}_${Date.now()}.${ext}`;
+                const path = `images/characters/${filename}`;
+
+                // Upload to GitHub
+                const response = await fetch(
+                    `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${config.token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Upload character image: ${filename}`,
+                            content: base64.split(',')[1],
+                            branch: config.branch
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`Upload failed: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Update character with new image URL
+                characters[index].imageUrl = path;
+                renderCharacters();
+                markAsChanged();
+                showAlert('✅ Image uploaded successfully!', 'success');
+
+            } catch (error) {
+                console.error('Error uploading image:', error);
+                showAlert(`❌ Error uploading image: ${error.message}`, 'error');
+            }
         }
 
-        function generateHTML() {
-            let html = '            <div class="character-grid">\n';
+        // Convert file to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // Mark as changed
+        function markAsChanged() {
+            hasChanges = true;
+            document.getElementById('save-btn').disabled = false;
+        }
+
+        // Publish changes
+        async function publishChanges() {
+            if (!hasChanges) {
+                showAlert('No changes to publish', 'warning');
+                return;
+            }
+
+            showAlert('Publishing changes to your website...', 'warning');
+            document.getElementById('save-btn').disabled = true;
+
+            try {
+                // Generate updated HTML
+                const updatedHTML = generateUpdatedHTML();
+
+                // Get current file SHA
+                const response = await fetch(
+                    `https://api.github.com/repos/${config.owner}/${config.repo}/contents/index.html?ref=${config.branch}`,
+                    {
+                        headers: {
+                            'Authorization': `token ${config.token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    }
+                );
+
+                const fileData = await response.json();
+
+                // Update file on GitHub
+                const updateResponse = await fetch(
+                    `https://api.github.com/repos/${config.owner}/${config.repo}/contents/index.html`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${config.token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: 'Update character gallery via mobile editor',
+                            content: btoa(unescape(encodeURIComponent(updatedHTML))),
+                            sha: fileData.sha,
+                            branch: config.branch
+                        })
+                    }
+                );
+
+                if (!updateResponse.ok) {
+                    throw new Error(`Update failed: ${updateResponse.status}`);
+                }
+
+                hasChanges = false;
+                originalHTML = updatedHTML;
+                showAlert('🎉 Changes published successfully! Your website is updated!', 'success');
+
+            } catch (error) {
+                console.error('Error publishing changes:', error);
+                showAlert(`❌ Error publishing: ${error.message}`, 'error');
+                document.getElementById('save-btn').disabled = false;
+            }
+        }
+
+        // Generate updated HTML
+        function generateUpdatedHTML() {
+            let updatedHTML = originalHTML;
+
+            // Build new character grid HTML
+            let newCharacterGrid = '            <div class="character-grid">\n';
 
             characters.forEach(char => {
-                const altText = char.id.charAt(0).toUpperCase() + char.id.slice(1) + ' Rat';
-                html += `                <div class="character-card" data-character="${char.id}">
+                newCharacterGrid += `                <div class="character-card" data-character="${char.id}">
                     <div class="character-image">
-                        <img src="${char.imageUrl}" alt="${altText}" loading="lazy">
+                        <img src="${char.imageUrl}" alt="${char.alt}" loading="lazy">
                         <div class="character-overlay">
                             <p>${char.description}</p>
                         </div>
@@ -551,130 +766,28 @@
                 </div>\n`;
             });
 
-            html += '            </div>';
+            newCharacterGrid += '            </div>';
 
-            document.getElementById('output-box').textContent = html;
-            document.getElementById('output-section').style.display = 'block';
-            document.getElementById('output-section').scrollIntoView({ behavior: 'smooth' });
-            showSuccessMessage('HTML code generated! Scroll down to copy it.');
+            // Replace character grid in HTML
+            const gridRegex = /<div class="character-grid">[\s\S]*?<\/div>\s*<\/div>\s*<\/section>/;
+            updatedHTML = updatedHTML.replace(gridRegex, `${newCharacterGrid}\n        </section>`);
+
+            return updatedHTML;
         }
 
-        function copyToClipboard() {
-            const outputBox = document.getElementById('output-box');
-            const text = outputBox.textContent;
-
-            navigator.clipboard.writeText(text).then(() => {
-                showSuccessMessage('✅ Code copied to clipboard! Now paste it into your index.html file.');
-            }).catch(err => {
-                // Fallback for older browsers
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                showSuccessMessage('✅ Code copied to clipboard! Now paste it into your index.html file.');
-            });
-        }
-
-        function resetAll() {
-            if (confirm('Reset all characters to the current website version?')) {
-                characters = JSON.parse(JSON.stringify(initialCharacters));
+        // Reset changes
+        function resetChanges() {
+            if (confirm('Discard all unsaved changes?')) {
+                parseCharactersFromHTML(originalHTML);
                 renderCharacters();
-                document.getElementById('output-section').style.display = 'none';
-                showSuccessMessage('Reset to current website version.');
+                hasChanges = false;
+                document.getElementById('save-btn').disabled = true;
+                showAlert('Changes discarded', 'warning');
             }
-        }
-
-        function showSuccessMessage(message) {
-            const msgEl = document.getElementById('success-msg');
-            msgEl.textContent = message;
-            msgEl.style.display = 'block';
-            setTimeout(() => {
-                msgEl.style.display = 'none';
-            }, 5000);
         }
 
         // Initialize
-        renderCharacters();
-
-        // ===== PWA INSTALL FUNCTIONALITY =====
-        let deferredPrompt;
-        const installBanner = document.getElementById('install-banner');
-        const installBtnHeader = document.getElementById('install-btn-header');
-
-        // Listen for beforeinstallprompt event
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the mini-infobar from appearing on mobile
-            e.preventDefault();
-            // Save the event so it can be triggered later
-            deferredPrompt = e;
-            // Show install banner
-            installBanner.style.display = 'flex';
-            installBtnHeader.style.display = 'inline-block';
-        });
-
-        function installApp() {
-            if (!deferredPrompt) {
-                // If no prompt available, show instructions
-                if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
-                    alert('To install this app on iOS:\n\n1. Tap the Share button (box with arrow)\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add" in the top right corner');
-                } else {
-                    alert('To install this app:\n\n1. Open the browser menu (⋮)\n2. Tap "Add to Home screen" or "Install app"\n3. Follow the prompts');
-                }
-                return;
-            }
-
-            // Hide the banner
-            installBanner.style.display = 'none';
-
-            // Show the install prompt
-            deferredPrompt.prompt();
-
-            // Wait for the user to respond to the prompt
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                    showSuccessMessage('✅ App installed! Check your home screen.');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                deferredPrompt = null;
-            });
-        }
-
-        function closeInstallBanner() {
-            installBanner.style.display = 'none';
-        }
-
-        // Listen for app installed event
-        window.addEventListener('appinstalled', () => {
-            console.log('PWA was installed');
-            installBanner.style.display = 'none';
-            installBtnHeader.style.display = 'none';
-            showSuccessMessage('🎉 App installed successfully!');
-        });
-
-        // Check if app is already installed
-        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-            console.log('App is running in standalone mode');
-            // Hide install buttons if already installed
-            installBanner.style.display = 'none';
-            installBtnHeader.style.display = 'none';
-        }
-
-        // Register service worker for offline functionality
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then((registration) => {
-                        console.log('ServiceWorker registered:', registration);
-                    })
-                    .catch((error) => {
-                        console.log('ServiceWorker registration failed:', error);
-                    });
-            });
-        }
+        loadConfig();
     </script>
 </body>
 </html>
