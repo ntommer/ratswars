@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="50%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ffff"/>
+      <stop offset="100%" style="stop-color:#0088ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" fill="url(#bg)"/>
+
+  <!-- Outer glow ring -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="url(#glow)" stroke-width="4" opacity="0.5"/>
+
+  <!-- Rat silhouette -->
+  <g transform="translate(256, 240)">
+    <!-- Body -->
+    <ellipse cx="0" cy="20" rx="80" ry="50" fill="#00ffff" opacity="0.9"/>
+
+    <!-- Head -->
+    <circle cx="-70" cy="-10" r="45" fill="#00ffff" opacity="0.9"/>
+
+    <!-- Ears -->
+    <circle cx="-95" cy="-50" r="25" fill="#00ffff" opacity="0.9"/>
+    <circle cx="-50" cy="-55" r="22" fill="#00ffff" opacity="0.9"/>
+
+    <!-- Inner ears -->
+    <circle cx="-95" cy="-50" r="15" fill="#ff69b4" opacity="0.7"/>
+    <circle cx="-50" cy="-55" r="13" fill="#ff69b4" opacity="0.7"/>
+
+    <!-- Eye -->
+    <circle cx="-80" cy="-15" r="8" fill="#1a1a2e"/>
+    <circle cx="-82" cy="-17" r="3" fill="#ffffff"/>
+
+    <!-- Nose -->
+    <circle cx="-110" cy="0" r="8" fill="#ff69b4"/>
+
+    <!-- Whiskers -->
+    <line x1="-105" y1="-5" x2="-140" y2="-15" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+    <line x1="-105" y1="0" x2="-145" y2="0" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+    <line x1="-105" y1="5" x2="-140" y2="15" stroke="#ffffff" stroke-width="2" opacity="0.7"/>
+
+    <!-- Tail -->
+    <path d="M 70,30 Q 120,0 140,-40 Q 155,-70 130,-90" fill="none" stroke="#00ffff" stroke-width="12" stroke-linecap="round" opacity="0.9"/>
+  </g>
+
+  <!-- Star decorations -->
+  <polygon points="100,80 105,95 120,95 108,105 113,120 100,110 87,120 92,105 80,95 95,95" fill="#ffd700"/>
+  <polygon points="412,80 417,95 432,95 420,105 425,120 412,110 399,120 404,105 392,95 407,95" fill="#ffd700"/>
+  <polygon points="256,420 261,435 276,435 264,445 269,460 256,450 243,460 248,445 236,435 251,435" fill="#ffd700"/>
+
+  <!-- RATS text -->
+  <text x="256" y="470" font-family="Arial Black, sans-serif" font-size="50" font-weight="bold" fill="#ffd700" text-anchor="middle" letter-spacing="8">RATS</text>
+
+  <!-- WARS text (smaller below) -->
+  <text x="256" y="500" font-family="Arial, sans-serif" font-size="24" fill="#00ffff" text-anchor="middle" letter-spacing="12">WARS</text>
+</svg>

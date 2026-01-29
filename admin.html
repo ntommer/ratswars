@@ -6,8 +6,22 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="RATS WARS Editor">
+    <meta name="apple-mobile-web-app-title" content="RATS WARS">
     <meta name="theme-color" content="#00ffff">
+    <meta name="description" content="RATS WARS Content Editor - Edit your website from your phone">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- App Icons -->
+    <link rel="icon" type="image/svg+xml" href="images/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="images/icon-512.png">
+    <link rel="apple-touch-icon" href="images/icon-180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icon-180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="images/icon-167.png">
+
     <title>RATS WARS - Content Manager</title>
     <style>
         * {
@@ -788,6 +802,200 @@
 
         // Initialize
         loadConfig();
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+
+        // Generate and cache PNG icons if they don't exist
+        function generateAppIcons() {
+            const sizes = [152, 167, 180, 192, 512];
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            sizes.forEach(size => {
+                canvas.width = size;
+                canvas.height = size;
+
+                // Background gradient
+                const gradient = ctx.createLinearGradient(0, 0, size, size);
+                gradient.addColorStop(0, '#0a0a0f');
+                gradient.addColorStop(0.5, '#1a1a2e');
+                gradient.addColorStop(1, '#16213e');
+
+                // Draw rounded rectangle background
+                const radius = size * 0.15;
+                ctx.beginPath();
+                ctx.moveTo(radius, 0);
+                ctx.lineTo(size - radius, 0);
+                ctx.quadraticCurveTo(size, 0, size, radius);
+                ctx.lineTo(size, size - radius);
+                ctx.quadraticCurveTo(size, size, size - radius, size);
+                ctx.lineTo(radius, size);
+                ctx.quadraticCurveTo(0, size, 0, size - radius);
+                ctx.lineTo(0, radius);
+                ctx.quadraticCurveTo(0, 0, radius, 0);
+                ctx.closePath();
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Draw glow ring
+                ctx.strokeStyle = 'rgba(0, 255, 255, 0.5)';
+                ctx.lineWidth = size * 0.008;
+                ctx.beginPath();
+                ctx.arc(size/2, size/2, size * 0.39, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Draw rat body
+                const cx = size / 2;
+                const cy = size / 2;
+                ctx.fillStyle = '#00ffff';
+
+                // Body ellipse
+                ctx.beginPath();
+                ctx.ellipse(cx, cy + size*0.04, size*0.16, size*0.1, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Head
+                ctx.beginPath();
+                ctx.arc(cx - size*0.14, cy - size*0.02, size*0.09, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Ears
+                ctx.beginPath();
+                ctx.arc(cx - size*0.19, cy - size*0.1, size*0.05, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(cx - size*0.1, cy - size*0.11, size*0.044, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Inner ears (pink)
+                ctx.fillStyle = 'rgba(255, 105, 180, 0.7)';
+                ctx.beginPath();
+                ctx.arc(cx - size*0.19, cy - size*0.1, size*0.03, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(cx - size*0.1, cy - size*0.11, size*0.026, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Eye
+                ctx.fillStyle = '#1a1a2e';
+                ctx.beginPath();
+                ctx.arc(cx - size*0.16, cy - size*0.03, size*0.016, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Eye shine
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(cx - size*0.164, cy - size*0.034, size*0.006, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Nose
+                ctx.fillStyle = '#ff69b4';
+                ctx.beginPath();
+                ctx.arc(cx - size*0.22, cy, size*0.016, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tail
+                ctx.strokeStyle = '#00ffff';
+                ctx.lineWidth = size * 0.024;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(cx + size*0.14, cy + size*0.06);
+                ctx.quadraticCurveTo(cx + size*0.24, cy, cx + size*0.28, cy - size*0.08);
+                ctx.quadraticCurveTo(cx + size*0.31, cy - size*0.14, cx + size*0.26, cy - size*0.18);
+                ctx.stroke();
+
+                // Stars
+                ctx.fillStyle = '#ffd700';
+                drawStar(ctx, size * 0.2, size * 0.16, 5, size * 0.04, size * 0.02);
+                drawStar(ctx, size * 0.8, size * 0.16, 5, size * 0.04, size * 0.02);
+                drawStar(ctx, size * 0.5, size * 0.82, 5, size * 0.04, size * 0.02);
+
+                // Text "RATS"
+                ctx.fillStyle = '#ffd700';
+                ctx.font = `bold ${size * 0.1}px Arial Black, sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('RATS', size / 2, size * 0.92);
+
+                // Store the icon data URL
+                const dataUrl = canvas.toDataURL('image/png');
+                localStorage.setItem(`ratswars-icon-${size}`, dataUrl);
+            });
+        }
+
+        function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+            let rot = Math.PI / 2 * 3;
+            let x = cx;
+            let y = cy;
+            const step = Math.PI / spikes;
+
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+            for (let i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+            }
+            ctx.lineTo(cx, cy - outerRadius);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // Generate icons on first load
+        if (!localStorage.getItem('ratswars-icon-192')) {
+            generateAppIcons();
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            showInstallButton();
+        });
+
+        function showInstallButton() {
+            const installBtn = document.createElement('button');
+            installBtn.className = 'btn btn-success';
+            installBtn.id = 'install-btn';
+            installBtn.innerHTML = '📲 Install App';
+            installBtn.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 1001;';
+            installBtn.onclick = installApp;
+            document.body.appendChild(installBtn);
+        }
+
+        async function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('install-btn')?.remove();
+                }
+                deferredPrompt = null;
+            }
+        }
+
+        // Detect if running as installed app
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('Running as installed PWA');
+        }
     </script>
 </body>
 </html>
