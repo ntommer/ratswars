@@ -1,18 +1,44 @@
 {
-  "name": "RATS WARS Content Editor",
-  "short_name": "RATS WARS Editor",
-  "description": "Visual content editor for RATS WARS website",
+  "name": "RATS WARS",
+  "short_name": "RATS WARS",
+  "description": "RATS WARS Content Editor - Edit your website from your phone",
   "start_url": "/admin.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#1a1a2e",
   "theme_color": "#00ffff",
   "orientation": "portrait-primary",
+  "categories": ["utilities", "entertainment"],
+  "lang": "en",
+  "dir": "ltr",
   "icons": [
     {
-      "src": "images/logo.png",
+      "src": "images/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Edit Characters",
+      "short_name": "Characters",
+      "description": "Edit character gallery",
+      "url": "/admin.html",
+      "icons": [{ "src": "images/icon.svg", "sizes": "any" }]
     }
   ]
 }
