@@ -244,7 +244,7 @@ function handleFanficSubmit(e) {
     emailData.append('Story Content', formData.storyContent);
     emailData.append('_template', 'table');
 
-    fetch('https://formsubmit.co/ajax/ratswars.com@gmain.com', {
+    fetch('https://formsubmit.co/ajax/ratswars.com@gmail.com', {
         method: 'POST',
         body: emailData
     })
