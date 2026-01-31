@@ -53,6 +53,12 @@ Visit the live site at: [Your GitHub Pages URL will be here]
 - Special effects and surprises
 - Console messages for developers
 
+### 📊 Visitor Counter
+- GitHub-powered visitor tracking
+- Real-time count display in footer
+- Auto-increment on page load (with authentication)
+- Styled with retro space theme aesthetic
+
 ## 🛠️ Technology Stack
 
 - **HTML5**: Semantic, accessible markup
@@ -206,15 +212,68 @@ async function handleFanficSubmit(formData) {
 }
 ```
 
+## 📊 Visitor Counter Setup
+
+The website includes a GitHub API-powered visitor counter that displays in the footer.
+
+### How It Works
+
+1. **visitor-count.json**: Stores the current visitor count and last update timestamp
+2. **Fetch & Display**: On page load, the counter fetches the current count from GitHub and displays it
+3. **Auto-Increment**: If a GitHub token is available (from the admin panel), the count automatically increments on each visit
+
+### Configuration
+
+The visitor counter is configured in `script.js`:
+
+```javascript
+const GITHUB_CONFIG = {
+    owner: 'ntommer',
+    repo: 'ratswars',
+    branch: 'main',
+    filePath: 'visitor-count.json'
+};
+```
+
+### Enabling Auto-Increment
+
+To enable automatic visitor count incrementing:
+
+1. Visit the admin panel (`admin.html`)
+2. Authenticate with GitHub (the token is stored in localStorage)
+3. Once authenticated, the visitor counter will automatically increment on page visits
+
+### Manual Updates
+
+You can manually update the visitor count by editing `visitor-count.json`:
+
+```json
+{
+  "count": 1234,
+  "lastUpdated": "2026-01-31T12:00:00Z"
+}
+```
+
+### Security Note
+
+The GitHub token is stored in localStorage and is only used for incrementing the counter. It requires write access to the repository. For production use, consider implementing a serverless function or GitHub Action to handle increments server-side.
+
 ## 📄 File Structure
 
 ```
 ratswars/
 ├── index.html          # Main HTML file
+├── admin.html          # Admin panel with GitHub integration
 ├── styles.css          # All CSS styling
 ├── script.js           # Interactive functionality
-├── README.md           # This file
-└── images/            # Image assets (optional)
+├── visitor-count.json  # Visitor counter data
+├── sw.js              # Service worker for PWA
+├── manifest.json      # PWA manifest
+├── README.md          # This file
+├── ADMIN_SETUP.md     # Admin panel documentation
+└── images/            # Image assets
+    ├── characters/    # Character images
+    └── gallery/       # Gallery images
 ```
 
 ## 🎯 Future Enhancements
