@@ -226,21 +226,58 @@ function handleFanficSubmit(e) {
         return;
     }
 
-    // In a real implementation, this would send to a backend API
-    console.log('Fan Fiction Submission:', formData);
+    // Send submission via Formspree email service
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '📡 TRANSMITTING...';
 
-    showNotification(
-        `🚀 Transmission received, ${formData.authorName}!\n\n` +
-        `Your story "${formData.storyTitle}" has been submitted to the Galactic Council for review.\n\n` +
-        'In a production environment, this would be sent to a backend API (e.g., Firebase, Supabase, or custom server) for storage and moderation.\n\n' +
-        'Form will be reset for demo purposes.',
-        'success'
-    );
+    const emailData = {
+        _subject: `RATS WARS Fan Fiction Submission: ${formData.storyTitle}`,
+        authorName: formData.authorName,
+        authorEmail: formData.authorEmail,
+        storyTitle: formData.storyTitle,
+        storyGenre: formData.storyGenre,
+        storyTags: formData.storyTags || 'None',
+        storySummary: formData.storySummary,
+        wordCount: wordCount,
+        storyContent: formData.storyContent
+    };
 
-    // Reset form
-    e.target.reset();
-    document.getElementById('wordCount').textContent = '0 words';
-    document.getElementById('summaryCount').textContent = '0 / 200 characters';
+    fetch('https://formspree.io/f/maqjvvyq', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(emailData)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok');
+    })
+    .then(data => {
+        showNotification(
+            `🚀 Transmission received, ${formData.authorName}!\n\n` +
+            `Your story "${formData.storyTitle}" has been submitted to the Galactic Council for review.\n\n` +
+            'You will receive a confirmation at your email address.',
+            'success'
+        );
+        // Reset form
+        e.target.reset();
+        document.getElementById('wordCount').textContent = '0 words';
+        document.getElementById('summaryCount').textContent = '0 / 200 characters';
+    })
+    .catch(error => {
+        console.error('Submission error:', error);
+        showNotification('Transmission failed! Please check your connection and try again.', 'error');
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+    });
 }
 
 // === FAN FICTION FEATURES ===
