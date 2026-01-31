@@ -226,44 +226,49 @@ function handleFanficSubmit(e) {
         return;
     }
 
-    // Send submission via FormSubmit.co email service
+    // Send submission via Formspree email service
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = '📡 TRANSMITTING...';
 
-    const emailData = new FormData();
-    emailData.append('_subject', `RATS WARS Fan Fiction Submission: ${formData.storyTitle}`);
-    emailData.append('Author Name', formData.authorName);
-    emailData.append('Author Email', formData.authorEmail);
-    emailData.append('Story Title', formData.storyTitle);
-    emailData.append('Genre', formData.storyGenre);
-    emailData.append('Tags', formData.storyTags || 'None');
-    emailData.append('Summary', formData.storySummary);
-    emailData.append('Word Count', wordCount.toString());
-    emailData.append('Story Content', formData.storyContent);
-    emailData.append('_template', 'table');
+    const emailData = {
+        _subject: `RATS WARS Fan Fiction Submission: ${formData.storyTitle}`,
+        authorName: formData.authorName,
+        authorEmail: formData.authorEmail,
+        storyTitle: formData.storyTitle,
+        storyGenre: formData.storyGenre,
+        storyTags: formData.storyTags || 'None',
+        storySummary: formData.storySummary,
+        wordCount: wordCount,
+        storyContent: formData.storyContent
+    };
 
-    fetch('https://formsubmit.co/ajax/ratswars.com@gmail.com', {
+    fetch('https://formspree.io/f/maqjvvyq', {
         method: 'POST',
-        body: emailData
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(emailData)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            showNotification(
-                `🚀 Transmission received, ${formData.authorName}!\n\n` +
-                `Your story "${formData.storyTitle}" has been submitted to the Galactic Council for review.\n\n` +
-                'You will receive a confirmation at your email address.',
-                'success'
-            );
-            // Reset form
-            e.target.reset();
-            document.getElementById('wordCount').textContent = '0 words';
-            document.getElementById('summaryCount').textContent = '0 / 200 characters';
-        } else {
-            showNotification('Transmission failed! Please try again.', 'error');
+    .then(response => {
+        if (response.ok) {
+            return response.json();
         }
+        throw new Error('Network response was not ok');
+    })
+    .then(data => {
+        showNotification(
+            `🚀 Transmission received, ${formData.authorName}!\n\n` +
+            `Your story "${formData.storyTitle}" has been submitted to the Galactic Council for review.\n\n` +
+            'You will receive a confirmation at your email address.',
+            'success'
+        );
+        // Reset form
+        e.target.reset();
+        document.getElementById('wordCount').textContent = '0 words';
+        document.getElementById('summaryCount').textContent = '0 / 200 characters';
     })
     .catch(error => {
         console.error('Submission error:', error);
