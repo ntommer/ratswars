@@ -350,6 +350,124 @@
             backdrop-filter: blur(10px);
         }
 
+        .add-new-btn {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        .add-form {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid rgba(0, 255, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .add-form h3 {
+            color: #00ff00;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .form-actions-inline {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .form-actions-inline .btn {
+            flex: 1;
+        }
+
+        .gallery-grid-admin {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item-admin {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item-admin:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+            transform: scale(1.02);
+        }
+
+        .gallery-item-admin img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item-admin .gallery-title {
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .gallery-item-admin .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item-admin:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .character-card .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .character-card:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .character-card {
+            position: relative;
+        }
+
         @media (max-width: 768px) {
             .characters-grid {
                 grid-template-columns: 1fr;
@@ -366,6 +484,19 @@
 
             .save-bar .btn {
                 width: 100%;
+            }
+
+            .form-actions-inline {
+                flex-direction: column;
+            }
+
+            .gallery-grid-admin {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .character-card .delete-btn,
+            .gallery-item-admin .delete-btn {
+                opacity: 1;
             }
         }
     </style>
@@ -439,8 +570,85 @@
             </ul>
         </div>
 
+        <!-- Add New Character Button -->
+        <button class="btn btn-success add-new-btn" onclick="showAddCharacterForm()">
+            ➕ Add New Character
+        </button>
+
+        <!-- Add Character Form (hidden by default) -->
+        <div id="add-character-form" class="add-form" style="display: none;">
+            <h3>Add New Character</h3>
+            <div class="form-group">
+                <label>Character ID (lowercase, no spaces)</label>
+                <input type="text" id="new-char-id" placeholder="e.g., captain-whiskers">
+                <small>Used internally to identify the character</small>
+            </div>
+            <div class="form-group">
+                <label>Character Name</label>
+                <input type="text" id="new-char-name" placeholder="e.g., Captain Whiskers">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="new-char-description" rows="3" placeholder="A brief description of the character..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Character Image</label>
+                <label class="image-upload-btn">
+                    📷 Select Image
+                    <input type="file" accept="image/*" id="new-char-image">
+                </label>
+                <img id="new-char-preview" class="character-image-preview" style="display: none;">
+            </div>
+            <div class="form-actions-inline">
+                <button class="btn btn-primary" onclick="addNewCharacter()">✅ Add Character</button>
+                <button class="btn btn-danger" onclick="hideAddCharacterForm()">Cancel</button>
+            </div>
+        </div>
+
         <div id="characters-container" class="characters-grid">
             <!-- Characters will be loaded here -->
+        </div>
+
+        <!-- Gallery Editor -->
+        <h2 class="section-title">🖼️ Gallery Images</h2>
+
+        <div class="info-box">
+            <h3>Manage Gallery</h3>
+            <ul>
+                <li><strong>Add Images:</strong> Upload new images to the gallery</li>
+                <li><strong>Remove Images:</strong> Click the X to remove an image</li>
+                <li><strong>Publish:</strong> Click "Publish Changes" to update your website</li>
+            </ul>
+        </div>
+
+        <!-- Add New Gallery Image Button -->
+        <button class="btn btn-success add-new-btn" onclick="showAddGalleryForm()">
+            ➕ Add Gallery Image
+        </button>
+
+        <!-- Add Gallery Form (hidden by default) -->
+        <div id="add-gallery-form" class="add-form" style="display: none;">
+            <h3>Add Gallery Image</h3>
+            <div class="form-group">
+                <label>Image Title</label>
+                <input type="text" id="new-gallery-title" placeholder="e.g., Epic Space Battle">
+            </div>
+            <div class="form-group">
+                <label>Select Image</label>
+                <label class="image-upload-btn">
+                    📷 Select Image
+                    <input type="file" accept="image/*" id="new-gallery-image">
+                </label>
+                <img id="new-gallery-preview" class="character-image-preview" style="display: none;">
+            </div>
+            <div class="form-actions-inline">
+                <button class="btn btn-primary" onclick="addNewGalleryImage()">✅ Add to Gallery</button>
+                <button class="btn btn-danger" onclick="hideAddGalleryForm()">Cancel</button>
+            </div>
+        </div>
+
+        <div id="gallery-container" class="gallery-grid-admin">
+            <!-- Gallery images will be loaded here -->
         </div>
     </div>
 
@@ -463,10 +671,13 @@
             token: ''
         };
 
-        // Character data
+        // Character and gallery data
         let characters = [];
+        let galleryImages = [];
         let originalHTML = '';
         let hasChanges = false;
+        let pendingNewCharacterImage = null;
+        let pendingNewGalleryImage = null;
 
         // Load configuration from localStorage
         function loadConfig() {
@@ -561,9 +772,11 @@
                 const data = await response.json();
                 originalHTML = atob(data.content);
 
-                // Parse characters from HTML
+                // Parse characters and gallery from HTML
                 parseCharactersFromHTML(originalHTML);
+                parseGalleryFromHTML(originalHTML);
                 renderCharacters();
+                renderGallery();
                 showAlert('✅ Website loaded! Make your changes and click Publish.', 'success');
 
             } catch (error) {
@@ -590,6 +803,22 @@
             }
         }
 
+        // Parse gallery images from HTML
+        function parseGalleryFromHTML(html) {
+            galleryImages = [];
+
+            // Extract gallery items using regex
+            const galleryRegex = /<div class="gallery-item">\s*<img src="([^"]+)" alt="([^"]+)"[^>]*>/g;
+
+            let match;
+            while ((match = galleryRegex.exec(html)) !== null) {
+                galleryImages.push({
+                    imageUrl: match[1],
+                    alt: match[2]
+                });
+            }
+        }
+
         // Render characters
         function renderCharacters() {
             const container = document.getElementById('characters-container');
@@ -599,6 +828,7 @@
                 const card = document.createElement('div');
                 card.className = 'character-card';
                 card.innerHTML = `
+                    <button class="delete-btn" onclick="deleteCharacter(${index})" title="Delete character">×</button>
                     <img src="${char.imageUrl}" class="character-image-preview" alt="${char.alt}">
 
                     <label class="image-upload-btn">
@@ -620,6 +850,233 @@
                 `;
                 container.appendChild(card);
             });
+        }
+
+        // Render gallery
+        function renderGallery() {
+            const container = document.getElementById('gallery-container');
+            container.innerHTML = '';
+
+            galleryImages.forEach((img, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item-admin';
+                item.innerHTML = `
+                    <button class="delete-btn" onclick="deleteGalleryImage(${index})" title="Delete image">×</button>
+                    <img src="${img.imageUrl}" alt="${img.alt}">
+                    <div class="gallery-title">${img.alt}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Delete character
+        function deleteCharacter(index) {
+            if (confirm(`Delete character "${characters[index].alt}"?`)) {
+                characters.splice(index, 1);
+                renderCharacters();
+                markAsChanged();
+                showAlert('Character removed. Click Publish to save changes.', 'warning');
+            }
+        }
+
+        // Delete gallery image
+        function deleteGalleryImage(index) {
+            if (confirm(`Remove "${galleryImages[index].alt}" from gallery?`)) {
+                galleryImages.splice(index, 1);
+                renderGallery();
+                markAsChanged();
+                showAlert('Image removed from gallery. Click Publish to save changes.', 'warning');
+            }
+        }
+
+        // Show add character form
+        function showAddCharacterForm() {
+            document.getElementById('add-character-form').style.display = 'block';
+            document.getElementById('new-char-id').value = '';
+            document.getElementById('new-char-name').value = '';
+            document.getElementById('new-char-description').value = '';
+            document.getElementById('new-char-preview').style.display = 'none';
+            pendingNewCharacterImage = null;
+
+            // Set up image preview
+            document.getElementById('new-char-image').onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    pendingNewCharacterImage = file;
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        document.getElementById('new-char-preview').src = ev.target.result;
+                        document.getElementById('new-char-preview').style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+        }
+
+        // Hide add character form
+        function hideAddCharacterForm() {
+            document.getElementById('add-character-form').style.display = 'none';
+            pendingNewCharacterImage = null;
+        }
+
+        // Add new character
+        async function addNewCharacter() {
+            const id = document.getElementById('new-char-id').value.trim().toLowerCase().replace(/\s+/g, '-');
+            const name = document.getElementById('new-char-name').value.trim();
+            const description = document.getElementById('new-char-description').value.trim();
+
+            if (!id || !name || !description) {
+                showAlert('Please fill in all fields (ID, Name, Description)', 'error');
+                return;
+            }
+
+            if (!pendingNewCharacterImage) {
+                showAlert('Please select an image for the character', 'error');
+                return;
+            }
+
+            // Check for duplicate ID
+            if (characters.some(c => c.id === id)) {
+                showAlert('A character with this ID already exists', 'error');
+                return;
+            }
+
+            showAlert('Uploading character image...', 'warning');
+
+            try {
+                // Upload image to GitHub
+                const base64 = await fileToBase64(pendingNewCharacterImage);
+                const ext = pendingNewCharacterImage.name.split('.').pop();
+                const filename = `${name.replace(/\s+/g, ' ')}.${ext}`;
+                const path = `images/characters/${filename}`;
+
+                const response = await fetch(
+                    `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${config.token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Add character image: ${filename}`,
+                            content: base64.split(',')[1],
+                            branch: config.branch
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`Upload failed: ${response.status}`);
+                }
+
+                // Add character to array
+                characters.push({
+                    id: id,
+                    imageUrl: path,
+                    alt: name,
+                    description: description
+                });
+
+                renderCharacters();
+                hideAddCharacterForm();
+                markAsChanged();
+                showAlert(`✅ Character "${name}" added! Click Publish to update your website.`, 'success');
+
+            } catch (error) {
+                console.error('Error adding character:', error);
+                showAlert(`❌ Error adding character: ${error.message}`, 'error');
+            }
+        }
+
+        // Show add gallery form
+        function showAddGalleryForm() {
+            document.getElementById('add-gallery-form').style.display = 'block';
+            document.getElementById('new-gallery-title').value = '';
+            document.getElementById('new-gallery-preview').style.display = 'none';
+            pendingNewGalleryImage = null;
+
+            // Set up image preview
+            document.getElementById('new-gallery-image').onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    pendingNewGalleryImage = file;
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        document.getElementById('new-gallery-preview').src = ev.target.result;
+                        document.getElementById('new-gallery-preview').style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+        }
+
+        // Hide add gallery form
+        function hideAddGalleryForm() {
+            document.getElementById('add-gallery-form').style.display = 'none';
+            pendingNewGalleryImage = null;
+        }
+
+        // Add new gallery image
+        async function addNewGalleryImage() {
+            const title = document.getElementById('new-gallery-title').value.trim();
+
+            if (!title) {
+                showAlert('Please enter an image title', 'error');
+                return;
+            }
+
+            if (!pendingNewGalleryImage) {
+                showAlert('Please select an image', 'error');
+                return;
+            }
+
+            showAlert('Uploading gallery image...', 'warning');
+
+            try {
+                // Upload image to GitHub
+                const base64 = await fileToBase64(pendingNewGalleryImage);
+                const ext = pendingNewGalleryImage.name.split('.').pop();
+                const filename = `${title.replace(/\s+/g, ' ')}.${ext}`;
+                const path = `images/gallery/${filename}`;
+
+                const response = await fetch(
+                    `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${config.token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Add gallery image: ${filename}`,
+                            content: base64.split(',')[1],
+                            branch: config.branch
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`Upload failed: ${response.status}`);
+                }
+
+                // Add image to gallery array
+                galleryImages.push({
+                    imageUrl: path,
+                    alt: title
+                });
+
+                renderGallery();
+                hideAddGalleryForm();
+                markAsChanged();
+                showAlert(`✅ Image "${title}" added to gallery! Click Publish to update your website.`, 'success');
+
+            } catch (error) {
+                console.error('Error adding gallery image:', error);
+                showAlert(`❌ Error adding image: ${error.message}`, 'error');
+            }
         }
 
         // Update character data
@@ -786,6 +1243,21 @@
             const gridRegex = /<div class="character-grid">[\s\S]*?<\/div>\s*<\/div>\s*<\/section>/;
             updatedHTML = updatedHTML.replace(gridRegex, `${newCharacterGrid}\n        </section>`);
 
+            // Build new gallery grid HTML
+            let newGalleryGrid = '            <div class="gallery-grid">\n';
+
+            galleryImages.forEach(img => {
+                newGalleryGrid += `                <div class="gallery-item">
+                    <img src="${img.imageUrl}" alt="${img.alt}" loading="lazy">
+                </div>\n`;
+            });
+
+            newGalleryGrid += '            </div>';
+
+            // Replace gallery grid in HTML
+            const galleryRegex = /<div class="gallery-grid">[\s\S]*?<\/div>\s*<\/section>/;
+            updatedHTML = updatedHTML.replace(galleryRegex, `${newGalleryGrid}\n        </section>`);
+
             return updatedHTML;
         }
 
@@ -793,7 +1265,11 @@
         function resetChanges() {
             if (confirm('Discard all unsaved changes?')) {
                 parseCharactersFromHTML(originalHTML);
+                parseGalleryFromHTML(originalHTML);
                 renderCharacters();
+                renderGallery();
+                hideAddCharacterForm();
+                hideAddGalleryForm();
                 hasChanges = false;
                 document.getElementById('save-btn').disabled = true;
                 showAlert('Changes discarded', 'warning');
