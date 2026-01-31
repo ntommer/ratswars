@@ -976,6 +976,7 @@ footer {
     border-top: 3px solid var(--color-gold);
     padding: 50px 20px 20px;
     margin-top: 80px;
+    overflow: hidden;
 }
 
 .footer-content {
@@ -1021,9 +1022,12 @@ footer {
 
 .social-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     font-size: 1.5rem;
     margin-top: 15px;
+    justify-content: center;
+    max-width: 100%;
 }
 
 .social-links a {
