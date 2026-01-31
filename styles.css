@@ -1055,6 +1055,20 @@ footer {
     text-shadow: 0 0 10px var(--color-gold);
 }
 
+.visitor-counter {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: var(--color-cyan);
+    opacity: 0.8;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+
+.visitor-counter span {
+    font-weight: bold;
+    color: var(--color-gold);
+}
+
 /* === MODAL === */
 .modal {
     display: none;

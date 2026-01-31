@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFormHandlers();
     initMerchandise();
     initCharacterAnimations();
+    initVisitorCounter();
 });
 
 // === STARFIELD GENERATION ===
@@ -673,3 +674,118 @@ document.head.appendChild(cheeseStyle);
 console.log('%c🧀 RATS WARS 🧀', 'font-size: 20px; font-weight: bold; color: #ffd700; text-shadow: 0 0 10px #ffd700;');
 console.log('%cMay the Cheese be with you!', 'font-size: 14px; color: #00ffff;');
 console.log('%cTip: Try the Konami Code for a surprise...', 'font-size: 12px; color: #999;');
+
+// === VISITOR COUNTER ===
+// GitHub repository configuration
+const GITHUB_CONFIG = {
+    owner: 'ntommer',
+    repo: 'ratswars',
+    branch: 'main',
+    filePath: 'visitor-count.json'
+};
+
+// Initialize visitor counter
+async function initVisitorCounter() {
+    try {
+        await fetchAndDisplayCount();
+        await incrementVisitorCount();
+    } catch (error) {
+        console.error('Error initializing visitor counter:', error);
+        const counterElement = document.getElementById('visitorCount');
+        if (counterElement) {
+            counterElement.textContent = 'Error loading count';
+        }
+    }
+}
+
+// Fetch the current visitor count from GitHub
+async function fetchAndDisplayCount() {
+    try {
+        // Fetch from raw GitHub URL (public, no auth needed)
+        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.filePath}`;
+        const response = await fetch(rawUrl);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch visitor count');
+        }
+
+        const data = await response.json();
+        const counterElement = document.getElementById('visitorCount');
+
+        if (counterElement) {
+            counterElement.textContent = formatNumber(data.count || 0);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching visitor count:', error);
+        throw error;
+    }
+}
+
+// Increment the visitor count using GitHub API
+async function incrementVisitorCount() {
+    try {
+        // Get GitHub token from localStorage (if available from admin panel)
+        const token = localStorage.getItem('githubToken');
+
+        if (!token) {
+            console.log('No GitHub token found. Visit admin panel to enable auto-increment.');
+            return;
+        }
+
+        // Fetch current file content and SHA
+        const apiUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`;
+        const headers = {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+        };
+
+        const response = await fetch(apiUrl, { headers });
+
+        if (!response.ok) {
+            console.error('Failed to fetch file from GitHub API');
+            return;
+        }
+
+        const fileData = await response.json();
+        const currentContent = JSON.parse(atob(fileData.content));
+
+        // Increment the count
+        const newCount = (currentContent.count || 0) + 1;
+        const newContent = {
+            count: newCount,
+            lastUpdated: new Date().toISOString()
+        };
+
+        // Update the file on GitHub
+        const updateResponse = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: headers,
+            body: JSON.stringify({
+                message: `Update visitor count to ${newCount}`,
+                content: btoa(JSON.stringify(newContent, null, 2)),
+                sha: fileData.sha,
+                branch: GITHUB_CONFIG.branch
+            })
+        });
+
+        if (updateResponse.ok) {
+            console.log(`Visitor count updated to ${newCount}`);
+            // Update the display
+            const counterElement = document.getElementById('visitorCount');
+            if (counterElement) {
+                counterElement.textContent = formatNumber(newCount);
+            }
+        } else {
+            console.error('Failed to update visitor count on GitHub');
+        }
+    } catch (error) {
+        console.error('Error incrementing visitor count:', error);
+    }
+}
+
+// Format number with commas for better readability
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
