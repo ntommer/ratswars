@@ -723,65 +723,37 @@ async function fetchAndDisplayCount() {
     }
 }
 
-// Increment the visitor count using GitHub API
+// Increment the visitor count using serverless API
 async function incrementVisitorCount() {
     try {
-        // Get GitHub token from localStorage (if available from admin panel)
-        const token = localStorage.getItem('githubToken');
-
-        if (!token) {
-            console.log('No GitHub token found. Visit admin panel to enable auto-increment.');
-            return;
-        }
-
-        // Fetch current file content and SHA
-        const apiUrl = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`;
-        const headers = {
-            'Authorization': `token ${token}`,
-            'Accept': 'application/vnd.github.v3+json'
-        };
-
-        const response = await fetch(apiUrl, { headers });
-
-        if (!response.ok) {
-            console.error('Failed to fetch file from GitHub API');
-            return;
-        }
-
-        const fileData = await response.json();
-        const currentContent = JSON.parse(atob(fileData.content));
-
-        // Increment the count
-        const newCount = (currentContent.count || 0) + 1;
-        const newContent = {
-            count: newCount,
-            lastUpdated: new Date().toISOString()
-        };
-
-        // Update the file on GitHub
-        const updateResponse = await fetch(apiUrl, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify({
-                message: `Update visitor count to ${newCount}`,
-                content: btoa(JSON.stringify(newContent, null, 2)),
-                sha: fileData.sha,
-                branch: GITHUB_CONFIG.branch
-            })
+        // Call the serverless function (no authentication needed - handled server-side!)
+        const response = await fetch('/api/increment-visitor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
 
-        if (updateResponse.ok) {
-            console.log(`Visitor count updated to ${newCount}`);
-            // Update the display
+        if (!response.ok) {
+            console.error('Failed to increment visitor count');
+            return;
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            console.log(`Visitor count updated to ${data.count}`);
+            // Update the display with the new count
             const counterElement = document.getElementById('visitorCount');
             if (counterElement) {
-                counterElement.textContent = formatNumber(newCount);
+                counterElement.textContent = formatNumber(data.count);
             }
         } else {
-            console.error('Failed to update visitor count on GitHub');
+            console.error('Error from API:', data.error);
         }
     } catch (error) {
         console.error('Error incrementing visitor count:', error);
+        // Don't throw - just log the error so page load continues
     }
 }
 
