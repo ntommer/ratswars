@@ -214,13 +214,31 @@ async function handleFanficSubmit(formData) {
 
 ## 📊 Visitor Counter Setup
 
-The website includes a GitHub API-powered visitor counter that displays in the footer.
+The website includes a **serverless visitor counter** that automatically tracks ALL visitors (no authentication required!).
 
 ### How It Works
 
-1. **visitor-count.json**: Stores the current visitor count and last update timestamp
-2. **Fetch & Display**: On page load, the counter fetches the current count from GitHub and displays it
-3. **Auto-Increment**: If a GitHub token is available (from the admin panel), the count automatically increments on each visit
+1. **visitor-count.json**: Stores the current visitor count and last update timestamp in the GitHub repository
+2. **Fetch & Display**: On page load, the counter fetches the current count from GitHub and displays it in the footer
+3. **Auto-Increment**: A serverless function automatically increments the count for EVERY visitor
+4. **Secure**: GitHub token is stored server-side (Netlify/Vercel environment variables), never exposed to users
+
+### Architecture
+
+```
+Visitor → Website → Serverless Function → GitHub API → Update Count
+```
+
+The serverless function (`netlify/functions/increment-visitor.js`) handles all GitHub API calls securely on the server side.
+
+### Setup Instructions
+
+**See [SERVERLESS_SETUP.md](SERVERLESS_SETUP.md) for complete deployment instructions!**
+
+Quick summary:
+1. Deploy to Netlify (free)
+2. Set `GITHUB_TOKEN` environment variable
+3. Counter automatically works for all visitors!
 
 ### Configuration
 
@@ -235,13 +253,20 @@ const GITHUB_CONFIG = {
 };
 ```
 
-### Enabling Auto-Increment
+### Local Testing
 
-To enable automatic visitor count incrementing:
+```bash
+# Install dependencies
+npm install
 
-1. Visit the admin panel (`admin.html`)
-2. Authenticate with GitHub (the token is stored in localStorage)
-3. Once authenticated, the visitor counter will automatically increment on page visits
+# Set environment variable
+export GITHUB_TOKEN=ghp_your_token_here
+
+# Run local dev server
+netlify dev
+```
+
+Visit `http://localhost:8888` - the counter should work!
 
 ### Manual Updates
 
@@ -254,9 +279,12 @@ You can manually update the visitor count by editing `visitor-count.json`:
 }
 ```
 
-### Security Note
+### Security Features
 
-The GitHub token is stored in localStorage and is only used for incrementing the counter. It requires write access to the repository. For production use, consider implementing a serverless function or GitHub Action to handle increments server-side.
+✅ **GitHub token never exposed** - stored in Netlify environment variables
+✅ **No client-side authentication** - serverless function handles everything
+✅ **CORS enabled** - works on any domain
+✅ **Free hosting** - Netlify/Vercel free tier supports thousands of visitors/day
 
 ## 📄 File Structure
 
