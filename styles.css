@@ -585,6 +585,25 @@ body {
     overflow: hidden;
 }
 
+.merch-image a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+    border-bottom: 2px solid var(--color-gold);
+}
+
+.merch-item:hover .product-image {
+    transform: scale(1.05);
+}
+
 .placeholder-image {
     width: 100%;
     height: 100%;
@@ -645,10 +664,15 @@ body {
 
 .merch-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 15px;
     margin-top: auto;
+}
+
+.merch-footer .btn {
+    text-decoration: none;
+    display: inline-block;
 }
 
 .merch-price {
