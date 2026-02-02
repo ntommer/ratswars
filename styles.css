@@ -580,22 +580,19 @@ body {
 .merch-image {
     position: relative;
     width: 100%;
-    height: 300px;
-    background: var(--color-dark-blue);
+    background: #ffffff;
     overflow: hidden;
 }
 
 .merch-image a {
     display: block;
     width: 100%;
-    height: 100%;
 }
 
 .product-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    height: auto;
+    display: block;
     transition: transform 0.3s ease;
     border-bottom: 2px solid var(--color-gold);
 }
