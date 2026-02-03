@@ -637,27 +637,86 @@ style.textContent = `
 document.head.appendChild(style);
 
 // === EASTER EGGS ===
-// Konami Code easter egg
+// Track if easter egg has been activated
+let easterEggActivated = false;
+
+// Function to activate the cheese easter egg
+function activateCheeseEasterEgg() {
+    if (easterEggActivated) return; // Only activate once per session
+    easterEggActivated = true;
+
+    showNotification(
+        '🧀 CHEAT CODE ACTIVATED! 🧀\n\n' +
+        'You have unlocked the ancient cheese power!\n' +
+        'May the Cheese be with you, always.',
+        'success'
+    );
+
+    // Add special glow effect
+    document.body.style.animation = 'cheeseGlow 2s ease-in-out';
+    setTimeout(() => {
+        document.body.style.animation = '';
+    }, 2000);
+}
+
+// Method 1: Konami Code easter egg
 let konamiCode = [];
 const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 
+// Method 2: Type "cheese"
+let typedKeys = [];
+const cheeseSequence = ['c', 'h', 'e', 'e', 's', 'e'];
+
+// Method 3: Triple-click logo counter
+let logoClickCount = 0;
+let logoClickTimer = null;
+
 document.addEventListener('keydown', function(e) {
+    // Check for Konami Code
     konamiCode.push(e.key);
     konamiCode = konamiCode.slice(-10);
 
     if (konamiCode.join(',') === konamiSequence.join(',')) {
-        showNotification(
-            '🧀 CHEAT CODE ACTIVATED! 🧀\n\n' +
-            'You have unlocked the ancient cheese power!\n' +
-            'May the Cheese be with you, always.',
-            'success'
-        );
+        activateCheeseEasterEgg();
+    }
 
-        // Add special glow effect
-        document.body.style.animation = 'cheeseGlow 2s ease-in-out';
-        setTimeout(() => {
-            document.body.style.animation = '';
-        }, 2000);
+    // Check for "cheese" typed
+    typedKeys.push(e.key.toLowerCase());
+    typedKeys = typedKeys.slice(-6);
+
+    if (typedKeys.join('') === cheeseSequence.join('')) {
+        activateCheeseEasterEgg();
+    }
+
+    // Check for Ctrl+Shift+C
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'c') {
+        e.preventDefault();
+        activateCheeseEasterEgg();
+    }
+});
+
+// Method 4: Triple-click the logo
+document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.main-logo');
+    if (logo) {
+        logo.addEventListener('click', function(e) {
+            logoClickCount++;
+
+            // Reset counter after 1 second of no clicks
+            clearTimeout(logoClickTimer);
+            logoClickTimer = setTimeout(() => {
+                logoClickCount = 0;
+            }, 1000);
+
+            // Activate on triple-click
+            if (logoClickCount === 3) {
+                activateCheeseEasterEgg();
+                logoClickCount = 0;
+            }
+        });
+
+        // Add a subtle hint cursor
+        logo.style.cursor = 'pointer';
     }
 });
 
@@ -673,7 +732,7 @@ document.head.appendChild(cheeseStyle);
 
 console.log('%c🧀 RATS WARS 🧀', 'font-size: 20px; font-weight: bold; color: #ffd700; text-shadow: 0 0 10px #ffd700;');
 console.log('%cMay the Cheese be with you!', 'font-size: 14px; color: #00ffff;');
-console.log('%cTip: Try the Konami Code for a surprise...', 'font-size: 12px; color: #999;');
+console.log('%cTip: There are secret cheesy surprises hidden on this page...', 'font-size: 12px; color: #999;');
 
 // === VISITOR COUNTER ===
 // GitHub repository configuration
