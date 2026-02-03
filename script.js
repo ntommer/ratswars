@@ -636,27 +636,85 @@ style.textContent = `
 document.head.appendChild(style);
 
 // === EASTER EGGS ===
-// Konami Code easter egg
+// Track if easter egg has been activated
+let easterEggActivated = false;
+
+// Function to activate the cheese easter egg
+function activateCheeseEasterEgg() {
+    if (easterEggActivated) return; // Only activate once per session
+    easterEggActivated = true;
+
+    showNotification(
+        '🧀 CHEAT CODE ACTIVATED! 🧀\n\n' +
+        'May the Ju-Ju Vibes Keep Giving Groovy Mojo!',
+        'success'
+    );
+
+    // Add special glow effect
+    document.body.style.animation = 'cheeseGlow 2s ease-in-out';
+    setTimeout(() => {
+        document.body.style.animation = '';
+    }, 2000);
+}
+
+// Method 1: Konami Code easter egg
 let konamiCode = [];
 const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 
+// Method 2: Type "cheese"
+let typedKeys = [];
+const cheeseSequence = ['c', 'h', 'e', 'e', 's', 'e'];
+
+// Method 3: Triple-click logo counter
+let logoClickCount = 0;
+let logoClickTimer = null;
+
 document.addEventListener('keydown', function(e) {
+    // Check for Konami Code
     konamiCode.push(e.key);
     konamiCode = konamiCode.slice(-10);
 
     if (konamiCode.join(',') === konamiSequence.join(',')) {
-        showNotification(
-            '🧀 CHEAT CODE ACTIVATED! 🧀\n\n' +
-            'You have unlocked the ancient cheese power!\n' +
-            'May the Cheese be with you, always.',
-            'success'
-        );
+        activateCheeseEasterEgg();
+    }
 
-        // Add special glow effect
-        document.body.style.animation = 'cheeseGlow 2s ease-in-out';
-        setTimeout(() => {
-            document.body.style.animation = '';
-        }, 2000);
+    // Check for "cheese" typed
+    typedKeys.push(e.key.toLowerCase());
+    typedKeys = typedKeys.slice(-6);
+
+    if (typedKeys.join('') === cheeseSequence.join('')) {
+        activateCheeseEasterEgg();
+    }
+
+    // Check for Ctrl+Shift+C
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'c') {
+        e.preventDefault();
+        activateCheeseEasterEgg();
+    }
+});
+
+// Method 4: Triple-click the logo
+document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.main-logo');
+    if (logo) {
+        logo.addEventListener('click', function(e) {
+            logoClickCount++;
+
+            // Reset counter after 1 second of no clicks
+            clearTimeout(logoClickTimer);
+            logoClickTimer = setTimeout(() => {
+                logoClickCount = 0;
+            }, 1000);
+
+            // Activate on triple-click
+            if (logoClickCount === 3) {
+                activateCheeseEasterEgg();
+                logoClickCount = 0;
+            }
+        });
+
+        // Add a subtle hint cursor
+        logo.style.cursor = 'pointer';
     }
 });
 
@@ -672,4 +730,91 @@ document.head.appendChild(cheeseStyle);
 
 console.log('%c🧀 RATS WARS 🧀', 'font-size: 20px; font-weight: bold; color: #ffd700; text-shadow: 0 0 10px #ffd700;');
 console.log('%cMay the Cheese be with you!', 'font-size: 14px; color: #00ffff;');
-console.log('%cTip: Try the Konami Code for a surprise...', 'font-size: 12px; color: #999;');
+console.log('%cTip: There are secret cheesy surprises hidden on this page...', 'font-size: 12px; color: #999;');
+
+// === VISITOR COUNTER ===
+// GitHub repository configuration
+const GITHUB_CONFIG = {
+    owner: 'ntommer',
+    repo: 'ratswars',
+    branch: 'main',
+    filePath: 'visitor-count.json'
+};
+
+// Initialize visitor counter
+async function initVisitorCounter() {
+    try {
+        await fetchAndDisplayCount();
+        await incrementVisitorCount();
+    } catch (error) {
+        console.error('Error initializing visitor counter:', error);
+        const counterElement = document.getElementById('visitorCount');
+        if (counterElement) {
+            counterElement.textContent = 'Error loading count';
+        }
+    }
+}
+
+// Fetch the current visitor count from GitHub
+async function fetchAndDisplayCount() {
+    try {
+        // Fetch from raw GitHub URL (public, no auth needed)
+        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.filePath}`;
+        const response = await fetch(rawUrl);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch visitor count');
+        }
+
+        const data = await response.json();
+        const counterElement = document.getElementById('visitorCount');
+
+        if (counterElement) {
+            counterElement.textContent = formatNumber(data.count || 0);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching visitor count:', error);
+        throw error;
+    }
+}
+
+// Increment the visitor count using serverless API
+async function incrementVisitorCount() {
+    try {
+        // Call the serverless function (no authentication needed - handled server-side!)
+        const response = await fetch('/api/increment-visitor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            console.error('Failed to increment visitor count');
+            return;
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            console.log(`Visitor count updated to ${data.count}`);
+            // Update the display with the new count
+            const counterElement = document.getElementById('visitorCount');
+            if (counterElement) {
+                counterElement.textContent = formatNumber(data.count);
+            }
+        } else {
+            console.error('Error from API:', data.error);
+        }
+    } catch (error) {
+        console.error('Error incrementing visitor count:', error);
+        // Don't throw - just log the error so page load continues
+    }
+}
+
+// Format number with commas for better readability
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
