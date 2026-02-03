@@ -41,18 +41,16 @@ function generateStarfield() {
 
 // === SMOOTH SCROLLING ===
 function initSmoothScrolling() {
-    const navLinks = document.querySelectorAll('nav a[href^="#"]');
     const ctaLinks = document.querySelectorAll('.cta-buttons a[href^="#"]');
-    const allLinks = [...navLinks, ...ctaLinks];
 
-    allLinks.forEach(link => {
+    ctaLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                const offset = 80; // Account for sticky nav
+                const offset = 80;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - offset;
 
