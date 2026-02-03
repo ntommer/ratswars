@@ -2,9 +2,6 @@
   "name": "ratswars-website",
   "version": "1.0.0",
   "description": "RATS WARS - Official Website",
-  "dependencies": {
-    "node-fetch": "^2.6.7"
-  },
   "devDependencies": {
     "sharp": "^0.34.5"
   },

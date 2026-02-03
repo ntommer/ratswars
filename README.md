@@ -53,12 +53,6 @@ Visit the live site at: [Your GitHub Pages URL will be here]
 - Special effects and surprises
 - Console messages for developers
 
-### 📊 Visitor Counter
-- GitHub-powered visitor tracking
-- Real-time count display in footer
-- Auto-increment on page load (with authentication)
-- Styled with retro space theme aesthetic
-
 ## 🛠️ Technology Stack
 
 - **HTML5**: Semantic, accessible markup
@@ -212,80 +206,6 @@ async function handleFanficSubmit(formData) {
 }
 ```
 
-## 📊 Visitor Counter Setup
-
-The website includes a **serverless visitor counter** that automatically tracks ALL visitors (no authentication required!).
-
-### How It Works
-
-1. **visitor-count.json**: Stores the current visitor count and last update timestamp in the GitHub repository
-2. **Fetch & Display**: On page load, the counter fetches the current count from GitHub and displays it in the footer
-3. **Auto-Increment**: A serverless function automatically increments the count for EVERY visitor
-4. **Secure**: GitHub token is stored server-side (Netlify/Vercel environment variables), never exposed to users
-
-### Architecture
-
-```
-Visitor → Website → Serverless Function → GitHub API → Update Count
-```
-
-The serverless function (`netlify/functions/increment-visitor.js`) handles all GitHub API calls securely on the server side.
-
-### Setup Instructions
-
-**See [SERVERLESS_SETUP.md](SERVERLESS_SETUP.md) for complete deployment instructions!**
-
-Quick summary:
-1. Deploy to Netlify (free)
-2. Set `GITHUB_TOKEN` environment variable
-3. Counter automatically works for all visitors!
-
-### Configuration
-
-The visitor counter is configured in `script.js`:
-
-```javascript
-const GITHUB_CONFIG = {
-    owner: 'ntommer',
-    repo: 'ratswars',
-    branch: 'main',
-    filePath: 'visitor-count.json'
-};
-```
-
-### Local Testing
-
-```bash
-# Install dependencies
-npm install
-
-# Set environment variable
-export GITHUB_TOKEN=ghp_your_token_here
-
-# Run local dev server
-netlify dev
-```
-
-Visit `http://localhost:8888` - the counter should work!
-
-### Manual Updates
-
-You can manually update the visitor count by editing `visitor-count.json`:
-
-```json
-{
-  "count": 1234,
-  "lastUpdated": "2026-01-31T12:00:00Z"
-}
-```
-
-### Security Features
-
-✅ **GitHub token never exposed** - stored in Netlify environment variables
-✅ **No client-side authentication** - serverless function handles everything
-✅ **CORS enabled** - works on any domain
-✅ **Free hosting** - Netlify/Vercel free tier supports thousands of visitors/day
-
 ## 📄 File Structure
 
 ```
@@ -294,7 +214,6 @@ ratswars/
 ├── admin.html          # Admin panel with GitHub integration
 ├── styles.css          # All CSS styling
 ├── script.js           # Interactive functionality
-├── visitor-count.json  # Visitor counter data
 ├── sw.js              # Service worker for PWA
 ├── manifest.json      # PWA manifest
 ├── README.md          # This file

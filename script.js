@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initFormHandlers();
     initMerchandise();
     initCharacterAnimations();
-    initVisitorCounter();
 });
 
 // === STARFIELD GENERATION ===
