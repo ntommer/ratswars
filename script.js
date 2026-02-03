@@ -647,8 +647,7 @@ function activateCheeseEasterEgg() {
 
     showNotification(
         '🧀 CHEAT CODE ACTIVATED! 🧀\n\n' +
-        'You have unlocked the ancient cheese power!\n' +
-        'May the Cheese be with you, always.',
+        'May the Ju-Ju Vibes Keep Giving Groovy Mojo!',
         'success'
     );
 
