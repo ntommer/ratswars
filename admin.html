@@ -468,6 +468,89 @@
             position: relative;
         }
 
+        .about-editor, .footer-editor {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .story-cards-editor {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stories-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .story-card-admin {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .story-card-admin:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .story-card-admin .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .story-card-admin:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .story-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .story-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .story-tag {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
         @media (max-width: 768px) {
             .characters-grid {
                 grid-template-columns: 1fr;
@@ -495,8 +578,13 @@
             }
 
             .character-card .delete-btn,
-            .gallery-item-admin .delete-btn {
+            .gallery-item-admin .delete-btn,
+            .story-card-admin .delete-btn {
                 opacity: 1;
+            }
+
+            .story-cards-editor {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -650,6 +738,104 @@
         <div id="gallery-container" class="gallery-grid-admin">
             <!-- Gallery images will be loaded here -->
         </div>
+
+        <!-- About Section Editor -->
+        <h2 class="section-title">📜 About Section</h2>
+
+        <div class="info-box">
+            <h3>Edit Story Introduction</h3>
+            <ul>
+                <li>Edit the main intro text and story cards</li>
+                <li>Changes appear in "THE SAGA BEGINS" section</li>
+            </ul>
+        </div>
+
+        <div class="about-editor">
+            <div class="form-group">
+                <label>Opening Paragraph</label>
+                <textarea id="about-intro" rows="5" onchange="updateAbout('intro', this.value)"></textarea>
+            </div>
+            <div class="story-cards-editor">
+                <div class="form-group">
+                    <label>THE GOOD - Story Card</label>
+                    <textarea id="about-good" rows="3" onchange="updateAbout('good', this.value)"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>THE BAD - Story Card</label>
+                    <textarea id="about-bad" rows="3" onchange="updateAbout('bad', this.value)"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>THE FUGLY - Story Card</label>
+                    <textarea id="about-fugly" rows="3" onchange="updateAbout('fugly', this.value)"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fan Fiction Editor -->
+        <h2 class="section-title">📚 Fan Fiction Stories</h2>
+
+        <div class="info-box">
+            <h3>Manage Stories</h3>
+            <ul>
+                <li>Add, edit, or remove fan fiction stories</li>
+                <li>Stories appear in "TALES FROM THE GALAXY" section</li>
+            </ul>
+        </div>
+
+        <!-- Add New Story Button -->
+        <button class="btn btn-success add-new-btn" onclick="showAddStoryForm()">
+            ➕ Add New Story
+        </button>
+
+        <!-- Add Story Form (hidden by default) -->
+        <div id="add-story-form" class="add-form" style="display: none;">
+            <h3>Add New Fan Fiction</h3>
+            <div class="form-group">
+                <label>Story Title</label>
+                <input type="text" id="new-story-title" placeholder="e.g., The Great Cheese Heist">
+            </div>
+            <div class="form-group">
+                <label>Author Name</label>
+                <input type="text" id="new-story-author" placeholder="e.g., SpaceRodent42">
+            </div>
+            <div class="form-group">
+                <label>Story Excerpt</label>
+                <textarea id="new-story-excerpt" rows="4" placeholder="A preview of the story..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Tags (comma-separated)</label>
+                <input type="text" id="new-story-tags" placeholder="e.g., Action, Adventure, Captain Whiskers">
+            </div>
+            <div class="form-actions-inline">
+                <button class="btn btn-primary" onclick="addNewStory()">✅ Add Story</button>
+                <button class="btn btn-danger" onclick="hideAddStoryForm()">Cancel</button>
+            </div>
+        </div>
+
+        <div id="stories-container" class="stories-grid">
+            <!-- Stories will be loaded here -->
+        </div>
+
+        <!-- Footer Editor -->
+        <h2 class="section-title">🦶 Footer</h2>
+
+        <div class="info-box">
+            <h3>Edit Footer Content</h3>
+            <ul>
+                <li>Edit the footer text and tagline</li>
+            </ul>
+        </div>
+
+        <div class="footer-editor">
+            <div class="form-group">
+                <label>About Text (under RATS WARS heading)</label>
+                <textarea id="footer-about" rows="2" onchange="updateFooter('about', this.value)"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Footer Tagline</label>
+                <input type="text" id="footer-tagline" onchange="updateFooter('tagline', this.value)">
+            </div>
+        </div>
     </div>
 
     <!-- Save Bar -->
@@ -671,9 +857,12 @@
             token: ''
         };
 
-        // Character and gallery data
+        // Character, gallery, about, story, and footer data
         let characters = [];
         let galleryImages = [];
+        let aboutContent = { intro: '', good: '', bad: '', fugly: '' };
+        let fanFicStories = [];
+        let footerContent = { about: '', tagline: '' };
         let originalHTML = '';
         let hasChanges = false;
         let pendingNewCharacterImage = null;
@@ -772,11 +961,17 @@
                 const data = await response.json();
                 originalHTML = atob(data.content);
 
-                // Parse characters and gallery from HTML
+                // Parse all content from HTML
                 parseCharactersFromHTML(originalHTML);
                 parseGalleryFromHTML(originalHTML);
+                parseAboutFromHTML(originalHTML);
+                parseStoriesFromHTML(originalHTML);
+                parseFooterFromHTML(originalHTML);
                 renderCharacters();
                 renderGallery();
+                renderAbout();
+                renderStories();
+                renderFooter();
                 showAlert('✅ Website loaded! Make your changes and click Publish.', 'success');
 
             } catch (error) {
@@ -817,6 +1012,190 @@
                     alt: match[2]
                 });
             }
+        }
+
+        // Parse About section from HTML
+        function parseAboutFromHTML(html) {
+            // Extract intro paragraph
+            const introMatch = html.match(/<p class="intro-text">\s*([\s\S]*?)\s*<\/p>/);
+            aboutContent.intro = introMatch ? introMatch[1].trim() : '';
+
+            // Extract story cards
+            const goodMatch = html.match(/<div class="story-card">\s*<h3>THE GOOD<\/h3>\s*<p>([\s\S]*?)<\/p>/);
+            aboutContent.good = goodMatch ? goodMatch[1].trim() : '';
+
+            const badMatch = html.match(/<div class="story-card">\s*<h3>THE BAD<\/h3>\s*<p>([\s\S]*?)<\/p>/);
+            aboutContent.bad = badMatch ? badMatch[1].trim() : '';
+
+            const fuglyMatch = html.match(/<div class="story-card">\s*<h3>THE FUGLY<\/h3>\s*<p>([\s\S]*?)<\/p>/);
+            aboutContent.fugly = fuglyMatch ? fuglyMatch[1].trim() : '';
+        }
+
+        // Parse Fan Fiction stories from HTML
+        function parseStoriesFromHTML(html) {
+            fanFicStories = [];
+
+            const storyRegex = /<article class="fanfic-item"[^>]*data-date="([^"]*)"[^>]*data-likes="([^"]*)"[^>]*>[\s\S]*?<h3>([^<]+)<\/h3>[\s\S]*?<span class="author">by ([^<]+)<\/span>[\s\S]*?<span class="date">([^<]+)<\/span>[\s\S]*?<p class="fanfic-excerpt">\s*([\s\S]*?)\s*<\/p>[\s\S]*?<div class="fanfic-tags">([\s\S]*?)<\/div>/g;
+
+            let match;
+            while ((match = storyRegex.exec(html)) !== null) {
+                // Extract tags
+                const tagsHtml = match[7];
+                const tagMatches = tagsHtml.match(/<span class="tag">([^<]+)<\/span>/g) || [];
+                const tags = tagMatches.map(t => t.replace(/<[^>]+>/g, ''));
+
+                fanFicStories.push({
+                    date: match[1],
+                    likes: match[2],
+                    title: match[3].trim(),
+                    author: match[4].trim(),
+                    displayDate: match[5].trim(),
+                    excerpt: match[6].trim(),
+                    tags: tags
+                });
+            }
+        }
+
+        // Parse Footer from HTML
+        function parseFooterFromHTML(html) {
+            // Extract footer about text
+            const aboutMatch = html.match(/<div class="footer-section">\s*<h4>RATS WARS<\/h4>\s*<p>([^<]+)<\/p>/);
+            footerContent.about = aboutMatch ? aboutMatch[1].trim() : '';
+
+            // Extract footer tagline
+            const taglineMatch = html.match(/<p class="tagline-footer">([^<]+)<\/p>/);
+            footerContent.tagline = taglineMatch ? taglineMatch[1].trim() : '';
+        }
+
+        // Render About section
+        function renderAbout() {
+            document.getElementById('about-intro').value = aboutContent.intro;
+            document.getElementById('about-good').value = aboutContent.good;
+            document.getElementById('about-bad').value = aboutContent.bad;
+            document.getElementById('about-fugly').value = aboutContent.fugly;
+        }
+
+        // Render Stories
+        function renderStories() {
+            const container = document.getElementById('stories-container');
+            container.innerHTML = '';
+
+            fanFicStories.forEach((story, index) => {
+                const card = document.createElement('div');
+                card.className = 'story-card-admin';
+                card.innerHTML = `
+                    <button class="delete-btn" onclick="deleteStory(${index})" title="Delete story">×</button>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" value="${story.title}" onchange="updateStory(${index}, 'title', this.value)">
+                    </div>
+                    <div class="story-meta">
+                        <span>by ${story.author}</span>
+                        <span>${story.displayDate}</span>
+                        <span>❤️ ${story.likes}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Author</label>
+                        <input type="text" value="${story.author}" onchange="updateStory(${index}, 'author', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label>Excerpt</label>
+                        <textarea rows="3" onchange="updateStory(${index}, 'excerpt', this.value)">${story.excerpt}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags (comma-separated)</label>
+                        <input type="text" value="${story.tags.join(', ')}" onchange="updateStory(${index}, 'tags', this.value.split(',').map(t => t.trim()).filter(t => t))">
+                    </div>
+                    <div class="story-tags">
+                        ${story.tags.map(tag => `<span class="story-tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Render Footer
+        function renderFooter() {
+            document.getElementById('footer-about').value = footerContent.about;
+            document.getElementById('footer-tagline').value = footerContent.tagline;
+        }
+
+        // Update About content
+        function updateAbout(field, value) {
+            aboutContent[field] = value;
+            markAsChanged();
+        }
+
+        // Update Story
+        function updateStory(index, field, value) {
+            fanFicStories[index][field] = value;
+            if (field === 'tags') {
+                renderStories(); // Re-render to show updated tags
+            }
+            markAsChanged();
+        }
+
+        // Update Footer content
+        function updateFooter(field, value) {
+            footerContent[field] = value;
+            markAsChanged();
+        }
+
+        // Delete story
+        function deleteStory(index) {
+            if (confirm(`Delete story "${fanFicStories[index].title}"?`)) {
+                fanFicStories.splice(index, 1);
+                renderStories();
+                markAsChanged();
+                showAlert('Story removed. Click Publish to save changes.', 'warning');
+            }
+        }
+
+        // Show add story form
+        function showAddStoryForm() {
+            document.getElementById('add-story-form').style.display = 'block';
+            document.getElementById('new-story-title').value = '';
+            document.getElementById('new-story-author').value = '';
+            document.getElementById('new-story-excerpt').value = '';
+            document.getElementById('new-story-tags').value = '';
+        }
+
+        // Hide add story form
+        function hideAddStoryForm() {
+            document.getElementById('add-story-form').style.display = 'none';
+        }
+
+        // Add new story
+        function addNewStory() {
+            const title = document.getElementById('new-story-title').value.trim();
+            const author = document.getElementById('new-story-author').value.trim();
+            const excerpt = document.getElementById('new-story-excerpt').value.trim();
+            const tagsInput = document.getElementById('new-story-tags').value.trim();
+
+            if (!title || !author || !excerpt) {
+                showAlert('Please fill in Title, Author, and Excerpt', 'error');
+                return;
+            }
+
+            const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t) : [];
+            const today = new Date();
+            const dateStr = today.toISOString().split('T')[0];
+            const displayDate = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            fanFicStories.unshift({
+                date: dateStr,
+                likes: '0',
+                title: title,
+                author: author,
+                displayDate: displayDate,
+                excerpt: excerpt,
+                tags: tags
+            });
+
+            renderStories();
+            hideAddStoryForm();
+            markAsChanged();
+            showAlert(`✅ Story "${title}" added! Click Publish to update your website.`, 'success');
         }
 
         // Render characters
@@ -1258,6 +1637,68 @@
             const galleryRegex = /<div class="gallery-grid">[\s\S]*?<\/div>\s*<\/section>/;
             updatedHTML = updatedHTML.replace(galleryRegex, `${newGalleryGrid}\n        </section>`);
 
+            // Update About section
+            updatedHTML = updatedHTML.replace(
+                /<p class="intro-text">[\s\S]*?<\/p>/,
+                `<p class="intro-text">\n                    ${aboutContent.intro}\n                </p>`
+            );
+
+            updatedHTML = updatedHTML.replace(
+                /<div class="story-card">\s*<h3>THE GOOD<\/h3>\s*<p>[\s\S]*?<\/p>\s*<\/div>/,
+                `<div class="story-card">\n                        <h3>THE GOOD</h3>\n                        <p>${aboutContent.good}</p>\n                    </div>`
+            );
+
+            updatedHTML = updatedHTML.replace(
+                /<div class="story-card">\s*<h3>THE BAD<\/h3>\s*<p>[\s\S]*?<\/p>\s*<\/div>/,
+                `<div class="story-card">\n                        <h3>THE BAD</h3>\n                        <p>${aboutContent.bad}</p>\n                    </div>`
+            );
+
+            updatedHTML = updatedHTML.replace(
+                /<div class="story-card">\s*<h3>THE FUGLY<\/h3>\s*<p>[\s\S]*?<\/p>\s*<\/div>/,
+                `<div class="story-card">\n                        <h3>THE FUGLY</h3>\n                        <p>${aboutContent.fugly}</p>\n                    </div>`
+            );
+
+            // Build new fan fiction HTML
+            let newFanFicList = '            <div class="fanfic-list">\n';
+
+            fanFicStories.forEach((story, index) => {
+                const tagsHtml = story.tags.map(tag => `<span class="tag">${tag}</span>`).join('\n                        ');
+                newFanFicList += `                <article class="fanfic-item" data-date="${story.date}" data-likes="${story.likes}">
+                    <div class="fanfic-header">
+                        <h3>${story.title}</h3>
+                        <div class="fanfic-meta">
+                            <span class="author">by ${story.author}</span>
+                            <span class="date">${story.displayDate}</span>
+                            <span class="likes">${story.likes}</span>
+                        </div>
+                    </div>
+                    <p class="fanfic-excerpt">
+                        ${story.excerpt}
+                    </p>
+                    <div class="fanfic-tags">
+                        ${tagsHtml}
+                    </div>
+                    <button class="btn btn-secondary" onclick="readStory(${index + 1})">READ FULL STORY</button>
+                </article>\n\n`;
+            });
+
+            newFanFicList += '            </div>';
+
+            // Replace fan fiction list
+            const fanficRegex = /<div class="fanfic-list">[\s\S]*?<\/div>\s*<\/section>/;
+            updatedHTML = updatedHTML.replace(fanficRegex, `${newFanFicList}\n        </section>`);
+
+            // Update Footer
+            updatedHTML = updatedHTML.replace(
+                /<div class="footer-section">\s*<h4>RATS WARS<\/h4>\s*<p>[^<]*<\/p>/,
+                `<div class="footer-section">\n                    <h4>RATS WARS</h4>\n                    <p>${footerContent.about}</p>`
+            );
+
+            updatedHTML = updatedHTML.replace(
+                /<p class="tagline-footer">[^<]*<\/p>/,
+                `<p class="tagline-footer">${footerContent.tagline}</p>`
+            );
+
             return updatedHTML;
         }
 
@@ -1266,10 +1707,17 @@
             if (confirm('Discard all unsaved changes?')) {
                 parseCharactersFromHTML(originalHTML);
                 parseGalleryFromHTML(originalHTML);
+                parseAboutFromHTML(originalHTML);
+                parseStoriesFromHTML(originalHTML);
+                parseFooterFromHTML(originalHTML);
                 renderCharacters();
                 renderGallery();
+                renderAbout();
+                renderStories();
+                renderFooter();
                 hideAddCharacterForm();
                 hideAddGalleryForm();
+                hideAddStoryForm();
                 hasChanges = false;
                 document.getElementById('save-btn').disabled = true;
                 showAlert('Changes discarded', 'warning');
