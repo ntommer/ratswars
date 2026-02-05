@@ -984,8 +984,8 @@
         function parseCharactersFromHTML(html) {
             characters = [];
 
-            // Extract character cards using regex
-            const cardRegex = /<div class="character-card" data-character="([^"]+)">\s*<div class="character-image">\s*<img src="([^"]+)" alt="([^"]+)"[^>]*>\s*<div class="character-overlay">\s*<p>([^<]+)<\/p>/g;
+            // More flexible regex to handle whitespace variations
+            const cardRegex = /<div\s+class="character-card"\s+data-character="([^"]+)">\s*<div\s+class="character-image">\s*<img\s+src="([^"]+)"\s+alt="([^"]+)"[^>]*>\s*<div\s+class="character-overlay">\s*<p>([\s\S]*?)<\/p>/g;
 
             let match;
             while ((match = cardRegex.exec(html)) !== null) {
@@ -993,17 +993,18 @@
                     id: match[1],
                     imageUrl: match[2],
                     alt: match[3],
-                    description: match[4]
+                    description: match[4].trim()
                 });
             }
+            console.log('Parsed characters:', characters.length);
         }
 
         // Parse gallery images from HTML
         function parseGalleryFromHTML(html) {
             galleryImages = [];
 
-            // Extract gallery items using regex
-            const galleryRegex = /<div class="gallery-item">\s*<img src="([^"]+)" alt="([^"]+)"[^>]*>/g;
+            // More flexible regex to handle whitespace variations
+            const galleryRegex = /<div\s+class="gallery-item">\s*<img\s+src="([^"]+)"\s+alt="([^"]+)"[^>]*>/g;
 
             let match;
             while ((match = galleryRegex.exec(html)) !== null) {
@@ -1012,6 +1013,7 @@
                     alt: match[2]
                 });
             }
+            console.log('Parsed gallery images:', galleryImages.length);
         }
 
         // Parse About section from HTML
@@ -1035,13 +1037,14 @@
         function parseStoriesFromHTML(html) {
             fanFicStories = [];
 
-            const storyRegex = /<article class="fanfic-item"[^>]*data-date="([^"]*)"[^>]*data-likes="([^"]*)"[^>]*>[\s\S]*?<h3>([^<]+)<\/h3>[\s\S]*?<span class="author">by ([^<]+)<\/span>[\s\S]*?<span class="date">([^<]+)<\/span>[\s\S]*?<p class="fanfic-excerpt">\s*([\s\S]*?)\s*<\/p>[\s\S]*?<div class="fanfic-tags">([\s\S]*?)<\/div>/g;
+            // More flexible regex pattern
+            const storyRegex = /<article\s+class="fanfic-item"[^>]*data-date="([^"]*)"[^>]*data-likes="([^"]*)"[^>]*>[\s\S]*?<h3>([^<]+)<\/h3>[\s\S]*?<span\s+class="author">by\s*([^<]+)<\/span>[\s\S]*?<span\s+class="date">([^<]+)<\/span>[\s\S]*?<p\s+class="fanfic-excerpt">\s*([\s\S]*?)\s*<\/p>[\s\S]*?<div\s+class="fanfic-tags">([\s\S]*?)<\/div>/g;
 
             let match;
             while ((match = storyRegex.exec(html)) !== null) {
                 // Extract tags
                 const tagsHtml = match[7];
-                const tagMatches = tagsHtml.match(/<span class="tag">([^<]+)<\/span>/g) || [];
+                const tagMatches = tagsHtml.match(/<span\s+class="tag">([^<]+)<\/span>/g) || [];
                 const tags = tagMatches.map(t => t.replace(/<[^>]+>/g, ''));
 
                 fanFicStories.push({
@@ -1054,6 +1057,7 @@
                     tags: tags
                 });
             }
+            console.log('Parsed stories:', fanFicStories.length);
         }
 
         // Parse Footer from HTML
