@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFormHandlers();
     initMerchandise();
     initCharacterAnimations();
+    initVisitorCounter();
 });
 
 // === STARFIELD GENERATION ===
@@ -731,88 +732,18 @@ console.log('%cMay the Cheese be with you!', 'font-size: 14px; color: #00ffff;')
 console.log('%cTip: There are secret cheesy surprises hidden on this page...', 'font-size: 12px; color: #999;');
 
 // === VISITOR COUNTER ===
-// GitHub repository configuration
-const GITHUB_CONFIG = {
-    owner: 'ntommer',
-    repo: 'ratswars',
-    branch: 'main',
-    filePath: 'visitor-count.json'
-};
+// Uses CountAPI - a free, no-auth counter service for static sites
+function initVisitorCounter() {
+    const counterElement = document.getElementById('visitorCount');
+    if (!counterElement) return;
 
-// Initialize visitor counter
-async function initVisitorCounter() {
-    try {
-        await fetchAndDisplayCount();
-        await incrementVisitorCount();
-    } catch (error) {
-        console.error('Error initializing visitor counter:', error);
-        const counterElement = document.getElementById('visitorCount');
-        if (counterElement) {
-            counterElement.textContent = 'Error loading count';
-        }
-    }
-}
-
-// Fetch the current visitor count from GitHub
-async function fetchAndDisplayCount() {
-    try {
-        // Fetch from raw GitHub URL (public, no auth needed)
-        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/${GITHUB_CONFIG.filePath}`;
-        const response = await fetch(rawUrl);
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch visitor count');
-        }
-
-        const data = await response.json();
-        const counterElement = document.getElementById('visitorCount');
-
-        if (counterElement) {
-            counterElement.textContent = formatNumber(data.count || 0);
-        }
-
-        return data;
-    } catch (error) {
-        console.error('Error fetching visitor count:', error);
-        throw error;
-    }
-}
-
-// Increment the visitor count using serverless API
-async function incrementVisitorCount() {
-    try {
-        // Call the serverless function (no authentication needed - handled server-side!)
-        const response = await fetch('/api/increment-visitor', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+    // Increment and get the current count in one call
+    fetch('https://api.counterapi.dev/v1/ratswars-com/visits/up')
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            counterElement.textContent = data.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        })
+        .catch(function() {
+            counterElement.textContent = '---';
         });
-
-        if (!response.ok) {
-            console.error('Failed to increment visitor count');
-            return;
-        }
-
-        const data = await response.json();
-
-        if (data.success) {
-            console.log(`Visitor count updated to ${data.count}`);
-            // Update the display with the new count
-            const counterElement = document.getElementById('visitorCount');
-            if (counterElement) {
-                counterElement.textContent = formatNumber(data.count);
-            }
-        } else {
-            console.error('Error from API:', data.error);
-        }
-    } catch (error) {
-        console.error('Error incrementing visitor count:', error);
-        // Don't throw - just log the error so page load continues
-    }
-}
-
-// Format number with commas for better readability
-function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
