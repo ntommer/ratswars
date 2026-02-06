@@ -959,7 +959,7 @@
                 }
 
                 const data = await response.json();
-                originalHTML = atob(data.content);
+                originalHTML = atob(data.content.replace(/\s/g, ''));
 
                 // Parse all content from HTML
                 parseCharactersFromHTML(originalHTML);
@@ -1210,9 +1210,10 @@
             characters.forEach((char, index) => {
                 const card = document.createElement('div');
                 card.className = 'character-card';
+                const previewSrc = char.previewUrl || char.imageUrl;
                 card.innerHTML = `
                     <button class="delete-btn" onclick="deleteCharacter(${index})" title="Delete character">×</button>
-                    <img src="${char.imageUrl}" class="character-image-preview" alt="${char.alt}">
+                    <img src="${previewSrc}" class="character-image-preview" alt="${char.alt}">
 
                     <label class="image-upload-btn">
                         📷 Upload New Image
@@ -1513,8 +1514,9 @@
 
                 const data = await response.json();
 
-                // Update character with new image URL
+                // Update character with new image URL and keep base64 for preview
                 characters[index].imageUrl = path;
+                characters[index].previewUrl = base64;
                 renderCharacters();
                 markAsChanged();
                 showAlert('✅ Image uploaded successfully!', 'success');
