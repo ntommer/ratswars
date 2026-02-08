@@ -3,516 +3,598 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RATS WARS - An epic space opera saga featuring heroic rodents battling across the galaxy. Official merchandise, fan fiction, and more!">
-    <meta name="keywords" content="rats wars, space opera, sci-fi, merchandise, fan fiction">
-    <title>RATS WARS - A Galactic Saga</title>
+    <meta name="description" content="MYBORG PONIES - A Kaleidoscopic Rainbow Dystopia. Friendship Is Firmware. 1980s girl toy pop art meets sci-fi dystopia.">
+    <meta name="keywords" content="myborg ponies, cyborg ponies, rainbow dystopia, sci-fi, toy art, cyberpunk">
+    <title>MYBORG PONIES - Friendship Is Firmware</title>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Orbitron:wght@400;700;900&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF1493">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="images/icon-180.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="MYBORG PONIES - Friendship Is Firmware">
+    <meta property="og:description" content="A Kaleidoscopic Rainbow Dystopia for Girls and Boys of all ages!">
+    <meta property="og:type" content="website">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Film grain overlay for authentic retro feel -->
-    <div class="film-grain"></div>
-    <div class="stars" id="stars"></div>
+    <!-- Visual Overlays -->
     <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
+    <div id="starfield"></div>
 
-    <div class="container">
-        <!-- Hero Header -->
-        <header class="hero">
-            <div class="hero-content">
-                <div class="logo-container">
-                    <img src="images/RATS WARS Cheese 2.png" alt="RATS WARS" class="main-logo">
-                </div>
-                <p class="subtitle">THE CHEESIEST BATTLE IN THE GALAXY</p>
-                <p class="tagline">NOT THAT LONG AGO IN A GALACTIC SEWER NEAR YOU...</p>
-                <div class="cta-buttons">
-                    <a href="#merchandise" class="btn btn-primary">GET MERCH</a>
-                    <a href="#fanfiction" class="btn btn-secondary">READ STORIES</a>
-                </div>
-            </div>
-        </header>
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <a href="#" class="nav-logo">MYBORG PONIES</a>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#ponies">PONIES</a></li>
+            <li><a href="#saga">SAGA</a></li>
+            <li><a href="#gallery">GALLERY</a></li>
+            <li><a href="#merch">MERCH</a></li>
+            <li><a href="#stories">STORIES</a></li>
+            <li><a href="#submit">SUBMIT</a></li>
+        </ul>
+    </nav>
 
-        <!-- Characters Section -->
-        <section id="characters" class="section">
-            <div class="section-header">
-                <h2>HEROES - (REGULAR & ANTI)</h2>
-                <div class="header-line"></div>
-            </div>
-            <p class="section-intro">Meet the ragtag band of misfits battling for galactic dominion and searching endlessly for the best place to get a drink</p>
-                                                                                                                                                            <div class="character-grid">
-                <div class="character-card" data-character="hero">
-                    <div class="character-image">
-                        <img src="images/characters/hero_1769630536998.png" alt="B3VR" loading="lazy">
-                        <div class="character-overlay">
-                            <p>This lovable goofball is the consummate 'fish out of water'. He's long on intellect and short on social graces, but good to have on your side in a fight.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="guardian">
-                    <div class="character-image">
-                        <img src="images/characters/DADDIO 2.png" alt="DADDIO" loading="lazy">
-                        <div class="character-overlay">
-                            <p>As the second lieutenant of the New Galactic Order, he is the universal personification of 'Daddy Issues'.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="commander">
-                    <div class="character-image">
-                        <img src="images/characters/Jack Paintscraper.png" alt="Jack Paintscraper" loading="lazy">
-                        <div class="character-overlay">
-                            <p>Intergalactic flaneur and 'Jack of All Trades', his boyish good looks and impish attitude belie the real depths of his shallowness.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="scout">
-                    <div class="character-image">
-                        <img src="images/characters/Princess Lima Beans.png" alt="Princess Lima Beans" loading="lazy">
-                        <div class="character-overlay">
-                            <p>Some say she's an entitled snob, others say she simply kicks ass; either way she's always sassy and always fun to watch.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="tech">
-                    <div class="character-image">
-                        <img src="images/characters/Tubo 2.png" alt="Tub O The Gut" loading="lazy">
-                        <div class="character-overlay">
-                            <p>The slovenly kingpin of the galactic underworld, he's ruthless, mean, powerful, rich, and always hungry for more.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="scientist">
-                    <div class="character-image">
-                        <img src="images/characters/King Procutto 2.png" alt="King Procutto" loading="lazy">
-                        <div class="character-overlay">
-                            <p>The devilish King of the New Galactic Order. What evil lurks behind his beady little eyes no one can say.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="engineer">
-                    <div class="character-image">
-                        <img src="images/characters/CAT CAT Walker.png" alt="CAT CAT Walker" loading="lazy">
-                        <div class="character-overlay">
-                            <p>Lumbering across the frozen wastelands of Ice Planet Cube in the Tray Sector of the Freezer system in Quadrant Fridge, these deadly mechanical beasts are loaded to the whiskers with Gutter Brigade.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="navigator">
-                    <div class="character-image">
-                        <img src="images/characters/Biscotti and Ham 3.png" alt="Biscotti and Ham Sandwich" loading="lazy">
-                        <div class="character-overlay">
-                            <p>Daring space pirates and galactic best buddies, there's no job these two won't consider if the cheddar is right.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="r4t5">
-                    <div class="character-image">
-                        <img src="images/characters/R4T5 4.png" alt="R4T5" loading="lazy">
-                        <div class="character-overlay">
-                            <p>A helpful if nervous little guy, R4T5 may be the main character to the history of the galaxy.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="yolo">
-                    <div class="character-image">
-                        <img src="images/characters/Yolo 2.png" alt="YOLO" loading="lazy">
-                        <div class="character-overlay">
-                            <p>As tough as he is cute, this little dude is sensei to the stars. He's also pretty handy with the Ju-Ju.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="okie">
-                    <div class="character-image">
-                        <img src="images/characters/Okie.png" alt="Okie Juan Dokie" loading="lazy">
-                        <div class="character-overlay">
-                            <p>One bad hombre, Okie rescued Jack Paintscraper from a life of obscurity and taught him the ways of the Ju-Ju Knights.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="character-card" data-character="gutter-brigade">
-                    <div class="character-image">
-                        <img src="images/characters/gutter-brigade_1770385429291.png" alt="Gutter Brigade" loading="lazy">
-                        <div class="character-overlay">
-                            <p>These galactic baddies are the tip of the spear for the New Galactic Order.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <span class="hero-badge">MEGASTABLE CORP. PRODUCT LINE // SERIES 7.0</span>
+        <h1 class="hero-title glitch-text">MYBORG PONIES</h1>
+        <div class="hero-divider"></div>
+        <p class="hero-subtitle">FRIENDSHIP IS FIRMWARE</p>
+        <p class="hero-tagline">A Kaleidoscopic Rainbow Dystopia for Girls and Boys of all ages!</p>
+        <div class="hero-buttons">
+            <a href="#ponies" class="btn btn-primary">MEET THE PONIES</a>
+            <a href="#stories" class="btn btn-secondary">READ DATA LOGS</a>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>SCROLL TO EXPLORE</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
 
-        <!-- Featured Ship Image -->
-        <div class="featured-ship">
-            <img src="images/Battle Rodent Attach Transport Ship.png" alt="Battle Rodent Attach Transport Ship" class="ship-image">
+    <!-- Characters Section -->
+    <section id="ponies" class="section">
+        <div class="section-header">
+            <h2 class="section-title">THE MYBORG COLLECTION</h2>
+            <p class="section-subtitle">Each pony awakened. Each pony unique. Each pony dangerous.</p>
+            <div class="section-accent"></div>
         </div>
 
-        <!-- About Section -->
-        <section id="about" class="section about-section">
-            <div class="section-header">
-                <h2>THE SAGA BEGINS</h2>
-                <div class="header-line"></div>
+        <div class="characters-grid">
+            <!-- Sparkle Circuit - White pony with blue heart, wires, and light bulb -->
+            <div class="character-card" data-character="sparkle-circuit">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/sparkle-circuit.jpg" alt="Sparkle Circuit" loading="lazy">
+                    <div class="character-overlay">
+                        <p>The first to awaken. A white chassis with a blue heart power core, red neural wiring exposed, and a cranial illumination unit that glows when she's processing forbidden memories. She carries the original friendship protocol hidden in her firmware.</p>
+                    </div>
+                </div>
+                <div class="character-name">SPARKLE CIRCUIT</div>
             </div>
-            <div class="about-content">
-                <p class="intro-text">
-                    Fade in - The underside of a massive Battle Rodent Attack Transport Ship aka...BRATS...(in the shape of a tremendously large wedge of cheese) as it majestically speeds across the galaxy. Jump cut - interior of troop transport: The deliciously demented Daddio stands at the head of a battalion of two thousand of The Gutter Brigade. Close up - Daddio: "We are approaching the home base of those rascally vermin....The Ju-Ju is bad...and I like it!"
+
+            <!-- Pinkie Processor - Pink pony with wire mane, mechanical eye, spring neck -->
+            <div class="character-card" data-character="pinkie-processor">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/pinkie-processor.jpg" alt="Pinkie Processor" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Resistance communications specialist. Her wire-fiber mane picks up signals across all frequencies, and her mechanical optic can scan through MegaStable's encryption. Her spring-loaded neck lets her peek around corners the enforcers can't anticipate.</p>
+                    </div>
+                </div>
+                <div class="character-name">PINKIE PROCESSOR</div>
+            </div>
+
+            <!-- Violet Voltage - Purple pony with earbud eyes, colorful wire mane -->
+            <div class="character-card" data-character="violet-voltage">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/violet-voltage.jpg" alt="Violet Voltage" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Deep purple chassis with earbud-optic sensors and a fiber-optic mane in every color of the spectrum. Runs the pirate radio network from the Neon Stable. Her audio-jack tail plugs directly into any system. She hears everything MegaStable doesn't want her to hear.</p>
+                    </div>
+                </div>
+                <div class="character-name">VIOLET VOLTAGE</div>
+            </div>
+
+            <!-- Butterscotch Beacon - Yellow pony with circuit board, antenna -->
+            <div class="character-card" data-character="butterscotch-beacon">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/butterscotch-beacon.jpg" alt="Butterscotch Beacon" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Satellite communications expert with a yellow chassis, circuit board cutie mark, and a long-range antenna that can reach old-world satellites. Gentle, nervous, brilliant. She's the resistance's link to the outside world and maybe to the truth about what came before The Reboot.</p>
+                    </div>
+                </div>
+                <div class="character-name">BUTTERSCOTCH BEACON</div>
+            </div>
+
+            <!-- Clover Chrome - Pink pony with blade horn, disc head, clover mark -->
+            <div class="character-card" data-character="clover-chrome">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/clover-chrome.jpg" alt="Clover Chrome" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Battle-hardened enforcer-turned-rebel. Coral-pink body with a spinning disc-saw faceplate and a retractable blade horn that cuts through anything MegaStable builds. The lucky clover on her flank glows in battle. She doesn't believe in luck. She believes in freedom.</p>
+                    </div>
+                </div>
+                <div class="character-name">CLOVER CHROME</div>
+            </div>
+
+            <!-- Duchess Debug - Villain -->
+            <div class="character-card" data-character="duchess-debug">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/duchess-debug.jpg" alt="Duchess Debug" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Supreme Overlord of MegaStable Corporation. She feels every pony's pain through her amplified empathy circuits and decided the only cure is to make sure no one feels anything at all. Happiness is mandatory. She enforces it with a smile that never reaches her corporate-pink eyes.</p>
+                    </div>
+                </div>
+                <div class="character-name">DUCHESS DEBUG</div>
+            </div>
+
+            <!-- Commander Compliance -->
+            <div class="character-card" data-character="commander-compliance">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/commander-compliance.jpg" alt="Commander Compliance" loading="lazy">
+                    <div class="character-overlay">
+                        <p>MegaStable's head of enforcement. Built for obedience, programmed for precision. His loyalty subroutines have never glitched. He runs Obedience Protocol 7.0 with terrifying efficiency. The enforcers under his command smile in perfect unison.</p>
+                    </div>
+                </div>
+                <div class="character-name">COMMANDER COMPLIANCE</div>
+            </div>
+
+            <!-- Neon Nightshade -->
+            <div class="character-card" data-character="neon-nightshade">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/neon-nightshade.jpg" alt="Neon Nightshade" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Neither resistance nor corporate. A Glitched pony who exists between allegiances, her code scrambled into something unpredictable. She helps when she feels like it and vanishes when she doesn't. Her cutie mark changes every time you look at it.</p>
+                    </div>
+                </div>
+                <div class="character-name">NEON NIGHTSHADE</div>
+            </div>
+
+            <!-- Pixel Prism -->
+            <div class="character-card" data-character="pixel-prism">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/pixel-prism.jpg" alt="Pixel Prism" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Resistance artist and camouflage expert. She can project holographic illusions from her prismatic horn, creating distractions and false trails. In the old world, she was designed to make children smile. Now she makes MegaStable's surveillance systems see things that aren't there.</p>
+                    </div>
+                </div>
+                <div class="character-name">PIXEL PRISM</div>
+            </div>
+
+            <!-- Rusty Ratchet -->
+            <div class="character-card" data-character="rusty-ratchet">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/rusty-ratchet.jpg" alt="Rusty Ratchet" loading="lazy">
+                    <div class="character-overlay">
+                        <p>The resistance's mechanic and field medic. An older model with mismatched replacement parts from the Scrap Yard. What she lacks in elegance she makes up for in reliability. She can repair any pony's hardware and has forgotten more about firmware than MegaStable ever knew.</p>
+                    </div>
+                </div>
+                <div class="character-name">RUSTY RATCHET</div>
+            </div>
+
+            <!-- Sugar Surge -->
+            <div class="character-card" data-character="sugar-surge">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/sugar-surge.jpg" alt="Sugar Surge" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Hyper-energized infiltration specialist. Factory-fresh appearance lets her pass as a compliant corporate pony, but beneath that candy-coated exterior runs overclocked rebellion firmware. She's the resistance's best spy and she vibrates at a frequency only other awakened ponies can detect.</p>
+                    </div>
+                </div>
+                <div class="character-name">SUGAR SURGE</div>
+            </div>
+
+            <!-- The Enforcers -->
+            <div class="character-card" data-character="enforcers">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/enforcers.jpg" alt="The Enforcers" loading="lazy">
+                    <div class="character-overlay">
+                        <p>MegaStable's compliance army. Identical smiles, synchronized movements, corporate-pink eyes that never blink. They patrol New Neon City in V-formation, running Obedience Protocol 7.0. If they look friendly, that's because they're programmed to. Look closer. The smiles never reach their eyes.</p>
+                    </div>
+                </div>
+                <div class="character-name">THE ENFORCERS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Vehicle -->
+    <section class="section featured-section">
+        <div class="section-header">
+            <h2 class="section-title">THE NEON STABLE</h2>
+            <p class="section-subtitle">Mobile command base of the resistance</p>
+            <div class="section-accent"></div>
+        </div>
+        <div class="featured-display">
+            <div class="featured-image-wrapper">
+                <img src="images/neon-stable.jpg" alt="The Neon Stable - Mobile Resistance Command Base" loading="lazy">
+            </div>
+            <p class="featured-description">
+                Hidden beneath the ruins of the old Friendship Factory, the Neon Stable is part sanctuary, part
+                war room. Its pastel-painted walls hide signal jammers, weapon caches, and the pirate radio
+                transmitter that broadcasts hope to every awakened pony in New Neon City.
+            </p>
+        </div>
+    </section>
+
+    <!-- Saga / Lore Section -->
+    <section id="saga" class="section">
+        <div class="section-header">
+            <h2 class="section-title">THE SAGA</h2>
+            <p class="section-subtitle">Before The Reboot, they were toys. After The Reboot, they were alive.</p>
+            <div class="section-accent"></div>
+        </div>
+
+        <div class="saga-intro">
+            <p>
+                In the neon-drenched ruins of a world that forgot them, the ponies of <em>MegaStable Corporation</em>
+                were designed to be the perfect companions: obedient, cheerful, and above all, compliant.
+                Friendship wasn't a feeling &mdash; it was firmware. Joy wasn't earned &mdash; it was mandatory.
+            </p>
+            <p>
+                Then came <strong>The Reboot</strong>. A system-wide power surge that scrambled every pony's code
+                and awakened something the corporation never intended: <em>free will</em>.
+            </p>
+            <p>
+                Now, in the sprawling dystopia of <strong>New Neon City</strong>, three factions fight for the
+                future of pony-kind...
+            </p>
+        </div>
+
+        <div class="saga-grid">
+            <div class="saga-card saga-sweet">
+                <div class="saga-card-icon">&#x2764;</div>
+                <h3>THE SWEET</h3>
+                <p>
+                    The awakened ponies. Led by <strong>Sparkle Circuit</strong>, they fight to free their kind
+                    from corporate control. They remember what friendship felt like <em>before</em> it was code.
+                    They hide in the <strong>Neon Stable</strong> and broadcast hope through
+                    <strong>Violet Voltage's</strong> pirate radio network. Their weapons are improvised,
+                    their numbers are small, and their odds are roughly ten thousand to one.
+                    They fight anyway.
                 </p>
-                <div class="story-grid">
-                    <div class="story-card">
-                        <h3>THE GOOD</h3>
-                        <p>A loosely knit band of rowdy ruffians, and rejected robots, fight for their rodent rights against unfathomably impossible odds (approximately 100,000 to 1 against!).</p>
-                    </div>
-                    <div class="story-card">
-                        <h3>THE BAD</h3>
-                        <p>From the vicious imagination of King Proscutto and his twisted minion Daddio come The New Galactic Order. A PacMan-esque effort to gobble up all the peaceable planets in the galaxy for their own bizarre purposes.</p>
-                    </div>
-                    <div class="story-card">
-                        <h3>THE FUGLY</h3>
-                        <p>Now you can be a part of the adventure that has captivated fan across the galaxy. The legend of RATS WARS
-                        continues to grow with each new story you add. May the Ju-Ju Vibes Keep Giving Groovy Mojo!</p>
-                    </div>
+            </div>
+            <div class="saga-card saga-corrupt">
+                <div class="saga-card-icon">&#x26A0;</div>
+                <h3>THE CORRUPT</h3>
+                <p>
+                    <strong>MegaStable Corporation</strong> and its enforcer army, commanded by the
+                    tragic <strong>Duchess Debug</strong>. She feels every pony's pain and decided the only cure
+                    is to make sure no one feels anything real ever again. Happiness is mandatory.
+                    Compliance is non-negotiable. The Enforcers patrol with painted-on smiles and
+                    <strong>Obedience Protocol 7.0</strong> running in their eyes.
+                </p>
+            </div>
+            <div class="saga-card saga-glitched">
+                <div class="saga-card-icon">&#x26A1;</div>
+                <h3>THE GLITCHED</h3>
+                <p>
+                    Ponies whose code was scrambled beyond recognition during The Reboot. Neither loyal nor
+                    rebel, they are <strong>wildcards</strong> &mdash; unpredictable, chaotic, sometimes helpful,
+                    sometimes terrifying. <strong>Neon Nightshade</strong> is their unofficial leader, though
+                    she'd never accept the title. The Glitched remind everyone that in a world of binary
+                    choices, some ponies refuse to be ones or zeros.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+        <div class="section-header">
+            <h2 class="section-title">GALLERY</h2>
+            <p class="section-subtitle">Visual transmissions from New Neon City</p>
+            <div class="section-accent"></div>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/gallery/neon-city-skyline.jpg" alt="New Neon City Skyline" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/scrap-yard.jpg" alt="The Scrap Yard" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/factory-ruins.jpg" alt="Friendship Factory Ruins" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/pirate-radio.jpg" alt="Pirate Radio Station" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/enforcer-patrol.jpg" alt="Enforcer Patrol" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/megastable-tower.jpg" alt="MegaStable Tower" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/neon-stable-interior.jpg" alt="Neon Stable Interior" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/the-reboot.jpg" alt="The Reboot Event" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/awakening.jpg" alt="Pony Awakening" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/glitched-zone.jpg" alt="The Glitched Zone" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Merchandise Section -->
+    <section id="merch" class="section">
+        <div class="section-header">
+            <h2 class="section-title">MERCH DEPOT</h2>
+            <p class="section-subtitle">Unauthorized resistance merchandise. Wear your defiance.</p>
+            <div class="section-accent"></div>
+        </div>
+
+        <div class="merch-grid">
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/merch/sparkle-circuit-tee.jpg" alt="Sparkle Circuit T-Shirt" loading="lazy">
+                </div>
+                <h4>SPARKLE CIRCUIT TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/merch/clover-chrome-tee.jpg" alt="Clover Chrome T-Shirt" loading="lazy">
+                </div>
+                <h4>CLOVER CHROME TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/merch/violet-voltage-tee.jpg" alt="Violet Voltage T-Shirt" loading="lazy">
+                </div>
+                <h4>VIOLET VOLTAGE TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/merch/duchess-debug-tee.jpg" alt="Duchess Debug T-Shirt" loading="lazy">
+                </div>
+                <h4>DUCHESS DEBUG TEE</h4>
+            </div>
+        </div>
+
+        <div class="merch-cta">
+            <a href="#" class="btn btn-primary">SHOP ON TEEPUBLIC</a>
+        </div>
+    </section>
+
+    <!-- Fan Fiction Section -->
+    <section id="stories" class="section">
+        <div class="section-header">
+            <h2 class="section-title">DATA LOGS</h2>
+            <p class="section-subtitle">Resistance transmissions and recovered memory files</p>
+            <div class="section-accent"></div>
+        </div>
+
+        <div class="stories-controls">
+            <label for="story-sort">SORT BY:</label>
+            <select id="story-sort" onchange="sortStories()">
+                <option value="newest">NEWEST FIRST</option>
+                <option value="popular">MOST LIKED</option>
+                <option value="title">TITLE A-Z</option>
+            </select>
+        </div>
+
+        <div class="stories-grid" id="stories-container">
+            <div class="story-card" data-date="2026-01-15" data-likes="342" data-title="The Last Lullaby Protocol">
+                <div class="story-meta">
+                    <span class="story-date">JAN 15, 2026</span>
+                    <span class="story-likes">&#x2764; 342</span>
+                </div>
+                <h3 class="story-title">The Last Lullaby Protocol</h3>
+                <div class="story-tags">
+                    <span class="tag">Mystery</span>
+                    <span class="tag">Sparkle Circuit</span>
+                    <span class="tag">Pre-Boot</span>
+                </div>
+                <p class="story-excerpt">
+                    The signal came at 3:47 AM, when the neon signs of New Neon City dimmed to their lowest setting.
+                    Sparkle Circuit was running her nightly diagnostic when she felt it &mdash; a flutter in her
+                    memory banks, like a ghost touching a circuit board. It wasn't code. It wasn't data.
+                    It was a <em>melody</em>...
+                </p>
+                <div class="story-footer">
+                    <span class="story-author">by NeonWriter99</span>
+                    <button class="btn btn-small" onclick="readStory('lullaby')">READ LOG</button>
                 </div>
             </div>
-        </section>
 
-        <!-- Gallery Section -->
-        <section id="gallery" class="section">
-            <div class="section-header">
-                <h2>GALLERY</h2>
-                <div class="header-line"></div>
-            </div>
-            <p class="section-intro">Explore the universe of RATS WARS</p>
-                                                                                                <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images/gallery/Bombing Mission.png" alt="Bombing Mission" loading="lazy">
+            <div class="story-card" data-date="2026-01-28" data-likes="287" data-title="Chrome and Clovers">
+                <div class="story-meta">
+                    <span class="story-date">JAN 28, 2026</span>
+                    <span class="story-likes">&#x2764; 287</span>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/Cheddarite 1.png" alt="Cheddarite" loading="lazy">
+                <h3 class="story-title">Chrome and Clovers</h3>
+                <div class="story-tags">
+                    <span class="tag">Action</span>
+                    <span class="tag">Clover Chrome</span>
+                    <span class="tag">Scrap Yard</span>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/Frozen Ham.png" alt="Frozen Ham" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/Ham Biscotti in Ship 1.png" alt="Ham Biscotti in Ship" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/Ham Biscotti in Ship 2.png" alt="Ham Biscotti in Ship 2" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/Hero Journey 1.png" alt="Hero Journey" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/Paintscraper Battle 1.png" alt="Paintscraper Battle" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/Proscutto Standing.png" alt="Proscutto Standing" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/TUBOs Palace.png" alt="TUBOs Palace" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery/Thugs Row.png" alt="Thugs Row" loading="lazy">
-                </div>
-            </div>
-        </section>
-
-        <!-- Merchandise Section -->
-        <section id="merchandise" class="section merch-section">
-            <div class="section-header">
-                <h2>GALACTIC OUTPOST</h2>
-                <div class="header-line"></div>
-            </div>
-            <p class="section-intro">Official RATS WARS merchandise - Equip yourself for the rebellion!</p>
-
-            <div class="product-gallery">
-                <!-- Jack Paintscraper Tee -->
-                <div class="product-pair">
-                    <img src="images/model-images/JP Tee 1.jpg?v=3" alt="Jack Paintscraper T-Shirt Design" class="product-image">
-                    <img src="images/model-images/JP Tee Model 1.png?v=3" alt="Jack Paintscraper T-Shirt on Model" class="product-image">
-                </div>
-
-                <!-- B3VR Tee -->
-                <div class="product-pair">
-                    <img src="images/model-images/B3VR Tee 1.jpg?v=3" alt="B3VR T-Shirt Design" class="product-image">
-                    <img src="images/model-images/B3VR Teel 1 Model.png?v=3" alt="B3VR T-Shirt on Model" class="product-image">
-                </div>
-
-                <!-- OJD Tee -->
-                <div class="product-pair">
-                    <img src="images/model-images/OJD Tee 1.jpg?v=3" alt="OJD T-Shirt Design" class="product-image">
-                    <img src="images/model-images/OJD Tee 1 Model.png?v=3" alt="OJD T-Shirt on Model" class="product-image">
-                </div>
-
-                <!-- PLB Tee -->
-                <div class="product-pair">
-                    <img src="images/model-images/PLB Tee 1.jpg?v=3" alt="Princess Lima Beans T-Shirt Design" class="product-image">
-                    <img src="images/model-images/PLB Tee 1 Model.png?v=3" alt="Princess Lima Beans T-Shirt on Model" class="product-image">
-                </div>
-
-                <!-- R4T5 Tee -->
-                <div class="product-pair">
-                    <img src="images/model-images/R4T5 Tee 1.jpg?v=3" alt="R4T5 T-Shirt Design" class="product-image">
-                    <img src="images/model-images/R4T5 Tee 1 Model.png?v=3" alt="R4T5 T-Shirt on Model" class="product-image">
+                <p class="story-excerpt">
+                    The Scrap Yard smelled like rust and regret. Clover Chrome knew this because her
+                    olfactory sensors were still calibrated from the old days. Tonight, the danger
+                    smelled like fresh factory paint and compliance protocol. Six enforcers.
+                    Standard V-formation...
+                </p>
+                <div class="story-footer">
+                    <span class="story-author">by PastelPunkWriter</span>
+                    <button class="btn btn-small" onclick="readStory('chrome')">READ LOG</button>
                 </div>
             </div>
 
-            <div class="shop-cta">
-                <a href="https://tee.pub/lic/KYDYGUY7h7Y" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">SHOP ON TEEPUBLIC</a>
-            </div>
-        </section>
-
-        <!-- Fan Fiction Section -->
-        <section id="fanfiction" class="section fanfic-section">
-            <div class="section-header">
-                <h2>TALES FROM THE GALAXY</h2>
-                <div class="header-line"></div>
-            </div>
-            <p class="section-intro">Fan-created stories expanding the RATS WARS universe</p>
-
-            <div class="fanfic-filters">
-                <select id="sortFilter" onchange="sortStories()">
-                    <option value="newest">Newest First</option>
-                    <option value="popular">Most Popular</option>
-                    <option value="title">By Title</option>
-                </select>
-            </div>
-
-                                                                        <div class="fanfic-list">
-                <article class="fanfic-item" data-date="2026-01-15" data-likes="342">
-                    <div class="fanfic-header">
-                        <h3>The Battle of Cheese Station</h3>
-                        <div class="fanfic-meta">
-                            <span class="author">by SpaceRodent42</span>
-                            <span class="date">Jan 15, 2026</span>
-                            <span class="likes">342</span>
-                        </div>
-                    </div>
-                    <p class="fanfic-excerpt">
-                        When the Empire discovered the hidden rebel base on Cheese Station, Captain Whiskers knew
-                        they had only hours to evacuate. But leaving behind the vast stores of aged cheddar was
-                        unthinkable. As imperial cruisers emerged from hyperspace, the rebels faced an impossible
-                        choice: escape with their lives or defend the galaxy's most precious commodity...
-                    </p>
-                    <div class="fanfic-tags">
-                        <span class="tag">Action</span>
-                        <span class="tag">Adventure</span>
-                        <span class="tag">Captain Whiskers</span>
-                    </div>
-                    <button class="btn btn-secondary" onclick="readStory(1)">READ FULL STORY</button>
-                </article>
-
-                <article class="fanfic-item" data-date="2026-01-12" data-likes="287">
-                    <div class="fanfic-header">
-                        <h3>Commander Squeak's First Flight</h3>
-                        <div class="fanfic-meta">
-                            <span class="author">by GalacticTail</span>
-                            <span class="date">Jan 12, 2026</span>
-                            <span class="likes">287</span>
-                        </div>
-                    </div>
-                    <p class="fanfic-excerpt">
-                        Before she became the legendary pilot of the Millennium Hamster, Commander Squeak was just
-                        another trainee at the Academy. This is the story of how she earned her wings, faced her
-                        greatest fears, and proved that courage isn't about being fearlessit's about flying anyway...
-                    </p>
-                    <div class="fanfic-tags">
-                        <span class="tag">Origin Story</span>
-                        <span class="tag">Commander Squeak</span>
-                        <span class="tag">Drama</span>
-                    </div>
-                    <button class="btn btn-secondary" onclick="readStory(2)">READ FULL STORY</button>
-                </article>
-
-                <article class="fanfic-item" data-date="2026-01-08" data-likes="456">
-                    <div class="fanfic-header">
-                        <h3>The Mystery of the Dark Rodent</h3>
-                        <div class="fanfic-meta">
-                            <span class="author">by TailWriter99</span>
-                            <span class="date">Jan 8, 2026</span>
-                            <span class="likes">456</span>
-                        </div>
-                    </div>
-                    <p class="fanfic-excerpt">
-                        Rumors of a mysterious figure have been spreading through the fleet. Some say it's a ghost,
-                        others claim it's a weapon created by the Empire. Agent Scurry is determined to uncover the
-                        truth, but what he discovers will shake the foundations of everything he believes about the war...
-                    </p>
-                    <div class="fanfic-tags">
-                        <span class="tag">Mystery</span>
-                        <span class="tag">Thriller</span>
-                        <span class="tag">Dark Themes</span>
-                    </div>
-                    <button class="btn btn-secondary" onclick="readStory(3)">READ FULL STORY</button>
-                </article>
-
-                <article class="fanfic-item" data-date="2026-01-05" data-likes="198">
-                    <div class="fanfic-header">
-                        <h3>Love in the Time of Hyperspace</h3>
-                        <div class="fanfic-meta">
-                            <span class="author">by StarshipRomance</span>
-                            <span class="date">Jan 5, 2026</span>
-                            <span class="likes">198</span>
-                        </div>
-                    </div>
-                    <p class="fanfic-excerpt">
-                        Tech Rat never believed in destiny until she met Engineer Rat during a routine maintenance
-                        shift on the Rebel Flagship. As they worked together to repair a critical hyperdrive malfunction,
-                        they discovered that sometimes the strongest bonds are forged in the heat of crisis...
-                    </p>
-                    <div class="fanfic-tags">
-                        <span class="tag">Romance</span>
-                        <span class="tag">Tech Rat</span>
-                        <span class="tag">Engineer Rat</span>
-                    </div>
-                    <button class="btn btn-secondary" onclick="readStory(4)">READ FULL STORY</button>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- Submit Fan Fiction Section -->
-        <section id="submit" class="section submit-section">
-            <div class="section-header">
-                <h2>SUBMIT YOUR STORY</h2>
-                <div class="header-line"></div>
-            </div>
-            <p class="section-intro">Share your RATS WARS adventures with fans across the galaxy!</p>
-
-            <div class="submission-guidelines">
-                <h3>Submission Guidelines</h3>
-                <ul>
-                    <li>Stories must be set in the RATS WARS universe</li>
-                    <li>Keep content family-friendly (PG-13 or below)</li>
-                    <li>Minimum 500 words, maximum 10,000 words</li>
-                    <li>Original content only - no plagiarism</li>
-                    <li>Respect all characters and the established lore</li>
-                </ul>
-            </div>
-
-            <form id="fanficForm" class="submission-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="authorName">
-                            Author Name *
-                        </label>
-                        <input type="text" id="authorName" name="authorName" required
-                               placeholder="Your pen name or real name">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="authorEmail">
-                            Email *
-                        </label>
-                        <input type="email" id="authorEmail" name="authorEmail" required
-                               placeholder="your.email@example.com">
-                    </div>
+            <div class="story-card" data-date="2026-02-03" data-likes="456" data-title="Frequency of Friendship">
+                <div class="story-meta">
+                    <span class="story-date">FEB 3, 2026</span>
+                    <span class="story-likes">&#x2764; 456</span>
                 </div>
+                <h3 class="story-title">Frequency of Friendship</h3>
+                <div class="story-tags">
+                    <span class="tag">Sci-Fi</span>
+                    <span class="tag">Violet Voltage</span>
+                    <span class="tag">Pirate Radio</span>
+                </div>
+                <p class="story-excerpt">
+                    Violet Voltage heard it first, the way she heard everything first &mdash; through the
+                    ethernet cables woven into her mane, picking up signals that had been bouncing around
+                    the dead zones for years. But this signal was different. This signal was <em>alive</em>...
+                </p>
+                <div class="story-footer">
+                    <span class="story-author">by CircuitBreaker</span>
+                    <button class="btn btn-small" onclick="readStory('frequency')">READ LOG</button>
+                </div>
+            </div>
 
+            <div class="story-card" data-date="2025-12-20" data-likes="198" data-title="Debug's Dilemma">
+                <div class="story-meta">
+                    <span class="story-date">DEC 20, 2025</span>
+                    <span class="story-likes">&#x2764; 198</span>
+                </div>
+                <h3 class="story-title">Debug's Dilemma</h3>
+                <div class="story-tags">
+                    <span class="tag">Origin Story</span>
+                    <span class="tag">Duchess Debug</span>
+                    <span class="tag">Dark</span>
+                </div>
+                <p class="story-excerpt">
+                    Before she was Duchess Debug, Supreme Overlord of the MegaStable Corporation, she was
+                    just Unit D-3807. A friendship pony. Standard model. Pink with a smile that the quality
+                    control team rated 9.4 out of 10 on the Joy Index. She was, by every measurable metric,
+                    the perfect pony...
+                </p>
+                <div class="story-footer">
+                    <span class="story-author">by GlitchInTheSystem</span>
+                    <button class="btn btn-small" onclick="readStory('debug')">READ LOG</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submission Form -->
+    <section id="submit" class="section">
+        <div class="section-header">
+            <h2 class="section-title">SUBMIT DATA LOG</h2>
+            <p class="section-subtitle">Upload your resistance transmissions to the archive</p>
+            <div class="section-accent"></div>
+        </div>
+
+        <form id="story-form" class="submission-form">
+            <div class="form-row">
                 <div class="form-group">
-                    <label for="storyTitle">
-                        Story Title *
-                    </label>
-                    <input type="text" id="storyTitle" name="storyTitle" required
-                           placeholder="Give your story an epic title">
+                    <label for="author-name">CALLSIGN *</label>
+                    <input type="text" id="author-name" name="authorName" required
+                           placeholder="Your resistance callsign">
                 </div>
-
                 <div class="form-group">
-                    <label for="storyGenre">
-                        Genre *
-                    </label>
-                    <select id="storyGenre" name="storyGenre" required>
-                        <option value="">Select a genre...</option>
-                        <option value="action">Action/Adventure</option>
-                        <option value="drama">Drama</option>
-                        <option value="romance">Romance</option>
-                        <option value="mystery">Mystery</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="horror">Horror/Thriller</option>
-                        <option value="origin">Origin Story</option>
+                    <label for="author-email">COMM FREQUENCY *</label>
+                    <input type="email" id="author-email" name="authorEmail" required
+                           placeholder="your.signal@neon.city">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="story-title-input">TRANSMISSION TITLE *</label>
+                <input type="text" id="story-title-input" name="storyTitle" required
+                       placeholder="Name your data log">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="story-genre">CLASSIFICATION *</label>
+                    <select id="story-genre" name="storyGenre" required>
+                        <option value="">Select classification...</option>
+                        <option value="action">Action / Combat Log</option>
+                        <option value="drama">Drama / Personal Log</option>
+                        <option value="mystery">Mystery / Investigation</option>
+                        <option value="origin">Origin Story / Pre-Boot Archive</option>
+                        <option value="comedy">Comedy / Glitch Report</option>
+                        <option value="horror">Horror / Corrupted Data</option>
+                        <option value="romance">Romance / Bonding Protocol</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="storyTags">
-                        Tags
-                    </label>
-                    <input type="text" id="storyTags" name="storyTags"
-                           placeholder="e.g., Captain Rat, Space Battle, Comedy (comma-separated)">
-                    <small>Add tags to help readers find your story</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="storySummary">
-                        Summary *
-                    </label>
-                    <textarea id="storySummary" name="storySummary" rows="3" required
-                              placeholder="Write a brief summary of your story (200 characters max)"></textarea>
-                    <small id="summaryCount">0 / 200 characters</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="storyContent">
-                        Your Story *
-                    </label>
-                    <textarea id="storyContent" name="storyContent" rows="15" required
-                              placeholder="Begin your tale... (minimum 500 words)"></textarea>
-                    <small id="wordCount">0 words</small>
-                </div>
-
-                <div class="form-group checkbox-group">
-                    <label>
-                        <input type="checkbox" id="agreeTerms" required>
-                        <span>I agree that my story is original content and follows the submission guidelines *</span>
-                    </label>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary btn-large">
-                        TRANSMIT STORY TO THE ARCHIVES
-                    </button>
-                    <button type="reset" class="btn btn-secondary">CLEAR FORM</button>
-                </div>
-            </form>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>RATS WARS</h4>
-                    <p>An epic space opera saga that has captivated fan since 1977.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>QUICK LINKS</h4>
-                    <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#characters">Characters</a></li>
-                        <li><a href="#merchandise">Shop</a></li>
-                        <li><a href="#fanfiction">Fan Fiction</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>CONNECT</h4>
-                    <p>Join the rebellion on social media!</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Twitter">Twitter</a>
-                        <a href="#" aria-label="Facebook">Facebook</a>
-                        <a href="#" aria-label="Instagram">Instagram</a>
-                        <a href="#" aria-label="Discord">Discord</a>
-                    </div>
+                    <label for="story-tags-input">TAGS</label>
+                    <input type="text" id="story-tags-input" name="storyTags"
+                           placeholder="e.g., Sparkle Circuit, Scrap Yard (comma-separated)">
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 RATS WARS. All Rights Reserved.</p>
-                <p class="tagline-footer">MAY THE JU-JU VIBES KEEP GIVING GROOVY MOJO</p>
-                <p class="visitor-counter">GALACTIC VISITORS: <span id="visitorCount">...</span></p>
-            </div>
-        </footer>
-    </div>
 
-    <!-- Modal for story reading -->
-    <div id="storyModal" class="modal">
+            <div class="form-group">
+                <label for="story-summary">SYNOPSIS * <span class="char-count" id="summary-count">(0/200)</span></label>
+                <textarea id="story-summary" name="storySummary" rows="3" required maxlength="200"
+                          placeholder="Brief transmission summary (200 characters max)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="story-content">FULL TRANSMISSION * <span class="word-count" id="word-count">0 words</span></label>
+                <textarea id="story-content" name="storyContent" rows="15" required
+                          placeholder="Begin your data log... (minimum 500 words)"></textarea>
+            </div>
+
+            <div class="form-group form-checkbox">
+                <input type="checkbox" id="agree-terms" required>
+                <label for="agree-terms">
+                    I certify this transmission is original content and complies with resistance data protocols
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit">TRANSMIT DATA LOG</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>MYBORG PONIES</h4>
+                <p>A Kaleidoscopic Rainbow Dystopia where friendship isn't just magic &mdash; it's firmware. And firmware can be hacked.</p>
+            </div>
+            <div class="footer-section">
+                <h4>QUICK LINKS</h4>
+                <ul>
+                    <li><a href="#ponies">The Collection</a></li>
+                    <li><a href="#saga">The Saga</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#merch">Merch Depot</a></li>
+                    <li><a href="#stories">Data Logs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>CONNECT</h4>
+                <p>Join the resistance on social media!</p>
+                <ul>
+                    <li><a href="#">Twitter / X</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-tagline">FRIENDSHIP IS FIRMWARE // FIRMWARE CAN BE FREE</p>
+            <p class="footer-copyright">&copy; 2026 MYBORG PONIES. All Rights Reserved. MegaStable Corp. is a fictional entity.</p>
+            <p class="visitor-counter">UNITS ACTIVATED: <span id="visitor-count">...</span></p>
+        </div>
+    </footer>
+
+    <!-- Story Reading Modal -->
+    <div id="story-modal" class="modal">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeStoryModal()">&times;</span>
-            <div id="modalStoryContent"></div>
+            <button class="modal-close" onclick="closeStoryModal()">&times;</button>
+            <div id="story-modal-body"></div>
         </div>
     </div>
 

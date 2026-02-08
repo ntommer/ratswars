@@ -1,97 +1,69 @@
-// Service Worker for RATS WARS Content Editor PWA
-const CACHE_NAME = 'rats-wars-editor-v2';
-const urlsToCache = [
-  '/admin.html',
-  '/manifest.json',
-  '/images/icon.svg'
+/* ============================================================
+   MYBORG PONIES - Service Worker
+   "Friendship Is Firmware, Even Offline"
+   ============================================================ */
+
+const CACHE_NAME = 'myborg-ponies-v1';
+const URLS_TO_CACHE = [
+    '/',
+    '/index.html',
+    '/styles.css',
+    '/script.js',
+    '/manifest.json'
 ];
 
-// Install event - cache resources
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => {
-        // Skip waiting to activate immediately
-        return self.skipWaiting();
-      })
-  );
-});
-
-// Fetch event - network first for API calls, cache first for assets
-self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
-
-  // Network first for GitHub API calls
-  if (url.hostname === 'api.github.com') {
-    event.respondWith(
-      fetch(event.request)
-        .catch(() => {
-          return new Response(JSON.stringify({ error: 'Offline' }), {
-            status: 503,
-            headers: { 'Content-Type': 'application/json' }
-          });
+// Install - cache core assets
+self.addEventListener('install', function(event) {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(function(cache) {
+            return cache.addAll(URLS_TO_CACHE);
         })
     );
-    return;
-  }
-
-  // Cache first, then network for other requests
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        if (response) {
-          // Return cached response and update cache in background
-          fetch(event.request).then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(event.request, networkResponse);
-              });
-            }
-          }).catch(() => {});
-          return response;
-        }
-
-        // Not in cache, fetch from network
-        return fetch(event.request).then((networkResponse) => {
-          // Cache successful responses for same-origin requests
-          if (networkResponse && networkResponse.status === 200 && url.origin === location.origin) {
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-          }
-          return networkResponse;
-        });
-      })
-  );
-});
-
-// Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => {
-      // Take control of all pages immediately
-      return self.clients.claim();
-    })
-  );
-});
-
-// Handle messages from the main app
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
-  }
+});
+
+// Activate - clean old caches
+self.addEventListener('activate', function(event) {
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            return Promise.all(
+                cacheNames
+                    .filter(function(name) { return name !== CACHE_NAME; })
+                    .map(function(name) { return caches.delete(name); })
+            );
+        })
+    );
+    self.clients.claim();
+});
+
+// Fetch - network first, fall back to cache
+self.addEventListener('fetch', function(event) {
+    // Skip non-GET requests
+    if (event.request.method !== 'GET') return;
+
+    // Skip external API calls
+    if (event.request.url.includes('formspree.io') ||
+        event.request.url.includes('counterapi.dev') ||
+        event.request.url.includes('fonts.googleapis.com') ||
+        event.request.url.includes('fonts.gstatic.com')) {
+        return;
+    }
+
+    event.respondWith(
+        fetch(event.request)
+            .then(function(response) {
+                // Clone and cache successful responses
+                if (response.ok) {
+                    var responseClone = response.clone();
+                    caches.open(CACHE_NAME).then(function(cache) {
+                        cache.put(event.request, responseClone);
+                    });
+                }
+                return response;
+            })
+            .catch(function() {
+                // Fall back to cache when offline
+                return caches.match(event.request);
+            })
+    );
 });
