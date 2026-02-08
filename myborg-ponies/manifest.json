@@ -2,7 +2,7 @@
     "name": "MYBORG PONIES",
     "short_name": "Myborg",
     "description": "Friendship Is Firmware - A pastel dystopia where cute meets circuitry",
-    "start_url": "/myborg-ponies/index.html",
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#0A0010",
     "theme_color": "#FF1493",
@@ -28,11 +28,11 @@
     "shortcuts": [
         {
             "name": "View Ponies",
-            "url": "/myborg-ponies/index.html#characters"
+            "url": "/index.html#characters"
         },
         {
             "name": "Read Stories",
-            "url": "/myborg-ponies/index.html#fanfiction"
+            "url": "/index.html#fanfiction"
         }
     ]
 }

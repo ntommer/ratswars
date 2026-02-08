@@ -6,11 +6,11 @@
 const CACHE_NAME = 'myborg-ponies-v1';
 
 const PRECACHE_URLS = [
-    '/myborg-ponies/index.html',
-    '/myborg-ponies/styles.css',
-    '/myborg-ponies/script.js',
-    '/myborg-ponies/manifest.json',
-    '/myborg-ponies/images/icon.svg'
+    '/index.html',
+    '/styles.css',
+    '/script.js',
+    '/manifest.json',
+    '/images/icon.svg'
 ];
 
 // Install: Pre-cache essential files
