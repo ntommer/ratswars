@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="sh-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#151008" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="sh-neon">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#sh-glow)" opacity="0.5"/>
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#88664430" stroke-width="1"/>
+  <!-- Scrap/junk ground -->
+  <rect x="20" y="355" width="15" height="6" rx="1" fill="#554433" transform="rotate(-10 27 358)"/>
+  <rect x="60" y="358" width="10" height="4" rx="1" fill="#665544" transform="rotate(5 65 360)"/>
+  <rect x="310" y="356" width="12" height="5" rx="1" fill="#554433" transform="rotate(-8 316 358)"/>
+  <rect x="350" y="360" width="8" height="3" fill="#776655"/>
+
+  <!-- PONY 1 (front-left): Rust colored, missing ear, bolt eye -->
+  <g transform="translate(65, 180) scale(0.55)">
+    <ellipse cx="200" cy="240" rx="75" ry="50" fill="#AA6633" stroke="#886644" stroke-width="1"/>
+    <!-- Rust patches -->
+    <ellipse cx="185" cy="230" rx="12" ry="8" fill="#CC7744" opacity="0.5"/>
+    <ellipse cx="220" cy="245" rx="8" ry="10" fill="#884422" opacity="0.4"/>
+    <path d="M 235 200 Q 245 175 235 150 Q 230 140 220 135" fill="#AA6633"/>
+    <ellipse cx="210" cy="130" rx="35" ry="30" fill="#AA6633" stroke="#886644" stroke-width="1"/>
+    <!-- Missing ear (just a stump) -->
+    <rect x="192" y="105" width="8" height="6" rx="2" fill="#884422"/>
+    <!-- Bolt eye -->
+    <circle cx="222" cy="126" r="8" fill="#888888"/>
+    <circle cx="222" cy="126" r="4" fill="#666666"/>
+    <line x1="218" y1="126" x2="226" y2="126" stroke="#444444" stroke-width="2"/>
+    <!-- Muzzle -->
+    <ellipse cx="238" cy="140" rx="12" ry="8" fill="#BB7744"/>
+    <!-- Legs (mismatched) -->
+    <rect x="158" y="275" width="16" height="60" rx="6" fill="#AA6633"/>
+    <rect x="200" y="275" width="18" height="55" rx="6" fill="#888888"/>
+    <rect x="135" y="272" width="16" height="63" rx="6" fill="#777777"/>
+    <rect x="230" y="272" width="16" height="60" rx="6" fill="#AA6633"/>
+    <!-- Hooves -->
+    <rect x="156" y="328" width="20" height="8" rx="3" fill="#666666"/>
+    <rect x="198" y="324" width="22" height="8" rx="3" fill="#555555"/>
+    <rect x="133" y="328" width="20" height="8" rx="3" fill="#666666"/>
+    <rect x="228" y="326" width="20" height="8" rx="3" fill="#555555"/>
+    <!-- Scraggly mane (wires) -->
+    <path d="M 190 108 Q 178 95 182 110 Q 172 100 176 118" stroke="#666666" stroke-width="2" fill="none"/>
+    <!-- Short tail -->
+    <path d="M 130 238 Q 115 232 112 245" stroke="#666666" stroke-width="2.5" fill="none"/>
+    <!-- Exposed wire on body -->
+    <line x1="180" y1="225" x2="210" y2="225" stroke="#FFAA00" stroke-width="1" filter="url(#sh-neon)"/>
+  </g>
+
+  <!-- PONY 2 (center): Gray, patchwork, glowing red eye -->
+  <g transform="translate(145, 155) scale(0.6)">
+    <ellipse cx="200" cy="240" rx="78" ry="52" fill="#888888" stroke="#777777" stroke-width="1"/>
+    <!-- Patchwork plates -->
+    <rect x="170" y="222" width="25" height="18" rx="2" fill="#AA6633" stroke="#886644" stroke-width="0.5"/>
+    <rect x="210" y="230" width="20" height="15" rx="2" fill="#666666" stroke="#555555" stroke-width="0.5"/>
+    <path d="M 238 200 Q 248 172 238 145 Q 233 135 223 130" fill="#888888"/>
+    <ellipse cx="212" cy="125" rx="36" ry="32" fill="#888888" stroke="#777777" stroke-width="1"/>
+    <!-- Ears (one metal, one organic-ish) -->
+    <polygon points="195,100 188,72 205,90" fill="#999999"/>
+    <polygon points="225,96 228,70 238,90" fill="#AA6633"/>
+    <!-- Red glowing eye -->
+    <circle cx="225" cy="120" r="8" fill="#0A0010"/>
+    <circle cx="225" cy="120" r="5" fill="#FF0000" filter="url(#sh-neon)"/>
+    <circle cx="227" cy="118" r="2" fill="#FF6666"/>
+    <!-- Other eye (dim) -->
+    <circle cx="198" cy="124" r="6" fill="#0A0010"/>
+    <circle cx="199" cy="123" r="2.5" fill="#884422" opacity="0.5"/>
+    <!-- Muzzle -->
+    <ellipse cx="240" cy="136" rx="13" ry="8" fill="#999999"/>
+    <!-- Legs -->
+    <rect x="158" y="278" width="17" height="58" rx="6" fill="#888888"/>
+    <rect x="205" y="278" width="17" height="55" rx="6" fill="#777777"/>
+    <rect x="135" y="275" width="18" height="62" rx="6" fill="#AA6633"/>
+    <rect x="232" y="275" width="17" height="60" rx="6" fill="#888888"/>
+    <!-- Hooves -->
+    <rect x="156" y="330" width="20" height="8" rx="3" fill="#555555"/>
+    <rect x="203" y="327" width="20" height="8" rx="3" fill="#666666"/>
+    <rect x="133" y="330" width="22" height="8" rx="3" fill="#555555"/>
+    <rect x="230" y="329" width="20" height="8" rx="3" fill="#666666"/>
+    <!-- Wire mane -->
+    <path d="M 192 98 Q 180 82 184 102 Q 172 88 176 112" stroke="#555555" stroke-width="2.5" fill="none"/>
+    <path d="M 188 100 Q 174 86 178 106" stroke="#FFAA00" stroke-width="1" fill="none" filter="url(#sh-neon)"/>
+    <!-- Tail -->
+    <path d="M 128 238 Q 108 228 102 248 Q 98 258 105 255" stroke="#555555" stroke-width="2.5" fill="none"/>
+    <!-- Antenna (broken) -->
+    <line x1="215" y1="95" x2="212" y2="68" stroke="#888888" stroke-width="1.5"/>
+    <line x1="212" y1="68" x2="218" y2="60" stroke="#888888" stroke-width="1" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- PONY 3 (right): Small, green-tinted, cobbled -->
+  <g transform="translate(255, 200) scale(0.48)">
+    <ellipse cx="200" cy="240" rx="70" ry="45" fill="#667766" stroke="#556655" stroke-width="1"/>
+    <!-- Scrap patches -->
+    <rect x="180" y="228" width="15" height="12" rx="1" fill="#888888" stroke="#777777" stroke-width="0.5"/>
+    <path d="M 232 210 Q 240 185 232 160 Q 228 152 220 148" fill="#667766"/>
+    <ellipse cx="210" cy="142" rx="32" ry="28" fill="#667766" stroke="#556655" stroke-width="1"/>
+    <!-- Ear (tin can) -->
+    <rect x="193" y="116" width="10" height="14" rx="2" fill="#999999" stroke="#888888" stroke-width="0.5"/>
+    <!-- Eyes (mismatched, one is a button) -->
+    <circle cx="222" cy="138" r="7" fill="#0A0010"/>
+    <circle cx="222" cy="138" r="3.5" fill="#00FF88" filter="url(#sh-neon)"/>
+    <circle cx="198" cy="142" r="5" fill="#AA8844"/>
+    <circle cx="198" cy="142" r="2" fill="#886633"/>
+    <!-- Muzzle -->
+    <ellipse cx="235" cy="152" rx="11" ry="7" fill="#778877"/>
+    <!-- Legs (wobbly, thin) -->
+    <rect x="162" y="272" width="14" height="50" rx="5" fill="#667766"/>
+    <rect x="200" y="272" width="14" height="48" rx="5" fill="#888888"/>
+    <rect x="142" y="270" width="14" height="52" rx="5" fill="#667766"/>
+    <rect x="225" y="270" width="14" height="50" rx="5" fill="#777777"/>
+    <!-- Hooves -->
+    <rect x="160" y="316" width="18" height="7" rx="3" fill="#555555"/>
+    <rect x="198" y="314" width="18" height="7" rx="3" fill="#666666"/>
+    <rect x="140" y="316" width="18" height="7" rx="3" fill="#555555"/>
+    <rect x="223" y="314" width="18" height="7" rx="3" fill="#666666"/>
+    <!-- Mane (spring coil) -->
+    <path d="M 195 118 Q 188 108 192 115 Q 185 105 190 112 Q 183 100 188 108" stroke="#999999" stroke-width="1.5" fill="none"/>
+    <!-- Tail (spring) -->
+    <path d="M 135 238 Q 122 232 125 242 Q 118 236 122 246" stroke="#999999" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Static/interference lines across scene -->
+  <line x1="0" y1="220" x2="400" y2="220" stroke="#FFAA00" stroke-width="0.5" opacity="0.15"/>
+  <line x1="0" y1="280" x2="400" y2="280" stroke="#FF4444" stroke-width="0.5" opacity="0.1"/>
+
+  <!-- Small scattered parts on ground -->
+  <circle cx="180" cy="365" r="3" fill="#888888" opacity="0.5"/>
+  <rect x="260" y="363" width="6" height="3" fill="#AA6633" opacity="0.4"/>
+  <circle cx="120" cy="368" r="2" fill="#666666" opacity="0.4"/>
+
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#AA6633" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">THE SCRAP HERD</text>
+</svg>

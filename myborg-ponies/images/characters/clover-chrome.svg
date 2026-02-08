@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="cc-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a0025" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="cc-neon">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#cc-glow)" opacity="0.5"/>
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#9932CC30" stroke-width="1"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Blade horn (spiral, sharp) -->
+  <path d="M 200 90 L 195 55 L 205 55 Z" fill="#C0C0C0" stroke="#888888" stroke-width="1"/>
+  <path d="M 197 80 L 203 73" stroke="#AAAAAA" stroke-width="0.8"/>
+  <path d="M 196 70 L 204 63" stroke="#AAAAAA" stroke-width="0.8"/>
+  <line x1="195" y1="55" x2="205" y2="55" stroke="#DDDDDD" stroke-width="1"/>
+  <!-- Blade edge glow -->
+  <path d="M 200 90 L 195 55 L 205 55 Z" fill="none" stroke="#9932CC" stroke-width="1" filter="url(#cc-neon)" opacity="0.6"/>
+  <!-- Ear -->
+  <polygon points="225,95 220,68 240,88" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Disk eye (saw-like) -->
+  <circle cx="230" cy="115" r="12" fill="#888888" stroke="#666666" stroke-width="1"/>
+  <circle cx="230" cy="115" r="8" fill="#AAAAAA"/>
+  <circle cx="230" cy="115" r="3" fill="#9932CC" filter="url(#cc-neon)"/>
+  <!-- Disk teeth -->
+  <line x1="218" y1="115" x2="222" y2="115" stroke="#666666" stroke-width="1.5"/>
+  <line x1="238" y1="115" x2="242" y2="115" stroke="#666666" stroke-width="1.5"/>
+  <line x1="230" y1="103" x2="230" y2="107" stroke="#666666" stroke-width="1.5"/>
+  <line x1="230" y1="123" x2="230" y2="127" stroke="#666666" stroke-width="1.5"/>
+  <line x1="222" y1="107" x2="224" y2="109" stroke="#666666" stroke-width="1"/>
+  <line x1="236" y1="121" x2="238" y2="123" stroke="#666666" stroke-width="1"/>
+  <line x1="222" y1="123" x2="224" y2="121" stroke="#666666" stroke-width="1"/>
+  <line x1="236" y1="109" x2="238" y2="107" stroke="#666666" stroke-width="1"/>
+  <!-- Normal eye (left) -->
+  <circle cx="200" cy="118" r="7" fill="#0A0010"/>
+  <circle cx="202" cy="116" r="3" fill="#9932CC"/>
+  <!-- Muzzle -->
+  <ellipse cx="245" cy="132" rx="14" ry="9" fill="#FF7DC0"/>
+  <!-- Front legs -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#FF69B4"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#FF69B4"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#F060A8"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#F060A8"/>
+  <!-- Hooves (chrome) -->
+  <rect x="158" y="342" width="24" height="10" rx="4" fill="#9932CC"/>
+  <rect x="208" y="342" width="24" height="10" rx="4" fill="#9932CC"/>
+  <rect x="128" y="342" width="26" height="10" rx="4" fill="#9932CC"/>
+  <rect x="238" y="342" width="26" height="10" rx="4" fill="#9932CC"/>
+  <!-- Mane (purple chrome) -->
+  <path d="M 195 92 Q 178 75 182 100 Q 168 80 172 108 Q 158 92 164 120 Q 148 110 155 138" stroke="#9932CC" stroke-width="3" fill="none" filter="url(#cc-neon)"/>
+  <path d="M 195 92 Q 183 80 186 98" stroke="#BB66EE" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <!-- Tail -->
+  <path d="M 120 240 Q 95 228 88 255 Q 82 275 98 268" stroke="#9932CC" stroke-width="3" fill="none" filter="url(#cc-neon)"/>
+  <!-- Green clover cutie mark -->
+  <g transform="translate(170,218)" filter="url(#cc-neon)">
+    <circle cx="0" cy="-5" r="5" fill="#00CC44"/>
+    <circle cx="5" cy="2" r="5" fill="#00CC44"/>
+    <circle cx="-5" cy="2" r="5" fill="#00CC44"/>
+    <circle cx="0" cy="5" r="5" fill="#00CC44"/>
+    <line x1="0" y1="5" x2="0" y2="15" stroke="#00AA33" stroke-width="2"/>
+  </g>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#9932CC" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">CLOVER CHROME</text>
+</svg>

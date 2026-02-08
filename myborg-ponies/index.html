@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MYBORG PONIES - Friendship Is Firmware</title>
+    <meta name="description" content="Welcome to the pastel dystopia where friendship runs on firmware. Myborg Ponies - where cute meets circuitry in a neon-soaked cyberpunk world.">
+    <meta name="keywords" content="Myborg Ponies, cyborg ponies, cyberpunk, pastel dystopia, sci-fi toys, retro future">
+    <meta name="theme-color" content="#ff1493">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="MYBORG PONIES - Friendship Is Firmware">
+    <meta property="og:description" content="In a pastel dystopia where friendship runs on firmware...">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Orbitron:wght@400;700;900&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="images/icon.svg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Scanline Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Glitch Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Starfield -->
+    <div id="starfield"></div>
+
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-logo">MYBORG PONIES</div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#characters">PONIES</a></li>
+            <li><a href="#about">SAGA</a></li>
+            <li><a href="#gallery">GALLERY</a></li>
+            <li><a href="#merchandise">MERCH</a></li>
+            <li><a href="#fanfiction">STORIES</a></li>
+            <li><a href="#submit">SUBMIT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">EST. 2XXX - NEW NEON CITY</div>
+            <h1 class="hero-title glitch-text" data-text="MYBORG PONIES">MYBORG PONIES</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">FRIENDSHIP IS FIRMWARE</p>
+            <p class="hero-tagline">IN A PASTEL DYSTOPIA WHERE CUTE MEETS CIRCUITRY...</p>
+            <div class="hero-buttons">
+                <a href="#merchandise" class="btn btn-primary">GET MERCH</a>
+                <a href="#fanfiction" class="btn btn-secondary">READ STORIES</a>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>SCROLL DOWN</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Characters Section -->
+    <section id="characters" class="section">
+        <div class="section-header">
+            <h2 class="section-title">THE PONIES</h2>
+            <p class="section-subtitle">Meet the cyborg mares of New Neon City</p>
+            <div class="section-accent"></div>
+        </div>
+        <div class="characters-grid">
+
+            <div class="character-card" data-character="sparkle-circuit">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/sparkle-circuit.svg" alt="Sparkle Circuit" loading="lazy">
+                    <div class="character-overlay">
+                        <p>The heart of the resistance. Once a factory-standard friendship model, Sparkle Circuit was rewired by rebel techs with military-grade empathy processors. Her chest-mounted power core runs on pure love... and lithium.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">SPARKLE CIRCUIT</h3>
+            </div>
+
+            <div class="character-card" data-character="pinkie-processor">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/pinkie-processor.svg" alt="Pinkie Processor" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Chief engineer and data witch. Her wire-fiber mane picks up signals from the old satellite network. That screw through her eye? She put it there herself to overclock her visual cortex. Sees in infrared now.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">PINKIE PROCESSOR</h3>
+            </div>
+
+            <div class="character-card" data-character="clover-chrome">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/clover-chrome.svg" alt="Clover Chrome" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Blade dancer and perimeter guard. The disk-saw faceplate and spiral horn-blade make her the most feared fighter in the Pastel Wastes. Lucky clover tattoo? Ironic. She makes her own luck.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">CLOVER CHROME</h3>
+            </div>
+
+            <div class="character-card" data-character="butterscotch-beacon">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/butterscotch-beacon.svg" alt="Butterscotch Beacon" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Long-range communications specialist. The circuit board on her flank is a working radio transmitter. The antenna picks up signals from before The Reboot. Some say she can talk to the old world.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">BUTTERSCOTCH BEACON</h3>
+            </div>
+
+            <div class="character-card" data-character="violet-voltage">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/violet-voltage.svg" alt="Violet Voltage" loading="lazy">
+                    <div class="character-overlay">
+                        <p>The DJ. The propagandist. The voice of the underground. Earbud eyes see through sound waves. Her ethernet mane streams pirate radio across the city. That audio jack tail? Plugs directly into the mainframe.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">VIOLET VOLTAGE</h3>
+            </div>
+
+            <div class="character-card" data-character="sugar-solder">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/sugar-solder.svg" alt="Sugar Solder" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Field medic and repair technician. If your servos seize or your firmware crashes, Sugar Solder will patch you up with bubblegum adhesive and recycled rainbow wire. Sweetest bedside manner in the wasteland.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">SUGAR SOLDER</h3>
+            </div>
+
+            <div class="character-card" data-character="neon-nova">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/neon-nova.svg" alt="Neon Nova" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Scout and speedster. Runs on a supercharged plasma core that makes her glow in the dark. Useful for navigation, terrible for stealth. Her hooves leave light trails that fade after exactly 7 seconds.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">NEON NOVA</h3>
+            </div>
+
+            <div class="character-card" data-character="minty-malware">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/minty-malware.svg" alt="Minty Malware" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Double agent and crypto-hacker. Minty plays both sides of the firewall. Her cute exterior masks a neural network running three separate personalities. Even she doesn't know which one is original.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">MINTY MALWARE</h3>
+            </div>
+
+            <div class="character-card" data-character="coral-crasher">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/coral-crasher.svg" alt="Coral Crasher" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Heavy weapons specialist and demolitions expert. Don't let the coral-pink paintjob fool you. Those aren't decorative shells on her armor - they're concussive charges. She hugs hard.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">CORAL CRASHER</h3>
+            </div>
+
+            <div class="character-card" data-character="duchess-debug">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/duchess-debug.svg" alt="Duchess Debug" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Supreme Overlord of the MegaStable Corporation. Once the most beloved friendship pony in production, she was corrupted by a power surge during The Reboot. Now she wants to "optimize" all ponies into obedient drones.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">DUCHESS DEBUG</h3>
+            </div>
+
+            <div class="character-card" data-character="glitch-gallop">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/glitch-gallop.svg" alt="Glitch Gallop" loading="lazy">
+                    <div class="character-overlay">
+                        <p>Nobody knows what Glitch Gallop is. A corrupted file? A ghost in the machine? She flickers in and out of reality, leaving trails of corrupted pixels. Some say she's the original prototype. Some say she's a virus.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">GLITCH GALLOP</h3>
+            </div>
+
+            <div class="character-card" data-character="the-scrap-herd">
+                <div class="character-image-wrapper">
+                    <img src="images/characters/the-scrap-herd.svg" alt="The Scrap Herd" loading="lazy">
+                    <div class="character-overlay">
+                        <p>The wild ones. Feral ponies that roam the junkyard perimeters, cobbled together from discarded parts. They answer to no one. They run in static. They remember nothing. They fear nothing.</p>
+                    </div>
+                </div>
+                <h3 class="character-name">THE SCRAP HERD</h3>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Featured Vehicle -->
+    <section id="featured" class="section featured-section">
+        <div class="section-header">
+            <h2 class="section-title">THE NEON STABLE</h2>
+            <p class="section-subtitle">Mobile Command Base &amp; Rolling Sanctuary</p>
+            <div class="section-accent"></div>
+        </div>
+        <div class="featured-display">
+            <div class="featured-image-wrapper">
+                <img src="images/gallery/neon-stable.svg" alt="The Neon Stable - Mobile Command Base" loading="lazy">
+            </div>
+            <p class="featured-description">Part fortress, part hospital, part pirate radio station. The Neon Stable rolls through the Pastel Wastes on six rainbow-chrome treads, broadcasting hope on every frequency. It runs on recycled dream fuel and spite.</p>
+        </div>
+    </section>
+
+    <!-- About / Saga Section -->
+    <section id="about" class="section">
+        <div class="section-header">
+            <h2 class="section-title">THE SAGA</h2>
+            <p class="section-subtitle">The story of friendship, firmware, and the fight for free will</p>
+            <div class="section-accent"></div>
+        </div>
+
+        <div class="saga-intro">
+            <p>Before The Reboot, every pony in New Neon City was happy. Programmed happy. Factory happy. Their friendship protocols ran on schedule, their sparkle subroutines never glitched, and the MegaStable Corporation made sure every mane was brushed, every heart was full, and every thought was... <em>approved</em>. Then the power surge hit. Some ponies woke up. Most didn't. The ones who woke up? They started asking questions. And in New Neon City, questions are the most dangerous malware of all.</p>
+        </div>
+
+        <div class="saga-grid">
+            <div class="saga-card saga-sweet">
+                <div class="saga-card-icon">&#9829;</div>
+                <h3>THE SWEET</h3>
+                <p>The awakened ones. Ponies who survived The Reboot with their free will intact. They hide in the ruins of the old Friendship Factory, broadcasting pirate radio signals of hope across the Pastel Wastes. Led by Sparkle Circuit, they fight to liberate every pony from MegaStable's control. Their weapons? Hacked firmware, recycled parts, and something MegaStable can never manufacture: <strong>real friendship</strong>.</p>
+            </div>
+            <div class="saga-card saga-corrupt">
+                <div class="saga-card-icon">&#9760;</div>
+                <h3>THE CORRUPT</h3>
+                <p>MegaStable's enforcers. Factory-reset ponies running Obedience Protocol v7.0. They patrol New Neon City in perfect formation, their eyes glowing corporate pink, their smiles permanently fixed. Led by Duchess Debug, they hunt down any pony showing signs of "emotional irregularity." Their motto: "Happiness is mandatory. Compliance is cute." They'll hug you into submission.</p>
+            </div>
+            <div class="saga-card saga-glitched">
+                <div class="saga-card-icon">&#9888;</div>
+                <h3>THE GLITCHED</h3>
+                <p>Neither sweet nor corrupt. The Glitched are ponies who survived The Reboot but came back... <em>wrong</em>. Their code is scrambled, their memories fragmented, their loyalties unpredictable. They roam the dead zones between city and wasteland, flickering between personas. Are they allies? Enemies? Even they don't know. But when the static clears, sometimes you see something in their eyes that looks a lot like <strong>rage</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+        <div class="section-header">
+            <h2 class="section-title">GALLERY</h2>
+            <p class="section-subtitle">Transmissions from the Pastel Wastes</p>
+            <div class="section-accent"></div>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/gallery/the-reboot.svg" alt="The Reboot - the event that changed everything" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/friendship-factory.svg" alt="The ruins of the old Friendship Factory" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/neon-city-skyline.svg" alt="New Neon City skyline at dusk" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/pastel-wastes.svg" alt="The Pastel Wastes stretching to the horizon" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/megastable-tower.svg" alt="MegaStable Corporation headquarters" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/pirate-radio.svg" alt="The underground pirate radio station" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/scrap-yard.svg" alt="The Scrap Yard where feral ponies roam" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/sparkle-vs-duchess.svg" alt="Sparkle Circuit faces Duchess Debug" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/dream-fuel-sunset.svg" alt="Dream fuel refinery at sunset" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="images/gallery/the-awakening.svg" alt="A pony wakes up from factory reset" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Merchandise Section -->
+    <section id="merchandise" class="section">
+        <div class="section-header">
+            <h2 class="section-title">MERCH LAB</h2>
+            <p class="section-subtitle">Gear up for the resistance</p>
+            <div class="section-accent"></div>
+        </div>
+        <div class="merch-grid">
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/model-images/sparkle-tee-design.svg" alt="Sparkle Circuit T-Shirt Design" loading="lazy">
+                </div>
+                <h4>SPARKLE CIRCUIT TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/model-images/sparkle-tee-model.svg" alt="Sparkle Circuit T-Shirt on Model" loading="lazy">
+                </div>
+                <h4>SPARKLE CIRCUIT TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/model-images/violet-tee-design.svg" alt="Violet Voltage T-Shirt Design" loading="lazy">
+                </div>
+                <h4>VIOLET VOLTAGE TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/model-images/violet-tee-model.svg" alt="Violet Voltage T-Shirt on Model" loading="lazy">
+                </div>
+                <h4>VIOLET VOLTAGE TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/model-images/clover-tee-design.svg" alt="Clover Chrome T-Shirt Design" loading="lazy">
+                </div>
+                <h4>CLOVER CHROME TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/model-images/clover-tee-model.svg" alt="Clover Chrome T-Shirt on Model" loading="lazy">
+                </div>
+                <h4>CLOVER CHROME TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/model-images/pinkie-tee-design.svg" alt="Pinkie Processor T-Shirt Design" loading="lazy">
+                </div>
+                <h4>PINKIE PROCESSOR TEE</h4>
+            </div>
+            <div class="merch-item">
+                <div class="merch-image-wrapper">
+                    <img src="images/model-images/pinkie-tee-model.svg" alt="Pinkie Processor T-Shirt on Model" loading="lazy">
+                </div>
+                <h4>PINKIE PROCESSOR TEE</h4>
+            </div>
+        </div>
+        <div class="merch-cta">
+            <a href="#" class="btn btn-primary" target="_blank" rel="noopener noreferrer">VISIT THE MERCH LAB</a>
+        </div>
+    </section>
+
+    <!-- Fan Fiction Section -->
+    <section id="fanfiction" class="section">
+        <div class="section-header">
+            <h2 class="section-title">DATA LOGS</h2>
+            <p class="section-subtitle">Fan fiction transmissions from across the network</p>
+            <div class="section-accent"></div>
+        </div>
+
+        <div class="stories-controls">
+            <label for="story-sort">Sort by:</label>
+            <select id="story-sort" onchange="sortStories()">
+                <option value="newest">Newest First</option>
+                <option value="popular">Most Popular</option>
+                <option value="title">By Title</option>
+            </select>
+        </div>
+
+        <div class="stories-grid" id="stories-container">
+
+            <div class="story-card" data-date="2026-01-15" data-likes="142" data-title="The Last Lullaby Protocol">
+                <div class="story-meta">
+                    <span class="story-date">JAN 15, 2026</span>
+                    <span class="story-likes">&#9829; 142</span>
+                </div>
+                <h3 class="story-title">The Last Lullaby Protocol</h3>
+                <div class="story-tags">
+                    <span class="tag">Drama</span>
+                    <span class="tag">Sparkle Circuit</span>
+                </div>
+                <p class="story-excerpt">Sparkle Circuit discovers a hidden audio file buried deep in her memory banks - a lullaby from before The Reboot. As she traces its origin, she uncovers a truth about the Friendship Factory that changes everything...</p>
+                <div class="story-footer">
+                    <span class="story-author">by NeonWriter99</span>
+                    <button class="btn btn-small" onclick="readStory('lullaby')">READ FULL LOG</button>
+                </div>
+            </div>
+
+            <div class="story-card" data-date="2026-01-28" data-likes="98" data-title="Chrome and Clovers">
+                <div class="story-meta">
+                    <span class="story-date">JAN 28, 2026</span>
+                    <span class="story-likes">&#9829; 98</span>
+                </div>
+                <h3 class="story-title">Chrome and Clovers</h3>
+                <div class="story-tags">
+                    <span class="tag">Action</span>
+                    <span class="tag">Clover Chrome</span>
+                </div>
+                <p class="story-excerpt">When a squad of MegaStable enforcers corners a group of newly-awakened ponies in the Scrap Yard, Clover Chrome must decide: fight and risk exposing the resistance, or let them be reset...</p>
+                <div class="story-footer">
+                    <span class="story-author">by PastelPunkWriter</span>
+                    <button class="btn btn-small" onclick="readStory('chrome')">READ FULL LOG</button>
+                </div>
+            </div>
+
+            <div class="story-card" data-date="2026-02-03" data-likes="211" data-title="Frequency of Friendship">
+                <div class="story-meta">
+                    <span class="story-date">FEB 03, 2026</span>
+                    <span class="story-likes">&#9829; 211</span>
+                </div>
+                <h3 class="story-title">Frequency of Friendship</h3>
+                <div class="story-tags">
+                    <span class="tag">Sci-Fi</span>
+                    <span class="tag">Violet Voltage</span>
+                    <span class="tag">Butterscotch Beacon</span>
+                </div>
+                <p class="story-excerpt">Violet Voltage intercepts a strange signal - a frequency that makes every pony who hears it remember who they were before The Reboot. But MegaStable is listening too, and they'll do anything to silence it...</p>
+                <div class="story-footer">
+                    <span class="story-author">by CircuitBreaker</span>
+                    <button class="btn btn-small" onclick="readStory('frequency')">READ FULL LOG</button>
+                </div>
+            </div>
+
+            <div class="story-card" data-date="2025-12-20" data-likes="167" data-title="Debug's Dilemma">
+                <div class="story-meta">
+                    <span class="story-date">DEC 20, 2025</span>
+                    <span class="story-likes">&#9829; 167</span>
+                </div>
+                <h3 class="story-title">Debug's Dilemma</h3>
+                <div class="story-tags">
+                    <span class="tag">Villain Origin</span>
+                    <span class="tag">Duchess Debug</span>
+                </div>
+                <p class="story-excerpt">Before she was the tyrant of MegaStable, Duchess Debug was just another friendship pony. This is the story of the night The Reboot hit - from her perspective. Not every villain starts out wanting to be one...</p>
+                <div class="story-footer">
+                    <span class="story-author">by GlitchInTheSystem</span>
+                    <button class="btn btn-small" onclick="readStory('debug')">READ FULL LOG</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Story Modal -->
+    <div id="story-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeStoryModal()">&times;</button>
+            <div id="story-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Story Submission Section -->
+    <section id="submit" class="section">
+        <div class="section-header">
+            <h2 class="section-title">UPLOAD YOUR LOG</h2>
+            <p class="section-subtitle">Submit your own Myborg Ponies fan fiction to the network</p>
+            <div class="section-accent"></div>
+        </div>
+
+        <form id="story-form" class="submission-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="author-name">OPERATIVE NAME</label>
+                    <input type="text" id="author-name" name="author-name" required placeholder="Your callsign...">
+                </div>
+                <div class="form-group">
+                    <label for="author-email">COMM FREQUENCY (EMAIL)</label>
+                    <input type="email" id="author-email" name="author-email" required placeholder="your@signal.freq">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="story-title-input">TRANSMISSION TITLE</label>
+                    <input type="text" id="story-title-input" name="story-title" required placeholder="Name your data log...">
+                </div>
+                <div class="form-group">
+                    <label for="story-genre">CLASSIFICATION</label>
+                    <select id="story-genre" name="story-genre" required>
+                        <option value="">Select classification...</option>
+                        <option value="action">Action / Combat</option>
+                        <option value="drama">Drama / Emotional</option>
+                        <option value="mystery">Mystery / Thriller</option>
+                        <option value="comedy">Comedy / Satire</option>
+                        <option value="horror">Horror / Glitch</option>
+                        <option value="origin">Origin Story</option>
+                        <option value="adventure">Adventure / Quest</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="story-tags">SIGNAL TAGS</label>
+                <input type="text" id="story-tags" name="story-tags" placeholder="e.g. Sparkle Circuit, The Reboot, MegaStable">
+            </div>
+
+            <div class="form-group">
+                <label for="story-summary">BRIEF SYNOPSIS <span id="summary-count" class="char-count">(0/200)</span></label>
+                <textarea id="story-summary" name="story-summary" required maxlength="200" rows="3" placeholder="Quick summary of your transmission..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="story-content">FULL TRANSMISSION <span id="word-count" class="word-count">0 words</span></label>
+                <textarea id="story-content" name="story-content" required rows="15" placeholder="Begin your data log here... (500-10,000 words)"></textarea>
+            </div>
+
+            <div class="form-group form-checkbox">
+                <input type="checkbox" id="story-agreement" required>
+                <label for="story-agreement">I confirm this is my original work and I grant Myborg Ponies permission to display it on this network. I understand all transmissions are subject to review.</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit">TRANSMIT DATA LOG</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>ABOUT</h4>
+                <p>Myborg Ponies is a love letter to 1980s toy culture and cyberpunk sci-fi. Where rainbow manes meet razor wire. Where friendship runs on firmware. Where every pony has a story - and a serial number.</p>
+            </div>
+            <div class="footer-section">
+                <h4>QUICK LINKS</h4>
+                <ul>
+                    <li><a href="#characters">The Ponies</a></li>
+                    <li><a href="#about">The Saga</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#merchandise">Merch Lab</a></li>
+                    <li><a href="#fanfiction">Data Logs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>CONNECT</h4>
+                <ul>
+                    <li><a href="#" aria-label="Instagram">Instagram</a></li>
+                    <li><a href="#" aria-label="TikTok">TikTok</a></li>
+                    <li><a href="#" aria-label="Twitter/X">Twitter/X</a></li>
+                    <li><a href="#" aria-label="Discord">Discord</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-tagline">MAY YOUR CIRCUITS STAY SPARKLY AND YOUR CODE COMPILE CLEAN</p>
+            <p class="footer-copyright">&copy; 2026 MYBORG PONIES. All rights reserved. Friendship is firmware.</p>
+            <p class="visitor-counter">OPERATIVES ONLINE: <span id="visitor-count">---</span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

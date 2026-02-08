@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0033"/>
+      <stop offset="100%" stop-color="#0A0010"/>
+    </linearGradient>
+    <linearGradient id="ruin-wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#251040"/>
+      <stop offset="100%" stop-color="#120018"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <!-- Dim haze -->
+  <rect x="0" y="200" width="640" height="200" fill="#BF00FF" opacity="0.03"/>
+  <!-- Ground -->
+  <rect x="0" y="290" width="640" height="110" fill="#0A0010" opacity="0.9"/>
+  <line x1="0" y1="290" x2="640" y2="290" stroke="#FF1493" stroke-width="0.5" opacity="0.3"/>
+  <!-- Main factory building - ruined -->
+  <rect x="140" y="120" width="360" height="170" fill="url(#ruin-wall)" stroke="#BF00FF" stroke-width="1"/>
+  <!-- Broken top edge -->
+  <path d="M 140 120 L 140 100 L 180 120 L 220 105 L 260 120 L 300 110 L 340 120 L 380 108 L 420 120 L 460 115 L 500 120" fill="#1A0033" stroke="#BF00FF" stroke-width="1"/>
+  <!-- Large chimney - broken -->
+  <rect x="420" y="60" width="40" height="60" fill="#1A0033" stroke="#BF00FF" stroke-width="1"/>
+  <path d="M 420 60 L 430 55 L 445 68 L 460 58" fill="none" stroke="#BF00FF" stroke-width="1"/>
+  <!-- Small chimney -->
+  <rect x="180" y="80" width="25" height="40" fill="#1A0033" stroke="#BF00FF" stroke-width="1"/>
+  <!-- Broken windows -->
+  <rect x="160" y="145" width="35" height="30" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <line x1="160" y1="145" x2="195" y2="175" stroke="#FF1493" stroke-width="0.5" opacity="0.5"/>
+  <rect x="210" y="145" width="35" height="30" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <line x1="228" y1="145" x2="228" y2="175" stroke="#FF1493" stroke-width="0.5" opacity="0.5"/>
+  <rect x="260" y="145" width="35" height="30" fill="#0A0010" stroke="#00FFFF" stroke-width="0.8" opacity="0.6"/>
+  <rect x="310" y="145" width="35" height="30" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <line x1="310" y1="175" x2="345" y2="145" stroke="#FF1493" stroke-width="0.5" opacity="0.5"/>
+  <rect x="360" y="145" width="35" height="30" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="410" y="145" width="35" height="30" fill="#0A0010" stroke="#00FFFF" stroke-width="0.8" opacity="0.6"/>
+  <rect x="460" y="145" width="35" height="30" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <line x1="460" y1="145" x2="495" y2="175" stroke="#FF1493" stroke-width="0.5" opacity="0.5"/>
+  <!-- Broken assembly line - conveyor belt -->
+  <rect x="160" y="240" width="320" height="8" fill="#1A0033" stroke="#BF00FF" stroke-width="0.5"/>
+  <!-- Conveyor supports - some broken -->
+  <line x1="200" y1="248" x2="200" y2="290" stroke="#BF00FF" stroke-width="1" opacity="0.6"/>
+  <line x1="280" y1="248" x2="280" y2="290" stroke="#BF00FF" stroke-width="1" opacity="0.6"/>
+  <line x1="360" y1="248" x2="350" y2="290" stroke="#BF00FF" stroke-width="1" opacity="0.6"/>
+  <line x1="440" y1="248" x2="440" y2="290" stroke="#BF00FF" stroke-width="1" opacity="0.6"/>
+  <!-- Items on/near conveyor - broken parts -->
+  <rect x="190" y="232" width="12" height="8" fill="#BF00FF" opacity="0.4" transform="rotate(15 196 236)"/>
+  <rect x="250" y="230" width="15" height="10" fill="#FF1493" opacity="0.3"/>
+  <circle cx="310" cy="235" r="5" fill="none" stroke="#00FFFF" stroke-width="1" opacity="0.5"/>
+  <rect x="390" y="228" width="10" height="12" fill="#BF00FF" opacity="0.3" transform="rotate(-10 395 234)"/>
+  <!-- Fallen debris -->
+  <rect x="100" y="270" width="30" height="15" fill="#1A0033" stroke="#BF00FF" stroke-width="0.5" opacity="0.5" transform="rotate(8 115 278)"/>
+  <rect x="520" y="275" width="25" height="10" fill="#1A0033" stroke="#BF00FF" stroke-width="0.5" opacity="0.5" transform="rotate(-5 532 280)"/>
+  <polygon points="555,290 565,260 575,290" fill="#1A0033" stroke="#BF00FF" stroke-width="0.5" opacity="0.4"/>
+  <!-- Scattered small parts on ground -->
+  <circle cx="80" cy="300" r="3" fill="#FF1493" opacity="0.2"/>
+  <rect x="540" y="295" width="8" height="4" fill="#BF00FF" opacity="0.2" transform="rotate(20 544 297)"/>
+  <circle cx="120" cy="305" r="2" fill="#00FFFF" opacity="0.2"/>
+  <!-- Faint heart symbol - broken -->
+  <path d="M 310 200 L 320 215 L 330 200" fill="none" stroke="#FF1493" stroke-width="1.5" opacity="0.3"/>
+  <path d="M 310 200 Q 310 190 320 190" fill="none" stroke="#FF1493" stroke-width="1.5" opacity="0.3"/>
+  <!-- The other half missing - just a faint line -->
+  <path d="M 325 195 L 330 200" fill="none" stroke="#FF1493" stroke-width="1" opacity="0.15" stroke-dasharray="2 2"/>
+  <!-- Title text -->
+  <text x="320" y="370" text-anchor="middle" font-family="'Courier New', monospace" font-size="26" font-weight="bold" fill="#FF1493" letter-spacing="3">FRIENDSHIP FACTORY</text>
+  <text x="320" y="370" text-anchor="middle" font-family="'Courier New', monospace" font-size="26" font-weight="bold" fill="#FF1493" letter-spacing="3" opacity="0.3" filter="blur(4px)">FRIENDSHIP FACTORY</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0033"/>
+      <stop offset="100%" stop-color="#0A0010"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <!-- T-shirt silhouette -->
+  <path d="M 120 100 L 80 130 L 100 140 L 100 300 L 300 300 L 300 140 L 320 130 L 280 100 L 260 115 Q 230 130 200 130 Q 170 130 140 115 Z" fill="#0A0010" stroke="#00FFFF" stroke-width="2"/>
+  <!-- Neckline -->
+  <path d="M 140 115 Q 170 130 200 130 Q 230 130 260 115" fill="none" stroke="#00FFFF" stroke-width="1.5"/>
+  <!-- Design on shirt - Sparkle circuit star -->
+  <polygon points="200,160 210,185 238,185 215,200 224,228 200,212 176,228 185,200 162,185 190,185" fill="none" stroke="#00FFFF" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="200" cy="195" r="10" fill="none" stroke="#00FFFF" stroke-width="1" opacity="0.5"/>
+  <circle cx="200" cy="195" r="4" fill="#00FFFF" opacity="0.4"/>
+  <!-- Circuit lines on shirt -->
+  <line x1="200" y1="228" x2="200" y2="260" stroke="#00FFFF" stroke-width="0.8" opacity="0.4"/>
+  <line x1="175" y1="250" x2="225" y2="250" stroke="#00FFFF" stroke-width="0.8" opacity="0.3"/>
+  <circle cx="200" cy="260" r="2" fill="#00FFFF" opacity="0.3"/>
+  <circle cx="175" cy="250" r="2" fill="#00FFFF" opacity="0.3"/>
+  <circle cx="225" cy="250" r="2" fill="#00FFFF" opacity="0.3"/>
+  <!-- Title text -->
+  <text x="200" y="360" text-anchor="middle" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#00FFFF" letter-spacing="2">SPARKLE CIRCUIT TEE</text>
+  <text x="200" y="360" text-anchor="middle" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#00FFFF" letter-spacing="2" opacity="0.3" filter="blur(3px)">SPARKLE CIRCUIT TEE</text>
+</svg>

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="cr-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#200510" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="cr-neon">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#cr-glow)" opacity="0.5"/>
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#FF776630" stroke-width="1"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="#FF7766" stroke="#FF8877" stroke-width="1"/>
+  <!-- Armor plating on body -->
+  <path d="M 140 220 Q 145 200 170 195 L 175 205 Q 150 210 148 225 Z" fill="#444444" stroke="#555555" stroke-width="1"/>
+  <path d="M 230 195 Q 255 200 260 220 L 255 228 Q 252 212 235 205 Z" fill="#444444" stroke="#555555" stroke-width="1"/>
+  <path d="M 165 250 Q 200 260 235 250 L 238 260 Q 200 272 162 260 Z" fill="#333333" stroke="#555555" stroke-width="1"/>
+  <!-- Armor shell segments (concussive charges) -->
+  <ellipse cx="150" cy="225" rx="12" ry="8" fill="#555555" stroke="#666666" stroke-width="1"/>
+  <ellipse cx="150" cy="225" rx="6" ry="4" fill="#FF4444" opacity="0.4" filter="url(#cr-neon)"/>
+  <ellipse cx="250" cy="225" rx="12" ry="8" fill="#555555" stroke="#666666" stroke-width="1"/>
+  <ellipse cx="250" cy="225" rx="6" ry="4" fill="#FF4444" opacity="0.4" filter="url(#cr-neon)"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#FF7766" stroke="#FF8877" stroke-width="1"/>
+  <!-- Neck armor -->
+  <path d="M 238 180 L 252 175 L 250 185 L 240 188 Z" fill="#444444" stroke="#555555" stroke-width="0.5"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#FF7766" stroke="#FF8877" stroke-width="1"/>
+  <!-- Helmet/head armor -->
+  <path d="M 185 105 Q 215 85 250 105 L 248 110 Q 215 92 188 110 Z" fill="#444444" stroke="#555555" stroke-width="1"/>
+  <!-- Ear -->
+  <polygon points="195,95 185,65 205,85" fill="#FF7766" stroke="#555555" stroke-width="1"/>
+  <!-- Armored ear tip -->
+  <polygon points="190,78 185,65 200,78" fill="#444444"/>
+  <!-- Eye (tough look) -->
+  <circle cx="228" cy="118" r="8" fill="#0A0010"/>
+  <circle cx="230" cy="116" r="3.5" fill="#FF4444" filter="url(#cr-neon)"/>
+  <circle cx="231" cy="115" r="1.2" fill="#ffffff"/>
+  <!-- Scar over eye -->
+  <line x1="222" y1="110" x2="235" y2="124" stroke="#CC5544" stroke-width="1.5"/>
+  <!-- Muzzle -->
+  <ellipse cx="245" cy="132" rx="14" ry="9" fill="#FF8877"/>
+  <!-- Front legs (armored) -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#FF7766"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#FF7766"/>
+  <!-- Leg armor plates -->
+  <rect x="158" y="285" width="24" height="15" rx="2" fill="#444444" stroke="#555555" stroke-width="0.5"/>
+  <rect x="208" y="285" width="24" height="15" rx="2" fill="#444444" stroke="#555555" stroke-width="0.5"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#EE6655"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#EE6655"/>
+  <!-- Back leg armor -->
+  <rect x="128" y="280" width="26" height="15" rx="2" fill="#444444" stroke="#555555" stroke-width="0.5"/>
+  <rect x="238" y="280" width="26" height="15" rx="2" fill="#444444" stroke="#555555" stroke-width="0.5"/>
+  <!-- Hooves (heavy, armored) -->
+  <rect x="156" y="342" width="28" height="12" rx="3" fill="#333333" stroke="#555555" stroke-width="1"/>
+  <rect x="206" y="342" width="28" height="12" rx="3" fill="#333333" stroke="#555555" stroke-width="1"/>
+  <rect x="126" y="342" width="30" height="12" rx="3" fill="#333333" stroke="#555555" stroke-width="1"/>
+  <rect x="236" y="342" width="30" height="12" rx="3" fill="#333333" stroke="#555555" stroke-width="1"/>
+  <!-- Mane (short, tough) -->
+  <path d="M 195 92 Q 185 78 190 98 Q 180 85 185 105 Q 175 95 180 112" stroke="#CC3322" stroke-width="3.5" fill="none"/>
+  <!-- Tail (short, armored) -->
+  <path d="M 120 240 Q 105 232 100 250 Q 96 262 102 258" stroke="#CC3322" stroke-width="3.5" fill="none"/>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#FF7766" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">CORAL CRASHER</text>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0010"/>
+      <stop offset="100%" style="stop-color:#1A0033"/>
+    </linearGradient>
+    <linearGradient id="pony" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF1493"/>
+      <stop offset="50%" style="stop-color:#BF00FF"/>
+      <stop offset="100%" style="stop-color:#00FFFF"/>
+    </linearGradient>
+    <linearGradient id="circuit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00FFFF"/>
+      <stop offset="100%" style="stop-color:#39FF14"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" fill="url(#bg)"/>
+  <!-- Simplified pony silhouette -->
+  <g transform="translate(100, 80) scale(1.2)">
+    <!-- Body -->
+    <ellipse cx="160" cy="220" rx="90" ry="65" fill="url(#pony)" opacity="0.9"/>
+    <!-- Head -->
+    <circle cx="235" cy="155" r="50" fill="url(#pony)" opacity="0.9"/>
+    <!-- Horn (mechanical) -->
+    <polygon points="255,110 260,60 265,110" fill="url(#circuit)" stroke="#00FFFF" stroke-width="2"/>
+    <!-- Eye (mechanical) -->
+    <circle cx="250" cy="148" r="12" fill="#0A0010" stroke="#00FFFF" stroke-width="2"/>
+    <circle cx="250" cy="148" r="5" fill="#FF1493"/>
+    <circle cx="252" cy="146" r="2" fill="#FFFFFF"/>
+    <!-- Ear -->
+    <polygon points="220,120 210,80 240,110" fill="url(#pony)" opacity="0.9"/>
+    <!-- Legs -->
+    <rect x="100" y="265" width="22" height="65" rx="8" fill="url(#pony)" opacity="0.9"/>
+    <rect x="140" y="270" width="22" height="60" rx="8" fill="url(#pony)" opacity="0.85"/>
+    <rect x="190" y="270" width="22" height="60" rx="8" fill="url(#pony)" opacity="0.85"/>
+    <rect x="220" y="265" width="22" height="65" rx="8" fill="url(#pony)" opacity="0.9"/>
+    <!-- Mane (wires) -->
+    <path d="M215,120 Q200,70 180,50" stroke="#FF1493" stroke-width="3" fill="none"/>
+    <path d="M220,115 Q210,60 200,35" stroke="#BF00FF" stroke-width="3" fill="none"/>
+    <path d="M225,112 Q220,55 225,30" stroke="#00FFFF" stroke-width="3" fill="none"/>
+    <path d="M230,110 Q235,50 250,35" stroke="#39FF14" stroke-width="3" fill="none"/>
+    <path d="M232,115 Q245,65 265,45" stroke="#FFD700" stroke-width="3" fill="none"/>
+    <!-- Tail (cable) -->
+    <path d="M75,210 Q40,200 30,230 Q20,260 45,265 Q70,270 60,290" stroke="url(#circuit)" stroke-width="4" fill="none"/>
+    <!-- Circuit lines on body -->
+    <line x1="120" y1="210" x2="180" y2="210" stroke="#00FFFF" stroke-width="1.5" opacity="0.6"/>
+    <line x1="150" y1="195" x2="150" y2="240" stroke="#00FFFF" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="150" cy="210" r="4" fill="#00FFFF" opacity="0.8"/>
+    <circle cx="120" cy="210" r="3" fill="#FF1493" opacity="0.8"/>
+    <circle cx="180" cy="210" r="3" fill="#39FF14" opacity="0.8"/>
+    <!-- Heart cutie mark -->
+    <path d="M195,215 L200,225 L205,215 Q205,208 200,210 Q195,208 195,215 Z" fill="#FF1493" opacity="0.8"/>
+  </g>
+  <!-- "MP" text -->
+  <text x="256" y="420" font-family="monospace" font-size="48" font-weight="bold" fill="url(#circuit)" text-anchor="middle" letter-spacing="8">MP</text>
+</svg>

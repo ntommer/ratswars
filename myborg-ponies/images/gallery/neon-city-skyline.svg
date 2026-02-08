@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A0010"/>
+      <stop offset="100%" stop-color="#1A0033"/>
+    </linearGradient>
+    <linearGradient id="building1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#200040"/>
+      <stop offset="100%" stop-color="#100020"/>
+    </linearGradient>
+    <linearGradient id="building2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0035"/>
+      <stop offset="100%" stop-color="#0D0018"/>
+    </linearGradient>
+    <linearGradient id="neon-sign-glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF1493"/>
+      <stop offset="50%" stop-color="#BF00FF"/>
+      <stop offset="100%" stop-color="#00FFFF"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <!-- Distant city glow -->
+  <ellipse cx="320" cy="350" rx="400" ry="100" fill="#BF00FF" opacity="0.05"/>
+  <!-- Ground -->
+  <rect x="0" y="320" width="640" height="80" fill="#0A0010"/>
+  <!-- Far buildings - silhouettes -->
+  <rect x="20" y="180" width="50" height="140" fill="#120020"/>
+  <rect x="60" y="200" width="35" height="120" fill="#100018"/>
+  <rect x="545" y="190" width="45" height="130" fill="#120020"/>
+  <rect x="580" y="210" width="40" height="110" fill="#100018"/>
+  <!-- Main buildings -->
+  <rect x="90" y="130" width="70" height="190" fill="url(#building1)" stroke="#BF00FF" stroke-width="0.5"/>
+  <rect x="170" y="100" width="80" height="220" fill="url(#building2)" stroke="#FF1493" stroke-width="0.5"/>
+  <rect x="260" y="80" width="60" height="240" fill="url(#building1)" stroke="#00FFFF" stroke-width="0.5"/>
+  <rect x="330" y="110" width="90" height="210" fill="url(#building2)" stroke="#BF00FF" stroke-width="0.5"/>
+  <rect x="430" y="140" width="55" height="180" fill="url(#building1)" stroke="#FF1493" stroke-width="0.5"/>
+  <rect x="495" y="160" width="60" height="160" fill="url(#building2)" stroke="#00FFFF" stroke-width="0.5"/>
+  <!-- Building windows - left tall -->
+  <rect x="100" y="145" width="8" height="6" fill="#FF1493" opacity="0.5"/>
+  <rect x="115" y="145" width="8" height="6" fill="#FF1493" opacity="0.3"/>
+  <rect x="130" y="145" width="8" height="6" fill="#00FFFF" opacity="0.4"/>
+  <rect x="100" y="160" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <rect x="115" y="160" width="8" height="6" fill="#00FFFF" opacity="0.5"/>
+  <rect x="130" y="160" width="8" height="6" fill="#FF1493" opacity="0.3"/>
+  <rect x="100" y="175" width="8" height="6" fill="#00FFFF" opacity="0.3"/>
+  <rect x="115" y="175" width="8" height="6" fill="#FF1493" opacity="0.5"/>
+  <rect x="130" y="175" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <!-- Building windows - center tall -->
+  <rect x="185" y="115" width="8" height="6" fill="#00FFFF" opacity="0.5"/>
+  <rect x="200" y="115" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <rect x="215" y="115" width="8" height="6" fill="#BF00FF" opacity="0.5"/>
+  <rect x="230" y="115" width="8" height="6" fill="#FF1493" opacity="0.3"/>
+  <rect x="185" y="130" width="8" height="6" fill="#FF1493" opacity="0.3"/>
+  <rect x="200" y="130" width="8" height="6" fill="#00FFFF" opacity="0.5"/>
+  <rect x="215" y="130" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <rect x="230" y="130" width="8" height="6" fill="#BF00FF" opacity="0.3"/>
+  <!-- Building windows - tallest -->
+  <rect x="270" y="95" width="8" height="6" fill="#39FF14" opacity="0.5"/>
+  <rect x="285" y="95" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <rect x="300" y="95" width="8" height="6" fill="#00FFFF" opacity="0.5"/>
+  <rect x="270" y="110" width="8" height="6" fill="#FF1493" opacity="0.3"/>
+  <rect x="285" y="110" width="8" height="6" fill="#39FF14" opacity="0.5"/>
+  <rect x="300" y="110" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <!-- Windows scattered on other buildings -->
+  <rect x="345" y="125" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <rect x="365" y="125" width="8" height="6" fill="#00FFFF" opacity="0.5"/>
+  <rect x="385" y="125" width="8" height="6" fill="#FF1493" opacity="0.3"/>
+  <rect x="345" y="140" width="8" height="6" fill="#00FFFF" opacity="0.3"/>
+  <rect x="365" y="140" width="8" height="6" fill="#FF1493" opacity="0.5"/>
+  <rect x="385" y="140" width="8" height="6" fill="#BF00FF" opacity="0.4"/>
+  <rect x="440" y="155" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <rect x="455" y="155" width="8" height="6" fill="#00FFFF" opacity="0.5"/>
+  <rect x="470" y="155" width="8" height="6" fill="#FF1493" opacity="0.3"/>
+  <rect x="505" y="175" width="8" height="6" fill="#BF00FF" opacity="0.5"/>
+  <rect x="520" y="175" width="8" height="6" fill="#FF1493" opacity="0.4"/>
+  <rect x="535" y="175" width="8" height="6" fill="#00FFFF" opacity="0.3"/>
+  <!-- Neon signs -->
+  <!-- Sign 1 - on left building -->
+  <rect x="95" y="200" width="60" height="18" rx="2" fill="none" stroke="#FF1493" stroke-width="1.5"/>
+  <text x="125" y="213" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#FF1493">OPEN</text>
+  <rect x="95" y="200" width="60" height="18" rx="2" fill="#FF1493" opacity="0.08"/>
+  <!-- Sign 2 - on center building -->
+  <rect x="340" y="170" width="70" height="20" rx="2" fill="none" stroke="#00FFFF" stroke-width="1.5"/>
+  <text x="375" y="184" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#00FFFF">SYNTH</text>
+  <rect x="340" y="170" width="70" height="20" rx="2" fill="#00FFFF" opacity="0.08"/>
+  <!-- Sign 3 - vertical on tall building -->
+  <rect x="255" y="130" width="16" height="60" rx="2" fill="none" stroke="#39FF14" stroke-width="1.5"/>
+  <text x="263" y="150" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#39FF14" transform="rotate(90 263 155)">NEON</text>
+  <rect x="255" y="130" width="16" height="60" rx="2" fill="#39FF14" opacity="0.06"/>
+  <!-- Sign 4 - FFD700 gold sign -->
+  <rect x="497" y="200" width="55" height="16" rx="2" fill="none" stroke="#FFD700" stroke-width="1.5"/>
+  <text x="524" y="212" text-anchor="middle" font-family="'Courier New', monospace" font-size="8" fill="#FFD700">CYBER</text>
+  <rect x="497" y="200" width="55" height="16" rx="2" fill="#FFD700" opacity="0.06"/>
+  <!-- Antenna/spires on buildings -->
+  <line x1="290" y1="80" x2="290" y2="55" stroke="#00FFFF" stroke-width="1"/>
+  <circle cx="290" cy="53" r="2" fill="#00FFFF" opacity="0.8"/>
+  <line x1="210" y1="100" x2="210" y2="82" stroke="#FF1493" stroke-width="1"/>
+  <circle cx="210" cy="80" r="2" fill="#FF1493" opacity="0.8"/>
+  <!-- Street level neon strip -->
+  <line x1="0" y1="320" x2="640" y2="320" stroke="url(#neon-sign-glow)" stroke-width="2" opacity="0.5"/>
+  <!-- Street reflections -->
+  <rect x="90" y="322" width="70" height="30" fill="#FF1493" opacity="0.04"/>
+  <rect x="260" y="322" width="60" height="30" fill="#00FFFF" opacity="0.04"/>
+  <rect x="430" y="322" width="55" height="30" fill="#BF00FF" opacity="0.04"/>
+  <!-- Title text -->
+  <text x="320" y="375" text-anchor="middle" font-family="'Courier New', monospace" font-size="28" font-weight="bold" fill="#00FFFF" letter-spacing="4">NEW NEON CITY</text>
+  <text x="320" y="375" text-anchor="middle" font-family="'Courier New', monospace" font-size="28" font-weight="bold" fill="#00FFFF" letter-spacing="4" opacity="0.3" filter="blur(4px)">NEW NEON CITY</text>
+</svg>

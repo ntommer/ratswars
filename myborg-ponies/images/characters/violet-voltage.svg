@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="vv-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#200040" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="vv-neon">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#vv-glow)" opacity="0.5"/>
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#8B00FF30" stroke-width="1"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="#8B00FF" stroke="#9933FF" stroke-width="1"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#8B00FF" stroke="#9933FF" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#8B00FF" stroke="#9933FF" stroke-width="1"/>
+  <!-- Ear -->
+  <polygon points="195,95 185,65 205,85" fill="#8B00FF" stroke="#9933FF" stroke-width="1"/>
+  <!-- Earbud eyes -->
+  <circle cx="205" cy="115" r="10" fill="#222222" stroke="#444444" stroke-width="1"/>
+  <circle cx="205" cy="115" r="6" fill="#333333"/>
+  <circle cx="205" cy="115" r="3" fill="#FF1493" filter="url(#vv-neon)"/>
+  <circle cx="235" cy="112" r="10" fill="#222222" stroke="#444444" stroke-width="1"/>
+  <circle cx="235" cy="112" r="6" fill="#333333"/>
+  <circle cx="235" cy="112" r="3" fill="#00FFFF" filter="url(#vv-neon)"/>
+  <!-- Earbud wires -->
+  <path d="M 205 125 Q 200 135 190 140 Q 180 145 175 160" stroke="#444444" stroke-width="1.5" fill="none"/>
+  <path d="M 235 122 Q 240 135 245 140 Q 250 145 255 160" stroke="#444444" stroke-width="1.5" fill="none"/>
+  <!-- Muzzle -->
+  <ellipse cx="245" cy="130" rx="14" ry="9" fill="#9922FF"/>
+  <!-- Front legs -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#8B00FF"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#8B00FF"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#7700DD"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#7700DD"/>
+  <!-- Hooves -->
+  <rect x="158" y="342" width="24" height="10" rx="4" fill="#FF1493"/>
+  <rect x="208" y="342" width="24" height="10" rx="4" fill="#00FFFF"/>
+  <rect x="128" y="342" width="26" height="10" rx="4" fill="#FF1493"/>
+  <rect x="238" y="342" width="26" height="10" rx="4" fill="#00FFFF"/>
+  <!-- Multicolor wire mane (ethernet cables) -->
+  <path d="M 195 88 Q 178 72 182 96" stroke="#FF0000" stroke-width="2.5" fill="none" filter="url(#vv-neon)"/>
+  <path d="M 193 90 Q 172 76 175 102 Q 160 88 165 115" stroke="#FF8800" stroke-width="2.5" fill="none" filter="url(#vv-neon)"/>
+  <path d="M 191 92 Q 168 80 172 108 Q 155 95 160 122" stroke="#FFFF00" stroke-width="2.5" fill="none" filter="url(#vv-neon)"/>
+  <path d="M 189 94 Q 165 84 168 112 Q 150 100 155 128" stroke="#00FF00" stroke-width="2.5" fill="none" filter="url(#vv-neon)"/>
+  <path d="M 187 96 Q 162 88 165 116 Q 148 105 152 133" stroke="#00FFFF" stroke-width="2.5" fill="none" filter="url(#vv-neon)"/>
+  <path d="M 185 98 Q 160 92 163 120 Q 145 110 150 138" stroke="#FF1493" stroke-width="2.5" fill="none" filter="url(#vv-neon)"/>
+  <!-- Wire tail with audio jack -->
+  <path d="M 120 240 Q 95 225 85 250 Q 78 270 70 265" stroke="#8B00FF" stroke-width="3" fill="none"/>
+  <!-- Audio jack at tail end -->
+  <rect x="60" y="260" width="15" height="8" rx="2" fill="#C0C0C0" stroke="#888888" stroke-width="1"/>
+  <line x1="58" y1="264" x2="60" y2="264" stroke="#888888" stroke-width="2"/>
+  <circle cx="56" cy="264" r="3" fill="#888888"/>
+  <!-- Sound wave emanation -->
+  <path d="M 160 230 Q 155 225 160 220" stroke="#FF1493" stroke-width="1" fill="none" opacity="0.5" filter="url(#vv-neon)"/>
+  <path d="M 155 232 Q 148 224 155 216" stroke="#FF1493" stroke-width="1" fill="none" opacity="0.3" filter="url(#vv-neon)"/>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#8B00FF" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">VIOLET VOLTAGE</text>
+</svg>

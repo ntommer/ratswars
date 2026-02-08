@@ -1,0 +1,15 @@
+{
+    "name": "myborg-ponies",
+    "version": "1.0.0",
+    "description": "Myborg Ponies - Friendship Is Firmware. A pastel dystopia where cute meets circuitry.",
+    "private": true,
+    "scripts": {
+        "generate-icons": "node generate-icons.js"
+    },
+    "dependencies": {
+        "sharp": "^0.34.5"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}

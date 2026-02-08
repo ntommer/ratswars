@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0033"/>
+      <stop offset="100%" stop-color="#0A0010"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <!-- Person silhouette - head -->
+  <circle cx="200" cy="100" r="35" fill="#0A0010" stroke="#BF00FF" stroke-width="1.5"/>
+  <!-- Neck -->
+  <rect x="190" y="133" width="20" height="20" fill="#0A0010"/>
+  <line x1="190" y1="135" x2="190" y2="153" stroke="#BF00FF" stroke-width="1.5"/>
+  <line x1="210" y1="135" x2="210" y2="153" stroke="#BF00FF" stroke-width="1.5"/>
+  <!-- Shoulders and torso -->
+  <path d="M 190 153 L 130 175 L 130 310 L 270 310 L 270 175 L 210 153" fill="#0A0010" stroke="#BF00FF" stroke-width="1.5"/>
+  <!-- Arms -->
+  <path d="M 130 175 L 105 260 L 115 262 L 138 185" fill="#0A0010" stroke="#BF00FF" stroke-width="1.5"/>
+  <path d="M 270 175 L 295 260 L 285 262 L 262 185" fill="#0A0010" stroke="#BF00FF" stroke-width="1.5"/>
+  <!-- Small tee design hint on torso - lightning bolt -->
+  <path d="M 195 195 L 190 210 L 200 210 L 185 228" fill="none" stroke="#BF00FF" stroke-width="1.5" opacity="0.4"/>
+  <path d="M 205 195 L 210 210 L 200 210 L 215 228" fill="none" stroke="#BF00FF" stroke-width="1.5" opacity="0.4"/>
+  <!-- Placeholder text -->
+  <text x="200" y="360" text-anchor="middle" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#BF00FF" letter-spacing="2">MODEL PHOTO</text>
+  <text x="200" y="360" text-anchor="middle" font-family="'Courier New', monospace" font-size="18" font-weight="bold" fill="#BF00FF" letter-spacing="2" opacity="0.3" filter="blur(3px)">MODEL PHOTO</text>
+</svg>

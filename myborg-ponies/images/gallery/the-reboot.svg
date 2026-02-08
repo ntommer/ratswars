@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0033"/>
+      <stop offset="100%" stop-color="#0A0010"/>
+    </linearGradient>
+    <linearGradient id="lightning" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#00FFFF"/>
+      <stop offset="100%" stop-color="#BF00FF"/>
+    </linearGradient>
+    <linearGradient id="factory-wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2A1040"/>
+      <stop offset="100%" stop-color="#150020"/>
+    </linearGradient>
+    <radialGradient id="surge-glow" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#00FFFF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0A0010" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <!-- Surge glow in sky -->
+  <rect width="640" height="400" fill="url(#surge-glow)"/>
+  <!-- Ground -->
+  <rect x="0" y="300" width="640" height="100" fill="#0A0010" opacity="0.9"/>
+  <line x1="0" y1="300" x2="640" y2="300" stroke="#BF00FF" stroke-width="0.5" opacity="0.3"/>
+  <!-- Factory building - left -->
+  <rect x="80" y="140" width="180" height="160" fill="url(#factory-wall)" stroke="#BF00FF" stroke-width="1"/>
+  <!-- Factory chimney left -->
+  <rect x="100" y="90" width="30" height="50" fill="#1A0033" stroke="#BF00FF" stroke-width="1"/>
+  <rect x="220" y="100" width="25" height="40" fill="#1A0033" stroke="#BF00FF" stroke-width="1"/>
+  <!-- Factory building - right -->
+  <rect x="380" y="160" width="180" height="140" fill="url(#factory-wall)" stroke="#BF00FF" stroke-width="1"/>
+  <!-- Factory chimney right -->
+  <rect x="520" y="110" width="28" height="50" fill="#1A0033" stroke="#BF00FF" stroke-width="1"/>
+  <!-- Factory windows - left building -->
+  <rect x="100" y="160" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="135" y="160" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="170" y="160" width="25" height="25" fill="#0A0010" stroke="#00FFFF" stroke-width="0.8"/>
+  <rect x="205" y="160" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="100" y="200" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="135" y="200" width="25" height="25" fill="#0A0010" stroke="#00FFFF" stroke-width="0.8"/>
+  <rect x="170" y="200" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="205" y="200" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <!-- Factory windows - right building -->
+  <rect x="400" y="180" width="25" height="25" fill="#0A0010" stroke="#00FFFF" stroke-width="0.8"/>
+  <rect x="435" y="180" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="470" y="180" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="505" y="180" width="25" height="25" fill="#0A0010" stroke="#00FFFF" stroke-width="0.8"/>
+  <rect x="400" y="220" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="435" y="220" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <rect x="470" y="220" width="25" height="25" fill="#0A0010" stroke="#00FFFF" stroke-width="0.8"/>
+  <rect x="505" y="220" width="25" height="25" fill="#0A0010" stroke="#FF1493" stroke-width="0.8"/>
+  <!-- Factory door -->
+  <rect x="150" y="250" width="50" height="50" fill="#0A0010" stroke="#FFD700" stroke-width="1"/>
+  <rect x="440" y="260" width="45" height="40" fill="#0A0010" stroke="#FFD700" stroke-width="1"/>
+  <!-- Main lightning bolt - center -->
+  <path d="M 320 10 L 300 100 L 330 100 L 280 200 L 320 200 L 260 300" fill="none" stroke="url(#lightning)" stroke-width="4" opacity="0.9"/>
+  <path d="M 320 10 L 300 100 L 330 100 L 280 200 L 320 200 L 260 300" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.5"/>
+  <!-- Secondary lightning bolts -->
+  <path d="M 300 100 L 270 140 L 290 140 L 250 190" fill="none" stroke="#00FFFF" stroke-width="2" opacity="0.6"/>
+  <path d="M 330 100 L 360 150 L 340 150 L 380 210" fill="none" stroke="#BF00FF" stroke-width="2" opacity="0.6"/>
+  <path d="M 280 200 L 310 230 L 290 230 L 330 270" fill="none" stroke="#00FFFF" stroke-width="1.5" opacity="0.4"/>
+  <!-- Impact flash at factory -->
+  <circle cx="260" cy="300" r="40" fill="#FFD700" opacity="0.15"/>
+  <circle cx="260" cy="300" r="25" fill="#00FFFF" opacity="0.2"/>
+  <circle cx="260" cy="300" r="10" fill="white" opacity="0.3"/>
+  <!-- Electrical sparks -->
+  <circle cx="285" cy="195" r="3" fill="#FFD700" opacity="0.8"/>
+  <circle cx="325" cy="98" r="2" fill="#00FFFF" opacity="0.7"/>
+  <circle cx="255" cy="185" r="2" fill="#FF1493" opacity="0.6"/>
+  <circle cx="355" cy="145" r="2" fill="#FFD700" opacity="0.7"/>
+  <!-- Power surge waves radiating from impact -->
+  <ellipse cx="260" cy="300" rx="80" ry="15" fill="none" stroke="#00FFFF" stroke-width="1" opacity="0.3"/>
+  <ellipse cx="260" cy="300" rx="120" ry="22" fill="none" stroke="#BF00FF" stroke-width="0.8" opacity="0.2"/>
+  <ellipse cx="260" cy="300" rx="160" ry="30" fill="none" stroke="#FF1493" stroke-width="0.5" opacity="0.15"/>
+  <!-- Smoke from chimneys -->
+  <circle cx="115" cy="75" r="10" fill="#1A0033" opacity="0.5"/>
+  <circle cx="110" cy="60" r="12" fill="#1A0033" opacity="0.3"/>
+  <circle cx="535" cy="95" r="10" fill="#1A0033" opacity="0.5"/>
+  <circle cx="540" cy="80" r="12" fill="#1A0033" opacity="0.3"/>
+  <!-- Title text -->
+  <text x="320" y="370" text-anchor="middle" font-family="'Courier New', monospace" font-size="28" font-weight="bold" fill="#FFD700" letter-spacing="4">THE REBOOT</text>
+  <text x="320" y="370" text-anchor="middle" font-family="'Courier New', monospace" font-size="28" font-weight="bold" fill="#FFD700" letter-spacing="4" opacity="0.3" filter="blur(4px)">THE REBOOT</text>
+</svg>

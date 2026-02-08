@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="nn-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#201000" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="nn-neon">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="nn-outer-glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="nn-body-glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#FFAA00"/>
+      <stop offset="60%" stop-color="#FF8800"/>
+      <stop offset="100%" stop-color="#FF6600"/>
+    </radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#nn-glow)" opacity="0.5"/>
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#FF880030" stroke-width="1"/>
+  <!-- Glow aura around pony -->
+  <ellipse cx="200" cy="230" rx="120" ry="90" fill="#FFAA00" opacity="0.08" filter="url(#nn-outer-glow)"/>
+  <ellipse cx="200" cy="230" rx="100" ry="75" fill="#FFCC00" opacity="0.06"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="url(#nn-body-glow)" stroke="#FFCC00" stroke-width="1.5" filter="url(#nn-neon)"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#FF8800" stroke="#FFAA00" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#FF8800" stroke="#FFAA00" stroke-width="1"/>
+  <!-- Ear -->
+  <polygon points="195,95 185,65 205,85" fill="#FF8800" stroke="#FFAA00" stroke-width="1"/>
+  <!-- Eye -->
+  <circle cx="228" cy="115" r="9" fill="#0A0010"/>
+  <circle cx="230" cy="113" r="4" fill="#FFFF00" filter="url(#nn-neon)"/>
+  <circle cx="232" cy="111" r="1.5" fill="#ffffff"/>
+  <!-- Muzzle -->
+  <ellipse cx="245" cy="130" rx="15" ry="10" fill="#FFAA33"/>
+  <!-- Front legs -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#FF8800"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#FF8800"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#EE7700"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#EE7700"/>
+  <!-- Glowing hooves with light trails -->
+  <rect x="158" y="342" width="24" height="10" rx="4" fill="#FFFF00" filter="url(#nn-neon)"/>
+  <rect x="208" y="342" width="24" height="10" rx="4" fill="#FFFF00" filter="url(#nn-neon)"/>
+  <rect x="128" y="342" width="26" height="10" rx="4" fill="#FFFF00" filter="url(#nn-neon)"/>
+  <rect x="238" y="342" width="26" height="10" rx="4" fill="#FFFF00" filter="url(#nn-neon)"/>
+  <!-- Light trails from hooves -->
+  <path d="M 170 352 Q 160 358 148 360 Q 130 362 115 358" stroke="#FFFF00" stroke-width="2" fill="none" opacity="0.5" filter="url(#nn-neon)"/>
+  <path d="M 220 352 Q 210 360 195 362 Q 180 364 165 360" stroke="#FFAA00" stroke-width="1.5" fill="none" opacity="0.3" filter="url(#nn-neon)"/>
+  <!-- Mane (flame-like, yellow-orange) -->
+  <path d="M 195 88 Q 178 68 185 92 Q 172 72 178 100 Q 162 80 170 112 Q 152 95 162 125" stroke="#FFFF00" stroke-width="3" fill="none" filter="url(#nn-neon)"/>
+  <path d="M 195 88 Q 182 74 187 95 Q 175 78 180 105" stroke="#FFFFFF" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <!-- Tail (flame trail) -->
+  <path d="M 120 238 Q 95 220 85 245 Q 75 265 68 258 Q 60 275 55 268" stroke="#FFFF00" stroke-width="3" fill="none" filter="url(#nn-neon)"/>
+  <path d="M 120 242 Q 98 228 90 250 Q 82 268 75 262" stroke="#FFFFFF" stroke-width="1" fill="none" opacity="0.3"/>
+  <!-- Plasma core glow on chest -->
+  <circle cx="220" cy="220" r="12" fill="#FFFF00" opacity="0.15" filter="url(#nn-outer-glow)"/>
+  <circle cx="220" cy="220" r="6" fill="#FFFF00" opacity="0.4" filter="url(#nn-neon)"/>
+  <circle cx="220" cy="220" r="3" fill="#FFFFFF" opacity="0.8"/>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#FFAA00" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">NEON NOVA</text>
+</svg>

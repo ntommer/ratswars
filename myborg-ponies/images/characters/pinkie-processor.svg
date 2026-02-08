@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="pp-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#200020" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="pp-neon">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#pp-glow)" opacity="0.5"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#ff69b430" stroke-width="1"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Ear -->
+  <polygon points="195,95 185,65 205,85" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Normal eye (left) -->
+  <circle cx="205" cy="115" r="8" fill="#0A0010"/>
+  <circle cx="207" cy="113" r="3" fill="#ff1493"/>
+  <circle cx="209" cy="111" r="1.2" fill="#ffffff"/>
+  <!-- Screw eye (right) -->
+  <circle cx="235" cy="112" r="10" fill="#C0C0C0" stroke="#888888" stroke-width="1"/>
+  <circle cx="235" cy="112" r="6" fill="#A0A0A0"/>
+  <line x1="229" y1="112" x2="241" y2="112" stroke="#666666" stroke-width="2"/>
+  <line x1="235" y1="106" x2="235" y2="118" stroke="#666666" stroke-width="2"/>
+  <circle cx="235" cy="112" r="2" fill="#555555"/>
+  <!-- Muzzle -->
+  <ellipse cx="245" cy="130" rx="15" ry="10" fill="#FF7DC0" stroke="#FF90CC" stroke-width="0.5"/>
+  <!-- Front legs -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#FF69B4" stroke="#FF85C8" stroke-width="1"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#F060A8" stroke="#FF69B4" stroke-width="1"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#F060A8" stroke="#FF69B4" stroke-width="1"/>
+  <!-- Hooves -->
+  <rect x="158" y="342" width="24" height="10" rx="4" fill="#C0C0C0"/>
+  <rect x="208" y="342" width="24" height="10" rx="4" fill="#C0C0C0"/>
+  <rect x="128" y="342" width="26" height="10" rx="4" fill="#C0C0C0"/>
+  <rect x="238" y="342" width="26" height="10" rx="4" fill="#C0C0C0"/>
+  <!-- Wire mane (white wires) -->
+  <path d="M 195 90 Q 175 70 180 95 Q 170 75 172 100 Q 160 82 165 110" stroke="#FFFFFF" stroke-width="2.5" fill="none" filter="url(#pp-neon)"/>
+  <path d="M 198 88 Q 182 65 188 92 Q 175 68 178 97" stroke="#FFFFFF" stroke-width="2" fill="none" opacity="0.8"/>
+  <path d="M 192 92 Q 168 78 170 105 Q 155 88 160 118 Q 145 108 152 135" stroke="#FFFFFF" stroke-width="2" fill="none" filter="url(#pp-neon)"/>
+  <!-- Wire connectors on mane -->
+  <circle cx="180" cy="95" r="3" fill="#FFFFFF" filter="url(#pp-neon)"/>
+  <circle cx="172" cy="100" r="3" fill="#FFFFFF" filter="url(#pp-neon)"/>
+  <circle cx="165" cy="110" r="3" fill="#FFFFFF" filter="url(#pp-neon)"/>
+  <circle cx="160" cy="118" r="3" fill="#FFFFFF" filter="url(#pp-neon)"/>
+  <!-- Tail (wire style) -->
+  <path d="M 120 240 Q 95 225 90 250 Q 85 270 98 265 Q 88 280 102 275" stroke="#FFFFFF" stroke-width="2.5" fill="none" filter="url(#pp-neon)"/>
+  <circle cx="90" cy="250" r="3" fill="#FFFFFF"/>
+  <circle cx="98" cy="265" r="3" fill="#FFFFFF"/>
+  <!-- Processor chip on flank -->
+  <rect x="165" y="220" width="25" height="20" rx="2" fill="#333333" stroke="#666666" stroke-width="1"/>
+  <line x1="168" y1="225" x2="175" y2="225" stroke="#88ff88" stroke-width="0.8"/>
+  <line x1="168" y1="229" x2="178" y2="229" stroke="#88ff88" stroke-width="0.8"/>
+  <line x1="168" y1="233" x2="173" y2="233" stroke="#88ff88" stroke-width="0.8"/>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#FF69B4" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">PINKIE PROCESSOR</text>
+</svg>

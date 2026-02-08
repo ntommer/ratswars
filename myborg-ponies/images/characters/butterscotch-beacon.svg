@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bb-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1a00" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="bb-neon">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bb-blink">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#bb-glow)" opacity="0.5"/>
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#FFD70030" stroke-width="1"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="#FFD700" stroke="#FFE040" stroke-width="1"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#FFD700" stroke="#FFE040" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#FFD700" stroke="#FFE040" stroke-width="1"/>
+  <!-- Ear -->
+  <polygon points="195,95 185,65 205,85" fill="#FFD700" stroke="#FFE040" stroke-width="1"/>
+  <!-- Antenna on head -->
+  <line x1="195" y1="68" x2="190" y2="35" stroke="#C0C0C0" stroke-width="2"/>
+  <circle cx="190" cy="32" r="5" fill="#00FF00" filter="url(#bb-blink)"/>
+  <circle cx="190" cy="32" r="2.5" fill="#88FF88"/>
+  <!-- Eye -->
+  <circle cx="228" cy="115" r="9" fill="#0A0010"/>
+  <circle cx="230" cy="113" r="4" fill="#00CC44"/>
+  <circle cx="232" cy="111" r="1.5" fill="#ffffff"/>
+  <!-- Muzzle -->
+  <ellipse cx="245" cy="130" rx="15" ry="10" fill="#FFDD33"/>
+  <!-- Front legs -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#FFD700"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#FFD700"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#E8C200"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#E8C200"/>
+  <!-- Hooves -->
+  <rect x="158" y="342" width="24" height="10" rx="4" fill="#00AA33"/>
+  <rect x="208" y="342" width="24" height="10" rx="4" fill="#00AA33"/>
+  <rect x="128" y="342" width="26" height="10" rx="4" fill="#00AA33"/>
+  <rect x="238" y="342" width="26" height="10" rx="4" fill="#00AA33"/>
+  <!-- Mane (gentle waves, golden) -->
+  <path d="M 195 90 Q 178 78 183 100 Q 170 85 175 110 Q 162 98 168 125 Q 155 115 160 140" stroke="#FFAA00" stroke-width="4" fill="none"/>
+  <path d="M 195 90 Q 180 82 185 102 Q 172 90 177 112" stroke="#FFE060" stroke-width="2" fill="none" opacity="0.6"/>
+  <!-- Tail -->
+  <path d="M 120 240 Q 95 228 90 255 Q 85 275 98 268 Q 88 285 102 278" stroke="#FFAA00" stroke-width="4" fill="none"/>
+  <!-- Circuit board cutie mark on flank -->
+  <g transform="translate(155,215)">
+    <rect x="0" y="0" width="30" height="25" rx="2" fill="#006622" stroke="#00AA33" stroke-width="1"/>
+    <!-- Traces -->
+    <line x1="3" y1="5" x2="15" y2="5" stroke="#00FF44" stroke-width="1" filter="url(#bb-neon)"/>
+    <line x1="15" y1="5" x2="15" y2="12" stroke="#00FF44" stroke-width="1" filter="url(#bb-neon)"/>
+    <line x1="15" y1="12" x2="27" y2="12" stroke="#00FF44" stroke-width="1" filter="url(#bb-neon)"/>
+    <line x1="3" y1="12" x2="10" y2="12" stroke="#00FF44" stroke-width="1" filter="url(#bb-neon)"/>
+    <line x1="10" y1="12" x2="10" y2="20" stroke="#00FF44" stroke-width="1" filter="url(#bb-neon)"/>
+    <line x1="3" y1="20" x2="27" y2="20" stroke="#00FF44" stroke-width="1" filter="url(#bb-neon)"/>
+    <line x1="20" y1="5" x2="20" y2="20" stroke="#00FF44" stroke-width="0.8" filter="url(#bb-neon)"/>
+    <!-- Components -->
+    <circle cx="15" cy="5" r="2" fill="#00FF88" filter="url(#bb-neon)"/>
+    <circle cx="15" cy="12" r="2" fill="#00FF88" filter="url(#bb-neon)"/>
+    <circle cx="10" cy="20" r="2" fill="#00FF88" filter="url(#bb-neon)"/>
+    <rect x="22" y="3" width="4" height="4" fill="#00FF88" filter="url(#bb-neon)"/>
+  </g>
+  <!-- Signal waves from antenna -->
+  <path d="M 183 35 Q 175 30 178 22" stroke="#00FF44" stroke-width="1" fill="none" opacity="0.4" filter="url(#bb-neon)"/>
+  <path d="M 180 38 Q 168 30 172 18" stroke="#00FF44" stroke-width="1" fill="none" opacity="0.3" filter="url(#bb-neon)"/>
+  <path d="M 197 35 Q 205 30 202 22" stroke="#00FF44" stroke-width="1" fill="none" opacity="0.4" filter="url(#bb-neon)"/>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#FFD700" font-family="monospace" font-size="11" font-weight="bold" letter-spacing="1">BUTTERSCOTCH BEACON</text>
+</svg>

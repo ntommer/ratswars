@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0033"/>
+      <stop offset="100%" stop-color="#0A0010"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <!-- T-shirt silhouette -->
+  <path d="M 120 100 L 80 130 L 100 140 L 100 300 L 300 300 L 300 140 L 320 130 L 280 100 L 260 115 Q 230 130 200 130 Q 170 130 140 115 Z" fill="#0A0010" stroke="#39FF14" stroke-width="2"/>
+  <!-- Neckline -->
+  <path d="M 140 115 Q 170 130 200 130 Q 230 130 260 115" fill="none" stroke="#39FF14" stroke-width="1.5"/>
+  <!-- Design on shirt - Chrome clover/gear -->
+  <circle cx="200" cy="195" r="30" fill="none" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="200" cy="195" r="20" fill="none" stroke="#39FF14" stroke-width="1" opacity="0.4"/>
+  <!-- Gear teeth -->
+  <rect x="196" y="162" width="8" height="8" fill="#39FF14" opacity="0.4"/>
+  <rect x="196" y="222" width="8" height="8" fill="#39FF14" opacity="0.4"/>
+  <rect x="167" y="191" width="8" height="8" fill="#39FF14" opacity="0.4"/>
+  <rect x="225" y="191" width="8" height="8" fill="#39FF14" opacity="0.4"/>
+  <!-- Four-leaf clover in center -->
+  <circle cx="193" cy="188" r="8" fill="none" stroke="#39FF14" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="207" cy="188" r="8" fill="none" stroke="#39FF14" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="193" cy="202" r="8" fill="none" stroke="#39FF14" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="207" cy="202" r="8" fill="none" stroke="#39FF14" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="200" cy="195" r="3" fill="#39FF14" opacity="0.4"/>
+  <!-- Chrome text on shirt -->
+  <text x="200" y="255" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#39FF14" opacity="0.5">CHROME</text>
+  <!-- Title text -->
+  <text x="200" y="360" text-anchor="middle" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#39FF14" letter-spacing="2">CLOVER CHROME TEE</text>
+  <text x="200" y="360" text-anchor="middle" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#39FF14" letter-spacing="2" opacity="0.3" filter="blur(3px)">CLOVER CHROME TEE</text>
+</svg>

@@ -1,0 +1,38 @@
+{
+    "name": "MYBORG PONIES",
+    "short_name": "Myborg",
+    "description": "Friendship Is Firmware - A pastel dystopia where cute meets circuitry",
+    "start_url": "/myborg-ponies/index.html",
+    "display": "standalone",
+    "background_color": "#0A0010",
+    "theme_color": "#FF1493",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "images/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "images/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["entertainment"],
+    "shortcuts": [
+        {
+            "name": "View Ponies",
+            "url": "/myborg-ponies/index.html#characters"
+        },
+        {
+            "name": "Read Stories",
+            "url": "/myborg-ponies/index.html#fanfiction"
+        }
+    ]
+}

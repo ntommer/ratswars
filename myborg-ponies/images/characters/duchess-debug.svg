@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="dd-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#250015" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="dd-neon">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="dd-crown-glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="dd-crown-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#CC9900"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#dd-glow)" opacity="0.5"/>
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#FF149330" stroke-width="1"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="#CC1177" stroke="#DD2288" stroke-width="1"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#CC1177" stroke="#DD2288" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#CC1177" stroke="#DD2288" stroke-width="1"/>
+  <!-- Corporate crown -->
+  <g filter="url(#dd-crown-glow)">
+    <path d="M 185 95 L 185 70 L 195 80 L 205 60 L 215 80 L 225 65 L 235 80 L 245 72 L 245 95 Z" fill="url(#dd-crown-grad)" stroke="#FFE044" stroke-width="1"/>
+    <!-- Crown gems -->
+    <circle cx="205" cy="68" r="3" fill="#FF1493" filter="url(#dd-neon)"/>
+    <circle cx="225" cy="72" r="2.5" fill="#FF1493" filter="url(#dd-neon)"/>
+    <circle cx="215" cy="85" r="2" fill="#FF1493" filter="url(#dd-neon)"/>
+    <!-- Crown band -->
+    <rect x="185" y="88" width="60" height="7" fill="#FFD700" stroke="#CC9900" stroke-width="0.5"/>
+    <rect x="195" y="89" width="8" height="5" fill="#FF1493" opacity="0.6"/>
+    <rect x="211" y="89" width="8" height="5" fill="#FF1493" opacity="0.6"/>
+    <rect x="227" y="89" width="8" height="5" fill="#FF1493" opacity="0.6"/>
+  </g>
+  <!-- Ear (behind crown) -->
+  <polygon points="238,95 235,72 248,90" fill="#CC1177" stroke="#DD2288" stroke-width="1"/>
+  <!-- Glowing pink eyes -->
+  <circle cx="205" cy="118" r="8" fill="#0A0010"/>
+  <circle cx="205" cy="118" r="5" fill="#FF1493" filter="url(#dd-neon)"/>
+  <circle cx="205" cy="116" r="2" fill="#FF88CC"/>
+  <circle cx="233" cy="115" r="8" fill="#0A0010"/>
+  <circle cx="233" cy="115" r="5" fill="#FF1493" filter="url(#dd-neon)"/>
+  <circle cx="233" cy="113" r="2" fill="#FF88CC"/>
+  <!-- Eye glow rays -->
+  <line x1="205" y1="118" x2="195" y2="125" stroke="#FF1493" stroke-width="0.8" opacity="0.4" filter="url(#dd-neon)"/>
+  <line x1="233" y1="115" x2="243" y2="122" stroke="#FF1493" stroke-width="0.8" opacity="0.4" filter="url(#dd-neon)"/>
+  <!-- Muzzle (stern expression) -->
+  <ellipse cx="245" cy="130" rx="14" ry="9" fill="#DD2288"/>
+  <line x1="240" y1="133" x2="252" y2="131" stroke="#AA0066" stroke-width="1"/>
+  <!-- Front legs -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#CC1177"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#CC1177"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#BB0066"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#BB0066"/>
+  <!-- Gold hooves -->
+  <rect x="158" y="342" width="24" height="10" rx="4" fill="#FFD700" filter="url(#dd-neon)"/>
+  <rect x="208" y="342" width="24" height="10" rx="4" fill="#FFD700" filter="url(#dd-neon)"/>
+  <rect x="128" y="342" width="26" height="10" rx="4" fill="#FFD700" filter="url(#dd-neon)"/>
+  <rect x="238" y="342" width="26" height="10" rx="4" fill="#FFD700" filter="url(#dd-neon)"/>
+  <!-- Mane (corporate, sleek) -->
+  <path d="M 195 95 Q 180 82 184 105 Q 172 90 177 115 Q 165 102 170 128" stroke="#880044" stroke-width="4" fill="none"/>
+  <path d="M 195 95 Q 183 86 186 106 Q 175 95 179 117" stroke="#FF1493" stroke-width="1.5" fill="none" opacity="0.4" filter="url(#dd-neon)"/>
+  <!-- Tail (elegant, dark) -->
+  <path d="M 120 240 Q 95 225 88 252 Q 82 272 75 268 Q 68 280 62 275" stroke="#880044" stroke-width="4" fill="none"/>
+  <path d="M 120 240 Q 98 228 92 254" stroke="#FF1493" stroke-width="1" fill="none" opacity="0.3" filter="url(#dd-neon)"/>
+  <!-- MegaStable logo on flank -->
+  <g transform="translate(162,215)">
+    <rect x="0" y="0" width="22" height="18" rx="2" fill="none" stroke="#FFD700" stroke-width="1.5" filter="url(#dd-neon)"/>
+    <text x="11" y="13" text-anchor="middle" fill="#FFD700" font-family="monospace" font-size="9" font-weight="bold">MS</text>
+  </g>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#FF1493" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">DUCHESS DEBUG</text>
+</svg>

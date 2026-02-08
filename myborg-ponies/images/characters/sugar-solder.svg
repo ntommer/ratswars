@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="ss-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#002020" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="ss-neon">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#ss-glow)" opacity="0.5"/>
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#98FFB030" stroke-width="1"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="#98FFB0" stroke="#AAFFCC" stroke-width="1"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#98FFB0" stroke="#AAFFCC" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#98FFB0" stroke="#AAFFCC" stroke-width="1"/>
+  <!-- Ear -->
+  <polygon points="195,95 185,65 205,85" fill="#98FFB0" stroke="#AAFFCC" stroke-width="1"/>
+  <!-- Eye -->
+  <circle cx="228" cy="115" r="9" fill="#0A0010"/>
+  <circle cx="230" cy="113" r="4" fill="#FF69B4"/>
+  <circle cx="232" cy="111" r="1.5" fill="#ffffff"/>
+  <!-- Muzzle -->
+  <ellipse cx="245" cy="130" rx="15" ry="10" fill="#A8FFBB"/>
+  <!-- Nurse/repair cap -->
+  <path d="M 195 100 Q 210 88 230 92 Q 240 94 245 100" fill="#FFFFFF" stroke="#FF4444" stroke-width="0.5"/>
+  <line x1="218" y1="90" x2="218" y2="98" stroke="#FF4444" stroke-width="2"/>
+  <line x1="214" y1="94" x2="222" y2="94" stroke="#FF4444" stroke-width="2"/>
+  <!-- Front legs -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#98FFB0"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#98FFB0"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#88EEA0"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#88EEA0"/>
+  <!-- Hooves -->
+  <rect x="158" y="342" width="24" height="10" rx="4" fill="#FF69B4"/>
+  <rect x="208" y="342" width="24" height="10" rx="4" fill="#FF69B4"/>
+  <rect x="128" y="342" width="26" height="10" rx="4" fill="#FF69B4"/>
+  <rect x="238" y="342" width="26" height="10" rx="4" fill="#FF69B4"/>
+  <!-- Rainbow wire mane -->
+  <path d="M 195 88 Q 180 74 183 96" stroke="#FF0000" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <path d="M 193 90 Q 175 78 178 102" stroke="#FF8800" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <path d="M 191 92 Q 170 82 174 108 Q 160 96 166 120" stroke="#FFFF00" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <path d="M 189 94 Q 166 86 170 112 Q 156 100 162 126" stroke="#00FF66" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <path d="M 187 96 Q 163 90 167 116 Q 152 106 158 132" stroke="#0088FF" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <path d="M 185 98 Q 160 94 164 120 Q 148 112 155 138" stroke="#CC44FF" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <!-- Tail (rainbow wire) -->
+  <path d="M 120 235 Q 100 225 92 248" stroke="#FF0000" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <path d="M 118 240 Q 96 230 88 255" stroke="#FFFF00" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <path d="M 116 245 Q 92 236 85 262" stroke="#00FF66" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <path d="M 114 250 Q 88 242 82 268" stroke="#0088FF" stroke-width="2" fill="none" filter="url(#ss-neon)"/>
+  <!-- Soldering iron tool (held by front leg) -->
+  <line x1="230" y1="290" x2="260" y2="270" stroke="#888888" stroke-width="3"/>
+  <line x1="260" y1="270" x2="272" y2="262" stroke="#FFAA00" stroke-width="2" filter="url(#ss-neon)"/>
+  <circle cx="274" cy="261" r="3" fill="#FF6600" filter="url(#ss-neon)"/>
+  <!-- Wrench tool (on flank) -->
+  <g transform="translate(165,218) rotate(-20)">
+    <rect x="0" y="2" width="18" height="4" rx="1" fill="#C0C0C0"/>
+    <path d="M 18 0 L 22 0 L 24 2 L 24 6 L 22 8 L 18 8 L 20 6 L 20 2 Z" fill="#C0C0C0"/>
+  </g>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#98FFB0" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">SUGAR SOLDER</text>
+</svg>

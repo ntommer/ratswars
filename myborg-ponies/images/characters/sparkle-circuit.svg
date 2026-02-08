@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="sc-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a0030" />
+      <stop offset="100%" stop-color="#0A0010" />
+    </radialGradient>
+    <filter id="sc-neon">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0A0010"/>
+  <rect width="400" height="400" fill="url(#sc-glow)" opacity="0.5"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="380" x2="400" y2="380" stroke="#ff143930" stroke-width="1"/>
+  <line x1="0" y1="360" x2="400" y2="360" stroke="#ff143915" stroke-width="0.5"/>
+  <!-- Pony body -->
+  <ellipse cx="200" cy="240" rx="85" ry="60" fill="#F0F0F0" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Neck -->
+  <path d="M 240 200 Q 250 170 240 140 Q 235 130 225 125" fill="#F0F0F0" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Head -->
+  <ellipse cx="215" cy="120" rx="40" ry="35" fill="#F0F0F0" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Ear -->
+  <polygon points="195,95 185,65 205,85" fill="#F0F0F0" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Eye -->
+  <circle cx="228" cy="115" r="10" fill="#0A0010"/>
+  <circle cx="230" cy="113" r="4" fill="#4488ff"/>
+  <circle cx="232" cy="111" r="1.5" fill="#ffffff"/>
+  <!-- Muzzle -->
+  <ellipse cx="245" cy="130" rx="15" ry="10" fill="#E8E0E8" stroke="#D0D0D0" stroke-width="0.5"/>
+  <!-- Front legs -->
+  <rect x="160" y="280" width="20" height="70" rx="8" fill="#F0F0F0" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="210" y="280" width="20" height="70" rx="8" fill="#F0F0F0" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Back legs -->
+  <rect x="130" y="275" width="22" height="75" rx="8" fill="#E8E8E8" stroke="#D0D0D0" stroke-width="1"/>
+  <rect x="240" y="275" width="22" height="75" rx="8" fill="#E8E8E8" stroke="#D0D0D0" stroke-width="1"/>
+  <!-- Hooves -->
+  <rect x="158" y="342" width="24" height="10" rx="4" fill="#cc0000"/>
+  <rect x="208" y="342" width="24" height="10" rx="4" fill="#cc0000"/>
+  <rect x="128" y="342" width="26" height="10" rx="4" fill="#cc0000"/>
+  <rect x="238" y="342" width="26" height="10" rx="4" fill="#cc0000"/>
+  <!-- Circuit wire accents (red) -->
+  <path d="M 150 220 L 170 220 L 170 240 L 190 240 L 190 260" stroke="#ff2222" stroke-width="2" fill="none" filter="url(#sc-neon)"/>
+  <path d="M 220 210 L 240 210 L 240 230 L 260 230" stroke="#ff2222" stroke-width="2" fill="none" filter="url(#sc-neon)"/>
+  <path d="M 180 200 L 200 200 L 200 220 L 220 220" stroke="#ff2222" stroke-width="1.5" fill="none" filter="url(#sc-neon)"/>
+  <!-- Circuit nodes -->
+  <circle cx="170" cy="220" r="3" fill="#ff4444" filter="url(#sc-neon)"/>
+  <circle cx="190" cy="240" r="3" fill="#ff4444" filter="url(#sc-neon)"/>
+  <circle cx="240" cy="210" r="3" fill="#ff4444" filter="url(#sc-neon)"/>
+  <circle cx="200" cy="200" r="3" fill="#ff4444" filter="url(#sc-neon)"/>
+  <!-- Blue heart power core -->
+  <path d="M 200 230 L 190 220 Q 185 210 195 210 Q 200 210 200 218 Q 200 210 205 210 Q 215 210 210 220 Z" fill="#4488ff" stroke="#66aaff" stroke-width="1" filter="url(#sc-neon)"/>
+  <path d="M 200 226 L 194 220 Q 191 215 196 215 Q 200 215 200 219 Q 200 215 204 215 Q 209 215 206 220 Z" fill="#88ccff" opacity="0.6"/>
+  <!-- Mane (flowing, with circuit patterns) -->
+  <path d="M 195 90 Q 175 80 180 100 Q 165 85 170 110 Q 155 100 165 125 Q 150 115 160 140 Q 148 135 155 155" fill="none" stroke="#ff2222" stroke-width="3" filter="url(#sc-neon)"/>
+  <path d="M 195 90 Q 185 78 185 98 Q 172 83 175 108 Q 160 98 168 122" fill="none" stroke="#ff6666" stroke-width="1.5" opacity="0.5"/>
+  <!-- Tail -->
+  <path d="M 120 240 Q 90 230 85 260 Q 80 280 95 275 Q 85 290 100 285 Q 90 305 105 295" fill="none" stroke="#ff2222" stroke-width="3" filter="url(#sc-neon)"/>
+  <!-- Name label -->
+  <text x="200" y="390" text-anchor="middle" fill="#ff1493" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">SPARKLE CIRCUIT</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A0033"/>
+      <stop offset="100%" stop-color="#0A0010"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <!-- T-shirt silhouette -->
+  <path d="M 120 100 L 80 130 L 100 140 L 100 300 L 300 300 L 300 140 L 320 130 L 280 100 L 260 115 Q 230 130 200 130 Q 170 130 140 115 Z" fill="#0A0010" stroke="#FF1493" stroke-width="2"/>
+  <!-- Neckline -->
+  <path d="M 140 115 Q 170 130 200 130 Q 230 130 260 115" fill="none" stroke="#FF1493" stroke-width="1.5"/>
+  <!-- Design on shirt - Processor/chip design -->
+  <rect x="175" y="170" width="50" height="50" fill="none" stroke="#FF1493" stroke-width="1.5" opacity="0.7"/>
+  <rect x="183" y="178" width="34" height="34" fill="none" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <!-- Chip pins -->
+  <line x1="185" y1="170" x2="185" y2="160" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="195" y1="170" x2="195" y2="160" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="205" y1="170" x2="205" y2="160" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="215" y1="170" x2="215" y2="160" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="185" y1="220" x2="185" y2="230" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="195" y1="220" x2="195" y2="230" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="205" y1="220" x2="205" y2="230" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="215" y1="220" x2="215" y2="230" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="175" y1="180" x2="165" y2="180" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="175" y1="190" x2="165" y2="190" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="175" y1="200" x2="165" y2="200" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="175" y1="210" x2="165" y2="210" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="225" y1="180" x2="235" y2="180" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="225" y1="190" x2="235" y2="190" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="225" y1="200" x2="235" y2="200" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <line x1="225" y1="210" x2="235" y2="210" stroke="#FF1493" stroke-width="1" opacity="0.5"/>
+  <!-- Heart in the center of the chip -->
+  <path d="M 200 190 L 206 198 L 200 206 L 194 198 Z" fill="#FF1493" opacity="0.4"/>
+  <circle cx="197" cy="192" r="4" fill="none" stroke="#FF1493" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="203" cy="192" r="4" fill="none" stroke="#FF1493" stroke-width="0.8" opacity="0.5"/>
+  <!-- Processor text -->
+  <text x="200" y="260" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#FF1493" opacity="0.5">PROCESSOR</text>
+  <!-- Title text -->
+  <text x="200" y="355" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#FF1493" letter-spacing="1">PINKIE PROCESSOR TEE</text>
+  <text x="200" y="355" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#FF1493" letter-spacing="1" opacity="0.3" filter="blur(3px)">PINKIE PROCESSOR TEE</text>
+</svg>
