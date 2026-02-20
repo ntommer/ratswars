@@ -1,0 +1,11 @@
+{
+  "name": "ratswars-website",
+  "version": "1.0.0",
+  "description": "RATS WARS - Official Website",
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
