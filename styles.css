@@ -350,6 +350,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 35px;
     grid-auto-rows: auto;
+    align-items: start;
 }
 
 .character-card {
@@ -368,6 +369,10 @@ body {
 
 .character-card:active {
     transform: scale(0.98);
+}
+
+.character-card.landscape {
+    grid-column: span 2;
 }
 
 .character-image {
@@ -1128,6 +1133,20 @@ footer {
 }
 
 /* === RESPONSIVE === */
+
+/* Large screens - bigger character and gallery images */
+@media (min-width: 1200px) {
+    .character-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 35px;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 15px;
@@ -1154,7 +1173,8 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .gallery-item.landscape {
+    .gallery-item.landscape,
+    .character-card.landscape {
         grid-column: span 1;
     }
 
