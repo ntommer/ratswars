@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initMerchandise();
     initCharacterAnimations();
     initVisitorCounter();
+    initGalleryLayout();
 });
 
 // === STARFIELD GENERATION ===
@@ -730,6 +731,27 @@ document.head.appendChild(cheeseStyle);
 console.log('%c🧀 RATS WARS 🧀', 'font-size: 20px; font-weight: bold; color: #ffd700; text-shadow: 0 0 10px #ffd700;');
 console.log('%cMay the Cheese be with you!', 'font-size: 14px; color: #00ffff;');
 console.log('%cTip: There are secret cheesy surprises hidden on this page...', 'font-size: 12px; color: #999;');
+
+// === GALLERY LAYOUT ===
+// Auto-detect landscape images and span them across 2 columns
+function initGalleryLayout() {
+    var galleryItems = document.querySelectorAll('.gallery-item img');
+    galleryItems.forEach(function(img) {
+        if (img.complete) {
+            checkLandscape(img);
+        } else {
+            img.addEventListener('load', function() {
+                checkLandscape(this);
+            });
+        }
+    });
+}
+
+function checkLandscape(img) {
+    if (img.naturalWidth > img.naturalHeight) {
+        img.parentElement.classList.add('landscape');
+    }
+}
 
 // === VISITOR COUNTER ===
 // Uses CountAPI - a free, no-auth counter service for static sites
