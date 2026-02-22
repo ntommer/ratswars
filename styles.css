@@ -1145,6 +1145,10 @@ footer {
         grid-template-columns: repeat(3, 1fr);
         gap: 35px;
     }
+
+    .product-pair .product-image {
+        width: 300px;
+    }
 }
 
 @media (max-width: 768px) {
