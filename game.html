@@ -630,12 +630,13 @@ function buildCardFront(char, isPlayer, revealStats) {
     if (revealStats && stat === chosenStat) {
       // will be coloured after comparison — handled post-render
     }
-    const valHidden  = (!isPlayer && !revealStats);
-    const barHidden  = (!isPlayer && !revealStats);
+    const valHidden = !revealStats;
+    const barHidden = !revealStats;
 
     const clickable = isPlayer && phase === 'choose';
 
-    rowClass += valHidden ? ' locked' : '';
+    // only show no-click cursor on CPU's hidden rows, not player's (still need to tap)
+    if (!isPlayer && !revealStats) rowClass += ' locked';
 
     statsHTML += `
       <div class="${rowClass}" id="${isPlayer ? 'p' : 'c'}-stat-${stat}"
@@ -662,9 +663,9 @@ function renderCards(revealCpu) {
   const pChar = playerDeck[0];
   const cChar = cpuDeck[0];
 
-  // player card always visible
+  // player card: stats hidden until reveal (same timing as CPU)
   document.getElementById('player-card-front').className = `card-face card-front faction-${pChar.faction}`;
-  document.getElementById('player-card-front').innerHTML = buildCardFront(pChar, true, false);
+  document.getElementById('player-card-front').innerHTML = buildCardFront(pChar, true, revealCpu);
 
   // cpu front
   document.getElementById('cpu-card-front').className = `card-face card-front faction-${cChar.faction}`;
