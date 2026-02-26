@@ -481,106 +481,107 @@
 
 <script>
 // ── Character data ──────────────────────────────────────────────────────────
-// Stat design guarantee: every character has at least one stat ≥ 9,
-// so they can beat ≥ 10 of the other 11 characters in that category.
-// Five unique 10s (one per stat): YOLO/JU-JU, DADDIO/COMBAT,
-// KING PROCUTTO/CUNNING, CAT CAT WALKER/WEAPONS, R4T5/TRICKSTER.
+// Stat design guarantee: for every pairwise matchup (66 total), both
+// characters have at least one stat where they strictly beat the other.
+// No character can rely on a single stat as a universal answer.
+// Unique 10s: OKIE/JU-JU, KING/CUNNING, CAT CAT/WEAPONS, R4T5/TRICKSTER.
+// COMBAT has no unique top — CAT CAT and PRINCESS both sit at 9.
 const CHARACTERS = [
   {
     name: 'B3VR',
     image: 'images/characters/hero_1769630536998.png',
     desc: 'Long on intellect, short on social graces',
     faction: 'rebel',
-    juju: 2, combat: 3, cunning: 9, weapons: 4, trickster: 8
-    // Strength: CUNNING (9) — the galaxy's top analyst
+    juju: 3, combat: 4, cunning: 9, weapons: 5, trickster: 8
+    // Best: CUNNING — but watch out, YOLO and OKIE both edge him in JU-JU
   },
   {
     name: 'DADDIO',
     image: 'images/characters/DADDIO 2.png',
     desc: 'Universal personification of Daddy Issues',
     faction: 'order',
-    juju: 8, combat: 10, cunning: 5, weapons: 8, trickster: 3
-    // Strength: COMBAT (10) — unique top, unstoppable in a fight
+    juju: 9, combat: 8, cunning: 6, weapons: 7, trickster: 5
+    // Best: JU-JU — but OKIE (10) beats him there; use COMBAT or WEAPONS instead
   },
   {
     name: 'JACK PAINTSCRAPER',
     image: 'images/characters/Jack Paintscraper.png',
     desc: "Boyish good looks, depths of his shallowness",
     faction: 'rebel',
-    juju: 3, combat: 7, cunning: 8, weapons: 7, trickster: 9
-    // Strength: TRICKSTER (9) — conman extraordinaire
+    juju: 4, combat: 7, cunning: 8, weapons: 6, trickster: 9
+    // Best: TRICKSTER — but R4T5 (10) beats him there; lean on CUNNING too
   },
   {
     name: 'PRINCESS LIMA BEANS',
     image: 'images/characters/Princess Lima Beans.png',
     desc: 'Always sassy, always fun to watch',
     faction: 'rebel',
-    juju: 5, combat: 9, cunning: 7, weapons: 8, trickster: 6
-    // Strength: COMBAT (9) — kicks more ass than anyone admits
+    juju: 6, combat: 9, cunning: 7, weapons: 7, trickster: 6
+    // Best: COMBAT — shared top with CAT CAT; JU-JU is her weak spot
   },
   {
     name: 'TUB O THE GUT',
     image: 'images/characters/Tubo 2.png',
     desc: 'Ruthless kingpin, always hungry for more',
     faction: 'order',
-    juju: 1, combat: 4, cunning: 8, weapons: 6, trickster: 9
-    // Strength: TRICKSTER (9) — runs the underworld through deception
+    juju: 2, combat: 5, cunning: 8, weapons: 7, trickster: 9
+    // Best: TRICKSTER — but R4T5 beats him; CUNNING and WEAPONS back him up
   },
   {
     name: 'KING PROCUTTO',
     image: 'images/characters/King Procutto 2.png',
     desc: 'Devilish King of the New Galactic Order',
     faction: 'order',
-    juju: 7, combat: 4, cunning: 10, weapons: 5, trickster: 7
-    // Strength: CUNNING (10) — unique top, the ultimate mastermind
+    juju: 8, combat: 5, cunning: 10, weapons: 6, trickster: 7
+    // Best: CUNNING (10, unique) — but terrible in COMBAT; pick carefully
   },
   {
     name: 'CAT CAT WALKER',
     image: 'images/characters/CAT CAT Walker.png',
     desc: 'Deadly mechanical beasts of Ice Planet Cube',
     faction: 'order',
-    juju: 0, combat: 8, cunning: 2, weapons: 10, trickster: 1
-    // Strength: WEAPONS (10) — unique top, walking arsenal
+    juju: 1, combat: 9, cunning: 3, weapons: 10, trickster: 2
+    // Best: WEAPONS (10, unique) — near-zero JU-JU and TRICKSTER; a glass cannon
   },
   {
     name: 'BISCOTTI & HAM',
     image: 'images/characters/Biscotti and Ham 3.png',
     desc: 'Space pirates — any job if the cheddar is right',
     faction: 'neutral',
-    juju: 2, combat: 7, cunning: 7, weapons: 9, trickster: 8
-    // Strength: WEAPONS (9) — heavily armed and dangerous
+    juju: 3, combat: 8, cunning: 7, weapons: 8, trickster: 9
+    // Best: TRICKSTER — solid all-rounder, no glaring weakness above 3
   },
   {
     name: 'R4T5',
     image: 'images/characters/R4T5 4.png',
     desc: 'Helpful if nervous — key to galactic history',
     faction: 'rebel',
-    juju: 3, combat: 2, cunning: 6, weapons: 3, trickster: 10
-    // Strength: TRICKSTER (10) — unique top, hides in plain sight
+    juju: 4, combat: 3, cunning: 7, weapons: 4, trickster: 10
+    // Best: TRICKSTER (10, unique) — terrible in COMBAT; play TRICKSTER always
   },
   {
     name: 'YOLO',
     image: 'images/characters/Yolo 2.png',
     desc: 'Sensei to the stars. Handy with the Ju-Ju',
     faction: 'rebel',
-    juju: 10, combat: 8, cunning: 7, weapons: 3, trickster: 7
-    // Strength: JU-JU (10) — unique top, one with the Ju-Ju
+    juju: 9, combat: 7, cunning: 8, weapons: 3, trickster: 6
+    // Best: JU-JU — but OKIE (10) beats him! Use CUNNING or COMBAT vs OKIE
   },
   {
     name: 'OKIE JUAN DOKIE',
     image: 'images/characters/Okie.png',
     desc: 'Teacher of the Ju-Ju Knights',
     faction: 'rebel',
-    juju: 9, combat: 7, cunning: 8, weapons: 5, trickster: 5
-    // Strength: JU-JU (9) — second only to YOLO
+    juju: 10, combat: 6, cunning: 7, weapons: 5, trickster: 5
+    // Best: JU-JU (10, unique) — even beats YOLO in JU-JU; weak in TRICKSTER
   },
   {
     name: 'GUTTER BRIGADE',
     image: 'images/characters/Gutter Brigade 1.png',
     desc: 'Tip of the spear for the New Galactic Order',
     faction: 'order',
-    juju: 1, combat: 6, cunning: 3, weapons: 9, trickster: 2
-    // Strength: WEAPONS (9) — strength in sheer firepower
+    juju: 2, combat: 7, cunning: 4, weapons: 9, trickster: 3
+    // Best: WEAPONS — avoid JU-JU and TRICKSTER; strongest in sheer firepower
   }
 ];
 
