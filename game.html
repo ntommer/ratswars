@@ -192,7 +192,7 @@
     .card {
       position: relative;
       width: 100%;
-      padding-bottom: 140%; /* portrait */
+      padding-bottom: 158%; /* portrait — extra height for 5 stat rows */
       border-radius: 12px;
       transform-style: preserve-3d;
       transition: transform .5s ease;
@@ -268,14 +268,14 @@
 
     /* Card: stat rows */
     .card-stats {
-      padding: 6px 8px 8px;
-      display: flex; flex-direction: column; gap: 4px;
+      padding: 4px 6px 6px;
+      display: flex; flex-direction: column; gap: 3px;
     }
     .stat-row {
       display: flex; align-items: center; justify-content: space-between;
       background: rgba(255,255,255,.04);
-      border-radius: 6px;
-      padding: 5px 8px;
+      border-radius: 5px;
+      padding: 4px 6px;
       border: 1px solid rgba(255,255,255,.06);
       cursor: pointer;
       transition: all .15s;
@@ -481,95 +481,111 @@
 
 <script>
 // ── Character data ──────────────────────────────────────────────────────────
+// Stat design guarantee: every character has at least one stat ≥ 9,
+// so they can beat ≥ 10 of the other 11 characters in that category.
+// Five unique 10s (one per stat): YOLO/JU-JU, DADDIO/COMBAT,
+// KING PROCUTTO/CUNNING, CAT CAT WALKER/WEAPONS, R4T5/TRICKSTER.
 const CHARACTERS = [
   {
     name: 'B3VR',
     image: 'images/characters/hero_1769630536998.png',
     desc: 'Long on intellect, short on social graces',
     faction: 'rebel',
-    juju: 2, combat: 4, cunning: 8
+    juju: 2, combat: 3, cunning: 9, weapons: 4, trickster: 8
+    // Strength: CUNNING (9) — the galaxy's top analyst
   },
   {
     name: 'DADDIO',
     image: 'images/characters/DADDIO 2.png',
     desc: 'Universal personification of Daddy Issues',
     faction: 'order',
-    juju: 8, combat: 9, cunning: 6
+    juju: 8, combat: 10, cunning: 5, weapons: 8, trickster: 3
+    // Strength: COMBAT (10) — unique top, unstoppable in a fight
   },
   {
     name: 'JACK PAINTSCRAPER',
     image: 'images/characters/Jack Paintscraper.png',
     desc: "Boyish good looks, depths of his shallowness",
     faction: 'rebel',
-    juju: 3, combat: 7, cunning: 9
+    juju: 3, combat: 7, cunning: 8, weapons: 7, trickster: 9
+    // Strength: TRICKSTER (9) — conman extraordinaire
   },
   {
     name: 'PRINCESS LIMA BEANS',
     image: 'images/characters/Princess Lima Beans.png',
     desc: 'Always sassy, always fun to watch',
     faction: 'rebel',
-    juju: 5, combat: 8, cunning: 7
+    juju: 5, combat: 9, cunning: 7, weapons: 8, trickster: 6
+    // Strength: COMBAT (9) — kicks more ass than anyone admits
   },
   {
     name: 'TUB O THE GUT',
     image: 'images/characters/Tubo 2.png',
     desc: 'Ruthless kingpin, always hungry for more',
     faction: 'order',
-    juju: 1, combat: 6, cunning: 9
+    juju: 1, combat: 4, cunning: 8, weapons: 6, trickster: 9
+    // Strength: TRICKSTER (9) — runs the underworld through deception
   },
   {
     name: 'KING PROCUTTO',
     image: 'images/characters/King Procutto 2.png',
     desc: 'Devilish King of the New Galactic Order',
     faction: 'order',
-    juju: 7, combat: 5, cunning: 10
+    juju: 7, combat: 4, cunning: 10, weapons: 5, trickster: 7
+    // Strength: CUNNING (10) — unique top, the ultimate mastermind
   },
   {
     name: 'CAT CAT WALKER',
     image: 'images/characters/CAT CAT Walker.png',
     desc: 'Deadly mechanical beasts of Ice Planet Cube',
     faction: 'order',
-    juju: 0, combat: 10, cunning: 2
+    juju: 0, combat: 8, cunning: 2, weapons: 10, trickster: 1
+    // Strength: WEAPONS (10) — unique top, walking arsenal
   },
   {
     name: 'BISCOTTI & HAM',
     image: 'images/characters/Biscotti and Ham 3.png',
     desc: 'Space pirates — any job if the cheddar is right',
     faction: 'neutral',
-    juju: 2, combat: 6, cunning: 8
+    juju: 2, combat: 7, cunning: 7, weapons: 9, trickster: 8
+    // Strength: WEAPONS (9) — heavily armed and dangerous
   },
   {
     name: 'R4T5',
     image: 'images/characters/R4T5 4.png',
     desc: 'Helpful if nervous — key to galactic history',
     faction: 'rebel',
-    juju: 3, combat: 3, cunning: 7
+    juju: 3, combat: 2, cunning: 6, weapons: 3, trickster: 10
+    // Strength: TRICKSTER (10) — unique top, hides in plain sight
   },
   {
     name: 'YOLO',
     image: 'images/characters/Yolo 2.png',
     desc: 'Sensei to the stars. Handy with the Ju-Ju',
     faction: 'rebel',
-    juju: 10, combat: 7, cunning: 8
+    juju: 10, combat: 8, cunning: 7, weapons: 3, trickster: 7
+    // Strength: JU-JU (10) — unique top, one with the Ju-Ju
   },
   {
     name: 'OKIE JUAN DOKIE',
     image: 'images/characters/Okie.png',
     desc: 'Teacher of the Ju-Ju Knights',
     faction: 'rebel',
-    juju: 9, combat: 8, cunning: 7
+    juju: 9, combat: 7, cunning: 8, weapons: 5, trickster: 5
+    // Strength: JU-JU (9) — second only to YOLO
   },
   {
     name: 'GUTTER BRIGADE',
     image: 'images/characters/Gutter Brigade 1.png',
     desc: 'Tip of the spear for the New Galactic Order',
     faction: 'order',
-    juju: 1, combat: 5, cunning: 3
+    juju: 1, combat: 6, cunning: 3, weapons: 9, trickster: 2
+    // Strength: WEAPONS (9) — strength in sheer firepower
   }
 ];
 
-const STATS = ['juju', 'combat', 'cunning'];
-const STAT_LABELS = { juju: 'JU-JU', combat: 'COMBAT', cunning: 'CUNNING' };
+const STATS = ['juju', 'combat', 'cunning', 'weapons', 'trickster'];
+const STAT_LABELS = { juju: 'JU-JU', combat: 'COMBAT', cunning: 'CUNNING', weapons: 'WEAPONS', trickster: 'TRICKSTER' };
 
 // ── State ──────────────────────────────────────────────────────────────────
 let playerDeck = [];
