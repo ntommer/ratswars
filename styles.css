@@ -123,7 +123,7 @@ body {
 .hero {
     position: relative;
     text-align: center;
-    padding: 80px 20px 100px;
+    padding: 60px 20px 50px;
     background: linear-gradient(180deg,
         rgba(0, 0, 50, 0.9) 0%,
         rgba(0, 0, 0, 0.8) 50%,
@@ -131,7 +131,7 @@ body {
     );
     border: 4px solid var(--color-gold);
     border-radius: 3px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     box-shadow:
         0 0 40px rgba(255, 215, 0, 0.4),
         inset 0 0 60px rgba(255, 215, 0, 0.1),
@@ -193,6 +193,121 @@ body {
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+/* === TOYS SECTION === */
+.toys-section {
+    border-color: var(--color-orange);
+    box-shadow:
+        0 0 40px rgba(255, 107, 0, 0.4),
+        inset 0 0 30px rgba(255, 107, 0, 0.05);
+}
+
+.toys-section::before {
+    background: linear-gradient(90deg,
+        transparent,
+        var(--color-orange),
+        var(--color-gold),
+        var(--color-orange),
+        transparent
+    );
+    opacity: 0.8;
+}
+
+.toys-section-header {
+    margin-bottom: 25px;
+}
+
+.toys-title {
+    font-size: clamp(3rem, 9vw, 6.5rem) !important;
+    color: var(--color-orange) !important;
+    text-shadow:
+        0 0 20px var(--color-orange),
+        0 0 40px var(--color-gold),
+        4px 4px 0px rgba(0, 0, 0, 0.8) !important;
+    margin-bottom: 15px;
+}
+
+.toys-header-line {
+    background: linear-gradient(90deg,
+        transparent,
+        var(--color-orange),
+        var(--color-gold),
+        var(--color-orange),
+        transparent
+    );
+    width: 300px;
+    height: 4px;
+}
+
+.toys-wave-badge {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--color-black);
+    background: linear-gradient(135deg, var(--color-gold), var(--color-orange));
+    padding: 8px 35px;
+    border-radius: 3px;
+    margin-top: 15px;
+    letter-spacing: 0.2em;
+    box-shadow:
+        0 0 25px rgba(255, 215, 0, 0.7),
+        0 0 50px rgba(255, 107, 0, 0.4);
+    animation: toy-badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes toy-badge-pulse {
+    0%, 100% {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.7), 0 0 50px rgba(255, 107, 0, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.9), 0 0 70px rgba(255, 107, 0, 0.6);
+        transform: scale(1.03);
+    }
+}
+
+.toys-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.toy-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 3px solid var(--color-orange);
+    background: var(--color-black);
+    transition: all 0.3s ease;
+    box-shadow:
+        0 0 20px rgba(255, 107, 0, 0.3),
+        0 0 40px rgba(255, 107, 0, 0.1);
+}
+
+.toy-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--color-gold);
+    box-shadow:
+        0 0 40px rgba(255, 215, 0, 0.6),
+        0 15px 40px rgba(255, 107, 0, 0.5);
+}
+
+.toy-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.toy-item:hover img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .toys-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* === FEATURED SHIP === */
