@@ -483,77 +483,61 @@ function initCharacterAnimations() {
         observer.observe(card);
     });
 
-    // Initialize tap-and-hold for character cards
-    initCharacterTapAndHold();
+    initCharacterIntel();
 }
 
-// === CHARACTER TAP AND HOLD ===
-function initCharacterTapAndHold() {
-    const characterCards = document.querySelectorAll('.character-card');
+// === CHARACTER INTEL ===
+// Hover or keyboard focus reveals the description (CSS); a tap or click pins it open.
+// The name and hint are added here so the markup the admin editor publishes stays unchanged.
+function initCharacterIntel() {
+    const cards = document.querySelectorAll('.character-card');
 
-    characterCards.forEach(card => {
+    function closeAll(except) {
+        cards.forEach(card => {
+            if (card !== except) {
+                const overlay = card.querySelector('.character-overlay');
+                if (overlay) overlay.classList.remove('show');
+            }
+        });
+    }
+
+    cards.forEach(card => {
+        const frame = card.querySelector('.character-image');
         const overlay = card.querySelector('.character-overlay');
-        const imageContainer = card.querySelector('.character-image');
-        let isTouchingBottomThird = false;
+        const img = card.querySelector('img');
+        if (!frame || !overlay || !img) return;
 
-        // Helper function to check if touch/click is in bottom third
-        function isInBottomThird(event, element) {
-            const rect = element.getBoundingClientRect();
-            const y = event.clientY || (event.touches && event.touches[0].clientY);
-            const relativeY = y - rect.top;
-            const threshold = rect.height * (2/3); // Bottom third starts at 2/3 down
-            return relativeY >= threshold;
-        }
+        const name = document.createElement('h3');
+        name.className = 'character-name';
+        name.textContent = img.alt;
+        overlay.prepend(name);
 
-        // Touch events (mobile)
-        imageContainer.addEventListener('touchstart', function(e) {
-            if (isInBottomThird(e, imageContainer)) {
-                isTouchingBottomThird = true;
+        const hint = document.createElement('span');
+        hint.className = 'character-hint';
+        hint.textContent = 'INTEL';
+        hint.setAttribute('aria-hidden', 'true');
+        frame.appendChild(hint);
+
+        card.tabIndex = 0;
+
+        card.addEventListener('click', function() {
+            closeAll(card);
+            overlay.classList.toggle('show');
+        });
+
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                overlay.classList.add('show');
-            } else {
-                isTouchingBottomThird = false;
-            }
-        }, { passive: false });
-
-        imageContainer.addEventListener('touchend', function(e) {
-            if (isTouchingBottomThird) {
-                e.preventDefault();
+                closeAll(card);
+                overlay.classList.toggle('show');
+            } else if (e.key === 'Escape') {
                 overlay.classList.remove('show');
-                isTouchingBottomThird = false;
-            }
-        }, { passive: false });
-
-        imageContainer.addEventListener('touchcancel', function(e) {
-            if (isTouchingBottomThird) {
-                e.preventDefault();
-            }
-            overlay.classList.remove('show');
-            isTouchingBottomThird = false;
-        }, { passive: false });
-
-        // Mouse events (desktop) - press and hold
-        imageContainer.addEventListener('mousedown', function(e) {
-            if (isInBottomThird(e, imageContainer)) {
-                e.preventDefault();
-                overlay.classList.add('show');
             }
         });
+    });
 
-        imageContainer.addEventListener('mouseup', function(e) {
-            overlay.classList.remove('show');
-        });
-
-        imageContainer.addEventListener('mouseleave', function(e) {
-            overlay.classList.remove('show');
-        });
-
-        // Prevent context menu on long press in bottom third only
-        imageContainer.addEventListener('contextmenu', function(e) {
-            if (isInBottomThird(e, imageContainer)) {
-                e.preventDefault();
-            }
-        });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.character-card')) closeAll(null);
     });
 }
 
