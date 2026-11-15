@@ -1,5 +1,5 @@
 // Service Worker for RATS WARS Content Editor PWA
-const CACHE_NAME = 'rats-wars-editor-v2';
+const CACHE_NAME = 'rats-wars-editor-v3';
 const urlsToCache = [
   '/admin.html',
   '/manifest.json',
@@ -21,52 +21,25 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Fetch event - network first for API calls, cache first for assets
+// Network first, so a new deploy shows up on the next load; the cache is only an offline fallback.
+// This worker's scope is the whole site, so cache-first here served stale pages to anyone who had opened the editor.
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Network first for GitHub API calls
-  if (url.hostname === 'api.github.com') {
-    event.respondWith(
-      fetch(event.request)
-        .catch(() => {
-          return new Response(JSON.stringify({ error: 'Offline' }), {
-            status: 503,
-            headers: { 'Content-Type': 'application/json' }
-          });
-        })
-    );
+  if (event.request.method !== 'GET' || url.origin !== location.origin) {
     return;
   }
 
-  // Cache first, then network for other requests
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        if (response) {
-          // Return cached response and update cache in background
-          fetch(event.request).then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(event.request, networkResponse);
-              });
-            }
-          }).catch(() => {});
-          return response;
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
         }
-
-        // Not in cache, fetch from network
-        return fetch(event.request).then((networkResponse) => {
-          // Cache successful responses for same-origin requests
-          if (networkResponse && networkResponse.status === 200 && url.origin === location.origin) {
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-          }
-          return networkResponse;
-        });
+        return networkResponse;
       })
+      .catch(() => caches.match(event.request).then((cached) => cached || Response.error()))
   );
 });
 

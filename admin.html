@@ -985,7 +985,7 @@
             characters = [];
 
             // More flexible regex to handle whitespace variations
-            const cardRegex = /<div\s+class="character-card"\s+data-character="([^"]+)">\s*<div\s+class="character-image">\s*<img\s+src="([^"]+)"\s+alt="([^"]+)"[^>]*>\s*<div\s+class="character-overlay">\s*<p>([\s\S]*?)<\/p>/g;
+            const cardRegex = /<div\s+class="character-card"\s+data-character="([^"]+)">\s*<div\s+class="character-image">\s*<img\s+src="([^"]+)"\s+alt="([^"]+)"([^>]*)>\s*<div\s+class="character-overlay">\s*<p>([\s\S]*?)<\/p>/g;
 
             let match;
             while ((match = cardRegex.exec(html)) !== null) {
@@ -993,7 +993,8 @@
                     id: match[1],
                     imageUrl: match[2],
                     alt: match[3],
-                    description: match[4].trim()
+                    sizeAttrs: extractSizeAttrs(match[4]),
+                    description: match[5].trim()
                 });
             }
             console.log('Parsed characters:', characters.length);
@@ -1004,13 +1005,14 @@
             galleryImages = [];
 
             // More flexible regex to handle whitespace variations
-            const galleryRegex = /<div\s+class="gallery-item">\s*<img\s+src="([^"]+)"\s+alt="([^"]+)"[^>]*>/g;
+            const galleryRegex = /<div\s+class="gallery-item">\s*<img\s+src="([^"]+)"\s+alt="([^"]+)"([^>]*)>/g;
 
             let match;
             while ((match = galleryRegex.exec(html)) !== null) {
                 galleryImages.push({
                     imageUrl: match[1],
-                    alt: match[2]
+                    alt: match[2],
+                    sizeAttrs: extractSizeAttrs(match[3])
                 });
             }
             console.log('Parsed gallery images:', galleryImages.length);
@@ -1360,6 +1362,7 @@
                     id: id,
                     imageUrl: path,
                     alt: name,
+                    sizeAttrs: await measureSizeAttrs(base64),
                     description: description
                 });
 
@@ -1449,7 +1452,8 @@
                 // Add image to gallery array
                 galleryImages.push({
                     imageUrl: path,
-                    alt: title
+                    alt: title,
+                    sizeAttrs: await measureSizeAttrs(base64)
                 });
 
                 renderGallery();
@@ -1517,6 +1521,7 @@
                 // Update character with new image URL and keep base64 for preview
                 characters[index].imageUrl = path;
                 characters[index].previewUrl = base64;
+                characters[index].sizeAttrs = await measureSizeAttrs(base64);
                 renderCharacters();
                 markAsChanged();
                 showAlert('✅ Image uploaded successfully!', 'success');
@@ -1525,6 +1530,22 @@
                 console.error('Error uploading image:', error);
                 showAlert(`❌ Error uploading image: ${error.message}`, 'error');
             }
+        }
+
+        // width/height on published <img> tags reserve space so the page doesn't jump while images load
+        function extractSizeAttrs(attrs) {
+            const width = attrs.match(/\swidth="(\d+)"/);
+            const height = attrs.match(/\sheight="(\d+)"/);
+            return width && height ? ` width="${width[1]}" height="${height[1]}"` : '';
+        }
+
+        function measureSizeAttrs(dataUrl) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(` width="${img.naturalWidth}" height="${img.naturalHeight}"`);
+                img.onerror = () => resolve('');
+                img.src = dataUrl;
+            });
         }
 
         // Convert file to base64
@@ -1614,7 +1635,7 @@
             characters.forEach(char => {
                 newCharacterGrid += `                <div class="character-card" data-character="${char.id}">
                     <div class="character-image">
-                        <img src="${char.imageUrl}" alt="${char.alt}" loading="lazy">
+                        <img src="${char.imageUrl}" alt="${char.alt}" loading="lazy"${char.sizeAttrs || ''}>
                         <div class="character-overlay">
                             <p>${char.description}</p>
                         </div>
@@ -1633,7 +1654,7 @@
 
             galleryImages.forEach(img => {
                 newGalleryGrid += `                <div class="gallery-item">
-                    <img src="${img.imageUrl}" alt="${img.alt}" loading="lazy">
+                    <img src="${img.imageUrl}" alt="${img.alt}" loading="lazy"${img.sizeAttrs || ''}>
                 </div>\n`;
             });
 
