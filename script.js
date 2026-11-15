@@ -308,140 +308,115 @@ function sortStories() {
 }
 
 function readStory(storyId) {
-    // In a real implementation, this would fetch the full story from a database
+    const author = 'The Galactic Sewer Gazette';
     const stories = {
         1: {
-            title: 'The Battle of Cheese Station',
-            author: 'SpaceRodent42',
+            title: 'A Perfectly Ordinary Tuesday',
             content: `
-                <h2>The Battle of Cheese Station</h2>
-                <p><em>by SpaceRodent42</em></p>
-                <hr style="border-color: #ffd700; margin: 20px 0;">
-
-                <p>The alarms shrieked through the corridors of Cheese Station, their wailing cry echoing off the aged metal walls. Captain Whiskers' whiskers twitched as he studied the holographic display before him—six Imperial cruisers, emerging from hyperspace like hunters closing in on wounded prey.</p>
-
-                <p>"How long until they're in firing range?" he asked, his voice steady despite the fear gnawing at his gut.</p>
-
-                <p>"Twelve minutes, sir," replied Lieutenant Squeakers, her paws dancing across the control console. "Maybe fifteen if we're lucky."</p>
-
-                <p>Whiskers' gaze swept across the command center. Young faces, all of them. Most had joined the rebellion within the past year, drawn by tales of freedom and justice. They didn't deserve to die here, not like this.</p>
-
-                <p>"Begin evacuation procedures," he ordered. "Priority alpha—get everyone to the escape pods."</p>
-
-                <p>"What about the cheese, sir?" Squeakers asked quietly.</p>
-
-                <p>Ah yes, the cheese. Cheese Station wasn't just a hiding spot—it housed the largest repository of aged cheddar in the known galaxy. The rebellion had spent years gathering it, stockpile by stockpile, knowing that whoever controlled the cheese controlled the hearts and minds of rodents across the stars.</p>
-
-                <p>"We can't take it with us," Whiskers said, the words tasting bitter on his tongue. "And we can't let the Empire have it."</p>
-
-                <p>He turned to face his crew, seeing the understanding dawn in their eyes. If they couldn't save the cheese, they'd have to destroy it. Destroy years of work, countless resources, and perhaps the rebellion's last hope of turning the tide of this war.</p>
-
-                <p>"Set the self-destruct," he commanded. "We have ten minutes to get every soul off this station."</p>
-
-                <p>As his crew scrambled to comply, Whiskers allowed himself one last look at the massive storage chambers visible through the viewport. Mountains of golden cheddar, aged to perfection, each wheel a small fortune. In another life, another war, it might have been beautiful.</p>
-
-                <p>"Sir, incoming transmission from the lead Imperial cruiser," Squeakers announced.</p>
-
-                <p>"Put it through."</p>
-
-                <p>The holographic display shimmered, resolving into the sneering face of Admiral Claws, his feline features twisted with triumph.</p>
-
-                <p>"Captain Whiskers, how delightful to finally meet you. Surrender the station and its contents, and I promise your crew will be treated with... minimal hostility."</p>
-
-                <p>Whiskers smiled, showing his teeth. "Admiral, I have a counter-offer."</p>
-
-                <p>"I'm listening."</p>
-
-                <p>"You can have the station," Whiskers said calmly. "But you'll have to pick up the pieces."</p>
-
-                <p>He cut the transmission and turned to his crew. "Everyone out. Now. That's an order."</p>
-
-                <p>Eight minutes later, the last escape pod launched from Cheese Station. From his position at the helm of the pod, Whiskers watched the station growing smaller in the distance. The Imperial cruisers were closing in, no doubt preparing boarding parties.</p>
-
-                <p>His paw hovered over the detonation trigger.</p>
-
-                <p>"For the rebellion," he whispered, and pressed the button.</p>
-
-                <p>The explosion lit up space like a newborn star. Cheese Station, and all the Empire's dreams of conquest, became nothing more than debris and memory.</p>
-
-                <p>In the pod's silence, broken only by the soft breathing of his crew, Whiskers allowed himself a moment of grief. They had lost the cheese, lost the station, lost precious resources.</p>
-
-                <p>But they had won something more important: they had shown the Empire that some things, some freedoms, were worth more than any treasure. And as long as rebels like them drew breath, the fight would continue.</p>
-
-                <p>"Set course for the Rendezvous Point," he ordered. "And someone tell command we're going to need a new plan."</p>
-
-                <p>As the pod's engines hummed to life, carrying them away from the wreckage, Whiskers couldn't help but smile. The Empire might have won this battle, but the war was far from over.</p>
-
-                <p style="text-align: center; margin-top: 40px;"><em>— THE END —</em></p>
+                <p>The twin suns of Crapulon 5 winked wearily over the horizon, as if to say, "Not this again."</p>
+                <p>With all the enthusiasm of two government employees working overtime, they begrudgingly cast their light upon the hapless, debris-strewn face of what had become known throughout that corner of the galaxy simply as The Planet-Sized Trailer Park.</p>
+                <p>Rusting star cruisers leaned against half-collapsed cargo haulers. Satellite dishes outnumbered trees by several million to one. Somewhere in the distance, something exploded with enough confidence to suggest it had been doing so every morning for years.</p>
+                <p>When the suns finally found a gap in the bent aluminum blinds of one particularly unimpressive dwelling, a single golden beam crept across the room until it landed squarely on the face of Jack Paintscraper.</p>
+                <p>Jack remained perfectly still.</p>
+                <p>He lay on a ragged tatami mat, fully clothed, one boot missing, sleeping off what could only be described as a perfectly ordinary Tuesday night.</p>
+                <p>He had three excellent reasons for not moving. The first was the sunbeam, which he felt was being pushy. The second was his head, which had filed a formal complaint. The third was that there was, as far as Jack could determine without opening his eyes, absolutely nothing on Crapulon 5 worth getting up for.</p>
+                <p>The universe, which has never once respected a well-reasoned argument, chose that moment to knock on his door.</p>
+                <p>It was not a polite knock. It was the knock of someone who had crossed four star systems and a landfill to be here and intended to get his money's worth.</p>
+                <p>"Go away," said Jack, with the boyish charm that had gotten him thrown out of bars on eleven planets. "I gave at the office."</p>
+                <p>"You do not have an office, amigo," said a voice like gravel rolling around in a hubcap. "You do not have a job. According to the lady at the cantina, you do not even have a tab anymore."</p>
+                <p>The door, which had never been much of a door, fell inward with a sigh of relief. Framed in the dust and the hard morning light stood a squat figure in a striped poncho and a hat roughly the size of a landing pad. In one paw he held a humming green blade. In the other he held Jack's missing boot.</p>
+                <p>"Okie Juan Dokie," said the stranger. "I have come a long way to find you, Jack Paintscraper. The Ju-Ju tells me you are destined for great things."</p>
+                <p>Jack opened one eye and considered this. He had been called many things in his life &mdash; flaneur, freeloader, and on one memorable occasion, "Your Honor, that's him" &mdash; but never <em>destined</em>.</p>
+                <p>"The Ju-Ju," he said carefully, "has clearly got me mixed up with somebody else."</p>
+                <p>"That is what I told the Ju-Ju," said Okie, tossing him the boot. "But the Ju-Ju insists. Get up. The New Galactic Order will be here by lunch, and I would like to be somewhere with a better bar."</p>
+                <p>It was, Jack had to admit, the first sensible thing anyone had said to him all week.</p>
             `
         },
         2: {
-            title: "Commander Squeak's First Flight",
-            author: 'GalacticTail',
+            title: 'If the Cheddar Is Right',
             content: `
-                <h2>Commander Squeak's First Flight</h2>
-                <p><em>by GalacticTail</em></p>
-                <hr style="border-color: #ffd700; margin: 20px 0;">
-
-                <p>The simulator pod smelled of metal and fear—mostly the fear. Squeak's paws trembled as she strapped herself into the pilot's seat, the harness cutting into her shoulders like a physical manifestation of her anxiety.</p>
-
-                <p>"This is just a simulation," she whispered to herself. "Just a simulation. Nothing can actually hurt you."</p>
-
-                <p>But her body didn't believe her. Her heart hammered against her ribs like it was trying to escape, and her breath came in short, sharp gasps.</p>
-
-                <p>"Cadet Squeak, you may begin when ready," came the instructor's voice through the comm system.</p>
-
-                <p><em>Ready</em>. What a concept. Was anyone ever truly ready for their first flight?</p>
-
-                <p style="text-align: center; margin-top: 40px;"><em>— To be continued... —</em></p>
-                <p style="text-align: center; color: #00ffff;">This is a demo. In a production environment, full stories would be stored in a database.</p>
+                <p>There are two kinds of jobs in the galaxy: the kind that are too dangerous, and the kind that don't pay enough. Biscotti and Ham Sandwich had built a modest career out of the narrow, wobbly strip of territory in between.</p>
+                <p>"Just so we're clear," said Ham, as their ship settled onto the landing pad with the sound of a filing cabinet falling down a flight of stairs, "we are walking into the palace of the most ruthless crime lord in nine systems, to tell him to his face that we lost his shipment."</p>
+                <p>"Misplaced," said Biscotti. "We <em>misplaced</em> his shipment. 'Lost' sounds careless."</p>
+                <p>"We jettisoned forty tons of aged Gouda into a sun."</p>
+                <p>"Because a Gutter Brigade patrol was about to board us. That's not careless. That's inventory management."</p>
+                <p>The palace of Tub O The Gut rose out of the swamp ahead of them like something the swamp had been trying to cough up for years. Inside, it smelled the way a refrigerator smells when you come home from a long vacation.</p>
+                <p>The kingpin himself did not so much sit on his sofa as occupy it, the way an army occupies a small country. He was eating. He was, as far as anyone knew, always eating; there was a rumor that he had once paused, briefly, sometime during the previous decade.</p>
+                <p>"Biscotti," he rumbled. "Ham Sandwich. My two favorite pirates. Tell me you have my cheese."</p>
+                <p>Ham looked at Biscotti. Biscotti looked at the ceiling, where something with too many legs was looking at Ham.</p>
+                <p>"Funny story," said Biscotti.</p>
+                <p>It was not, in the end, a funny story. Tub O listened to all of it without blinking, chewing slowly, the way a glacier chews a valley. When it was over he wiped his paws on a passing henchman and smiled, which was worse.</p>
+                <p>"Boys," he said. "I'm not angry. I'm <em>hungry</em>. And you two are going to fix that. There is a vault on Ice Planet Cube. In that vault is the finest wheel of cheddar ever aged. It belongs to King Prosciutto."</p>
+                <p>"And you want us to steal it," said Ham.</p>
+                <p>"I want you to <em>retrieve</em> it. 'Steal' sounds careless."</p>
+                <p>He snapped his fingers. Two enormous guards wheeled in a slab of solid cheddarite, tall as a doorway and glowing a soft, appetizing orange. From somewhere inside it, a former business associate gazed out at the room with an expression of mild surprise.</p>
+                <p>"That," said Tub O, "is the last crew who told me a funny story."</p>
+                <p>Ham looked at the slab. Then he looked at the door, which was a long way off and getting farther.</p>
+                <p>Biscotti cleared his throat. "What's the pay?"</p>
+                <p>The cheddar, as it turned out, was right. It usually was. That was the whole problem.</p>
             `
         },
         3: {
-            title: 'The Mystery of the Dark Rodent',
-            author: 'TailWriter99',
+            title: 'Employee of the Month',
             content: `
-                <h2>The Mystery of the Dark Rodent</h2>
-                <p><em>by TailWriter99</em></p>
-                <hr style="border-color: #ffd700; margin: 20px 0;">
-
-                <p>Agent Scurry had investigated many strange occurrences during his time with Rebel Intelligence, but this was different. This was <em>wrong</em>.</p>
-
-                <p>The reports had started three weeks ago: a shadowy figure spotted in the lower decks of the Flagship. At first, command dismissed them as stress-induced hallucinations—space travel did that to some rats. But then the figure was captured on security footage.</p>
-
-                <p>Sort of.</p>
-
-                <p>The image was grainy, distorted, as if reality itself bent around the figure. But there was no mistaking the silhouette: a rat, standing in a corridor where no rat should have been. And then, between one frame and the next, it was gone.</p>
-
-                <p style="text-align: center; margin-top: 40px;"><em>— To be continued... —</em></p>
-                <p style="text-align: center; color: #00ffff;">This is a demo. In a production environment, full stories would be stored in a database.</p>
+                <p>The Battle Rodent Attack Transport Ship is the most feared vessel in the galaxy, which is a remarkable achievement for something shaped like a wedge of cheese. The engineers of the New Galactic Order insist the design is aerodynamic. Nobody has had the courage to point out that there is no air in space, largely because the last engineer who did is now part of the hull.</p>
+                <p>On the command deck, Daddio stood before the great viewport with his mechanical arm folded behind his back and a martini in his other paw, rehearsing.</p>
+                <p>"My King," he told his reflection. "The rebel base has been located. No &mdash; <em>I</em> have located the rebel base. Personally. With initiative." He adjusted his cap. "Are you proud of &mdash; no. Too needy."</p>
+                <p>Behind him, in the troop bay, two thousand of the Gutter Brigade stood at attention and tried very hard to look like they couldn't hear.</p>
+                <p>The holo-projector crackled. The hooded figure of King Prosciutto filled the deck, forty feet tall, holding a goblet of something green that was smoking slightly.</p>
+                <p>"Lieutenant."</p>
+                <p>"<em>Second</em> Lieutenant, Your Devilishness. Since Tuesday. There was a small ceremony. You were invited."</p>
+                <p>"Was I." The King swirled his goblet. "Report."</p>
+                <p>"We are approaching the home base of those rascally vermin, my King. The Ju-Ju is bad." Daddio allowed himself a small, hopeful smile. "And I like it."</p>
+                <p>There was a long silence. Somewhere in the troop bay a trooper coughed, and was quietly removed.</p>
+                <p>"Your predecessor," said the King at last, "also liked it."</p>
+                <p>"Yes, my King."</p>
+                <p>"Do you know where your predecessor is now, Daddio?"</p>
+                <p>"I have heard rumors, my King."</p>
+                <p>"He is a cautionary tale. I tell it at parties." The great yellow eyes narrowed. "Bring me the droid. The nervous one. Bring me R4T5, and I may, possibly, on a good day, consider remembering your name."</p>
+                <p>The hologram winked out. Daddio stood very still for a moment, mustache trembling.</p>
+                <p>"He said my name," he whispered.</p>
+                <p>"Sir?" said the nearest trooper.</p>
+                <p>"He said 'Daddio.' You all heard it. It's in the log." He drained the martini, drew his red blade, and turned to face two thousand deeply uncomfortable soldiers.</p>
+                <p>"Gentlemen," he announced, "today we make somebody proud of us."</p>
             `
         },
         4: {
-            title: 'Love in the Time of Hyperspace',
-            author: 'StarshipRomance',
+            title: 'There Are Always Three More',
             content: `
-                <h2>Love in the Time of Hyperspace</h2>
-                <p><em>by StarshipRomance</em></p>
-                <hr style="border-color: #ffd700; margin: 20px 0;">
-
-                <p>"Hand me the plasma wrench," Engineer Rat said, his voice muffled from inside the hyperdrive housing.</p>
-
-                <p>Tech Rat grabbed the tool from the kit, her circuits-tattooed paws steady despite the ship's violent shaking. "Here. But I'm telling you, the problem isn't mechanical—it's in the navigational computer."</p>
-
-                <p>"And I'm telling <em>you</em>," Engineer Rat emerged from the housing, fur matted with grease, "that if we don't stabilize the plasma flow, the navigational computer won't matter because we'll be scattered across three star systems."</p>
-
-                <p>They glared at each other for a moment, the hyperdrive's ominous whine filling the silence between them.</p>
-
-                <p style="text-align: center; margin-top: 40px;"><em>— To be continued... —</em></p>
-                <p style="text-align: center; color: #00ffff;">This is a demo. In a production environment, full stories would be stored in a database.</p>
+                <p>Ice Planet Cube sits in the Tray Sector of the Freezer System, deep in Quadrant Fridge, and it is every bit as welcoming as that sounds. The travel brochures describe it as "bracing." The travel brochures were written by someone who has never been there and intends to keep it that way.</p>
+                <p>Princess Lima Beans stood at the mouth of the ice cave with her arms crossed, staring out at eleven thousand miles of absolutely nothing.</p>
+                <p>"I was told," she said, "that this rebellion had a <em>base</em>."</p>
+                <p>"This is the base, Your Highness," said B3VR brightly. "Technically it is a hole. But it is a hole with excellent structural integrity. I ran the numbers. Would you like to hear the numbers?"</p>
+                <p>"I would rather be eaten by the planet."</p>
+                <p>"That is statistically quite likely!" said B3VR, who had never once in his life read a room. "Fourteen percent."</p>
+                <p>At their feet, R4T5 swiveled his dish-shaped ears toward the horizon and made a small, unhappy noise. R4T5 made a great many small, unhappy noises; it was more or less his native language. But this one had a particular quality to it &mdash; the quality of a droid who has just done some arithmetic and not enjoyed the answer.</p>
+                <p>"What's wrong with him?" said the Princess.</p>
+                <p>"He says he is picking up vibrations. Large ones. Rhythmic." B3VR tilted his head. "He would also like it noted for the record that he wanted to stay on the ship."</p>
+                <p>"Noted."</p>
+                <p>The ground shivered. A little snow slid off the roof of the cave. Far out on the white plain, something enormous lifted one leg, thought it over, and put it down again.</p>
+                <p>It was the size of an apartment building. It was made of armor plate and bad intentions. It had pointed ears, yellow eyes, and the general air of a creature that has just noticed something small moving near a hole.</p>
+                <p>"Oh," said B3VR. "A CAT CAT Walker. How fascinating. They are loaded to the whiskers with Gutter Brigade, you know. I have always wanted to see one up close."</p>
+                <p>"You're about to." Princess Lima Beans unslung her blaster, checked the charge, and brushed the frost from her whiskers with the weary grace of royalty forced, once again, to do everything herself. "Beaver, you're with me. Droid &mdash;"</p>
+                <p>R4T5 had already hidden behind her.</p>
+                <p>"&mdash; fine. Droid, you're morale."</p>
+                <p>There were three more Walkers behind the first one. There are always three more.</p>
             `
         }
     };
 
     const story = stories[storyId];
     if (story) {
-        document.getElementById('modalStoryContent').innerHTML = story.content;
+        document.getElementById('modalStoryContent').innerHTML = `
+            <h2>${story.title}</h2>
+            <p class="story-byline">by ${author}</p>
+            <hr class="story-rule">
+            ${story.content}
+            <div class="story-cta">
+                <p>What happens next? That part is yours.</p>
+                <a href="#submit" class="btn btn-primary" onclick="closeStoryModal()">WRITE YOUR OWN TALE</a>
+            </div>
+        `;
         document.getElementById('storyModal').style.display = 'block';
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }
