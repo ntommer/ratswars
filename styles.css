@@ -644,6 +644,8 @@ body {
     border-radius: 8px;
     border: 3px solid var(--color-orange);
     transition: all 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .product-pair:hover {
@@ -655,6 +657,7 @@ body {
 .product-pair .product-image {
     width: 150px;
     height: auto;
+    align-self: center;
     border-radius: 4px;
     border: none;
 }

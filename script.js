@@ -737,7 +737,7 @@ console.log('%cTip: There are secret cheesy surprises hidden on this page...', '
 function initGalleryLayout() {
     var images = document.querySelectorAll('.gallery-item img, .character-image img');
     images.forEach(function(img) {
-        if (img.complete) {
+        if (img.complete || (img.getAttribute('width') && img.getAttribute('height'))) {
             checkLandscape(img);
         } else {
             img.addEventListener('load', function() {
@@ -748,7 +748,10 @@ function initGalleryLayout() {
 }
 
 function checkLandscape(img) {
-    if (img.naturalWidth > img.naturalHeight) {
+    // Declared dimensions are available before the image downloads, so the grid doesn't reflow later
+    var width = img.naturalWidth || Number(img.getAttribute('width'));
+    var height = img.naturalHeight || Number(img.getAttribute('height'));
+    if (width > height) {
         var gridItem = img.closest('.gallery-item, .character-card');
         if (gridItem) gridItem.classList.add('landscape');
     }
