@@ -722,6 +722,9 @@ function checkLandscape(img) {
 // running total back from GoatCounter's public counter endpoint to display
 // in the footer. Ad blockers that block analytics domains will block this
 // too, same as the old service - the '---' fallback covers that case.
+// PRIOR_COUNT carries over the tally from the old service, which had reached
+// 300 visits when it shut down; GoatCounter started counting from zero.
+const PRIOR_COUNT = 300;
 function initVisitorCounter() {
     const counterElement = document.getElementById('visitorCount');
     if (!counterElement) return;
@@ -733,8 +736,9 @@ function initVisitorCounter() {
         })
         .then(function(data) {
             const digits = String(data.count || '').replace(/[^0-9]/g, '');
-            counterElement.textContent = digits
-                ? digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            const total = digits ? Number(digits) + PRIOR_COUNT : null;
+            counterElement.textContent = total !== null
+                ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 : '---';
         })
         .catch(function() {
