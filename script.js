@@ -717,16 +717,25 @@ function checkLandscape(img) {
 }
 
 // === VISITOR COUNTER ===
-// Uses CountAPI - a free, no-auth counter service for static sites
+// The old counting service (CounterAPI v1) shut down; GoatCounter's tracking
+// script (in index.html) now records each visit, and this just reads the
+// running total back from GoatCounter's public counter endpoint to display
+// in the footer. Ad blockers that block analytics domains will block this
+// too, same as the old service - the '---' fallback covers that case.
 function initVisitorCounter() {
     const counterElement = document.getElementById('visitorCount');
     if (!counterElement) return;
 
-    // Increment and get the current count in one call
-    fetch('https://api.counterapi.dev/v1/ratswars-com/visits/up')
-        .then(function(response) { return response.json(); })
+    fetch('https://ntommer.goatcounter.com/counter/TOTAL.json')
+        .then(function(response) {
+            if (!response.ok) throw new Error('bad response');
+            return response.json();
+        })
         .then(function(data) {
-            counterElement.textContent = data.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            const digits = String(data.count || '').replace(/[^0-9]/g, '');
+            counterElement.textContent = digits
+                ? digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                : '---';
         })
         .catch(function() {
             counterElement.textContent = '---';
