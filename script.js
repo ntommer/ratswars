@@ -718,10 +718,12 @@ function checkLandscape(img) {
 
 // === VISITOR COUNTER ===
 // The old counting service (CounterAPI v1) shut down; GoatCounter's tracking
-// script (in index.html) now records each visit, and this just reads the
-// running total back from GoatCounter's public counter endpoint to display
-// in the footer. Ad blockers that block analytics domains will block this
-// too, same as the old service - the '---' fallback covers that case.
+// script (in index.html) now records each visit. GoatCounter's counter
+// endpoint doesn't send CORS headers (it's meant for exactly this kind of
+// cross-domain embed), so a plain fetch() fails silently - this loads it as
+// a script tag with a callback param (JSONP) instead, which isn't subject
+// to CORS. Ad blockers that block analytics domains will still block this;
+// the '---' fallback covers that case too.
 // PRIOR_COUNT carries over the tally from the old service, which had reached
 // 300 visits when it shut down; GoatCounter started counting from zero.
 const PRIOR_COUNT = 300;
@@ -729,19 +731,28 @@ function initVisitorCounter() {
     const counterElement = document.getElementById('visitorCount');
     if (!counterElement) return;
 
-    fetch('https://ntommer.goatcounter.com/counter/TOTAL.json')
-        .then(function(response) {
-            if (!response.ok) throw new Error('bad response');
-            return response.json();
-        })
-        .then(function(data) {
-            const digits = String(data.count || '').replace(/[^0-9]/g, '');
-            const total = digits ? Number(digits) + PRIOR_COUNT : null;
-            counterElement.textContent = total !== null
-                ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                : '---';
-        })
-        .catch(function() {
-            counterElement.textContent = '---';
-        });
+    const callbackName = '__goatcounterTotal';
+    let settled = false;
+
+    function finish(total) {
+        if (settled) return;
+        settled = true;
+        counterElement.textContent = total !== null
+            ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            : '---';
+        delete window[callbackName];
+        script.remove();
+    }
+
+    window[callbackName] = function(data) {
+        const digits = String((data && data.count) || '').replace(/[^0-9]/g, '');
+        finish(digits ? Number(digits) + PRIOR_COUNT : null);
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://ntommer.goatcounter.com/counter/TOTAL.json?callback=' + callbackName;
+    script.onerror = function() {
+        finish(null);
+    };
+    document.body.appendChild(script);
 }
