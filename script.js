@@ -718,41 +718,69 @@ function checkLandscape(img) {
 
 // === VISITOR COUNTER ===
 // The old counting service (CounterAPI v1) shut down; GoatCounter's tracking
-// script (in index.html) now records each visit. GoatCounter's counter
-// endpoint doesn't send CORS headers (it's meant for exactly this kind of
-// cross-domain embed), so a plain fetch() fails silently - this loads it as
-// a script tag with a callback param (JSONP) instead, which isn't subject
-// to CORS. Ad blockers that block analytics domains will still block this;
-// the '---' fallback covers that case too.
-// PRIOR_COUNT carries over the tally from the old service, which had reached
-// 300 visits when it shut down; GoatCounter started counting from zero.
+// script (in index.html) now records each visit. There's no plain fetchable
+// URL for the running total - GoatCounter's documented way to read it back
+// is the visit_count() widget function that the tracking script exposes
+// (https://www.goatcounter.com/help/countpage), which injects its own
+// styled box into the page. This calls it into a hidden host element, pulls
+// just the number out of the #gcvc-views element it creates, and displays
+// that - in this site's own styling - instead of GoatCounter's box.
+// PRIOR_COUNT carries over the tally from the old service, which had
+// reached 300 visits when it shut down; GoatCounter started counting from
+// zero.
 const PRIOR_COUNT = 300;
 function initVisitorCounter() {
     const counterElement = document.getElementById('visitorCount');
     if (!counterElement) return;
 
-    const callbackName = '__goatcounterTotal';
-    let settled = false;
+    const hiddenHost = document.createElement('div');
+    hiddenHost.id = 'goatcounterWidgetHost';
+    hiddenHost.style.display = 'none';
+    document.body.appendChild(hiddenHost);
 
+    let settled = false;
     function finish(total) {
         if (settled) return;
         settled = true;
         counterElement.textContent = total !== null
             ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             : '---';
-        delete window[callbackName];
-        script.remove();
+        observer.disconnect();
+        hiddenHost.remove();
     }
 
-    window[callbackName] = function(data) {
-        const digits = String((data && data.count) || '').replace(/[^0-9]/g, '');
-        finish(digits ? Number(digits) + PRIOR_COUNT : null);
-    };
+    const observer = new MutationObserver(function() {
+        const viewsElement = hiddenHost.querySelector('#gcvc-views');
+        if (viewsElement && viewsElement.textContent.trim()) {
+            const digits = viewsElement.textContent.replace(/[^0-9]/g, '');
+            finish(digits ? Number(digits) + PRIOR_COUNT : null);
+        }
+    });
+    observer.observe(hiddenHost, { childList: true, subtree: true, characterData: true });
 
-    const script = document.createElement('script');
-    script.src = 'https://ntommer.goatcounter.com/counter/TOTAL.json?callback=' + callbackName;
-    script.onerror = function() {
-        finish(null);
-    };
-    document.body.appendChild(script);
+    // Safety net: if count.js never loads (e.g. blocked by an ad/content
+    // blocker) or the widget never populates, fall back after a few seconds
+    // instead of leaving the footer stuck on "...".
+    setTimeout(function() { finish(null); }, 6000);
+
+    let attempts = 0;
+    const waitForWidget = setInterval(function() {
+        attempts++;
+        if (window.goatcounter && window.goatcounter.visit_count) {
+            clearInterval(waitForWidget);
+            try {
+                window.goatcounter.visit_count({
+                    path: 'TOTAL',
+                    type: 'html',
+                    append: '#goatcounterWidgetHost',
+                    no_branding: true
+                });
+            } catch (e) {
+                finish(null);
+            }
+        } else if (attempts > 50) { // ~5 seconds
+            clearInterval(waitForWidget);
+            finish(null);
+        }
+    }, 100);
 }
