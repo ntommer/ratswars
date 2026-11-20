@@ -733,18 +733,22 @@ function initVisitorCounter() {
     const counterElement = document.getElementById('visitorCount');
     if (!counterElement) return;
 
+    // Add ?debug=1 to the URL to see which step failed, right in the footer
+    // text, instead of just "---". Regular visitors never see this.
+    const debug = /(?:^|[?&])debug=1(?:&|$)/.test(location.search);
+
     const hiddenHost = document.createElement('div');
     hiddenHost.id = 'goatcounterWidgetHost';
     hiddenHost.style.display = 'none';
     document.body.appendChild(hiddenHost);
 
     let settled = false;
-    function finish(total) {
+    function finish(total, reason) {
         if (settled) return;
         settled = true;
         counterElement.textContent = total !== null
             ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            : '---';
+            : (debug ? '--- (' + reason + ')' : '---');
         observer.disconnect();
         hiddenHost.remove();
     }
@@ -753,7 +757,7 @@ function initVisitorCounter() {
         const viewsElement = hiddenHost.querySelector('#gcvc-views');
         if (viewsElement && viewsElement.textContent.trim()) {
             const digits = viewsElement.textContent.replace(/[^0-9]/g, '');
-            finish(digits ? Number(digits) + PRIOR_COUNT : null);
+            finish(digits ? Number(digits) + PRIOR_COUNT : null, 'views-text-no-digits');
         }
     });
     observer.observe(hiddenHost, { childList: true, subtree: true, characterData: true });
@@ -761,7 +765,11 @@ function initVisitorCounter() {
     // Safety net: if count.js never loads (e.g. blocked by an ad/content
     // blocker) or the widget never populates, fall back after a few seconds
     // instead of leaving the footer stuck on "...".
-    setTimeout(function() { finish(null); }, 6000);
+    setTimeout(function() {
+        if (settled) return;
+        const raw = hiddenHost.innerHTML.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        finish(null, raw ? 'bad-data: ' + raw.slice(0, 60) : 'no-response');
+    }, 6000);
 
     let attempts = 0;
     const waitForWidget = setInterval(function() {
@@ -776,11 +784,11 @@ function initVisitorCounter() {
                     no_branding: true
                 });
             } catch (e) {
-                finish(null);
+                finish(null, 'call-error: ' + e.message);
             }
         } else if (attempts > 50) { // ~5 seconds
             clearInterval(waitForWidget);
-            finish(null);
+            finish(null, 'no-tracker');
         }
     }, 100);
 }
