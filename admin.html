@@ -990,8 +990,8 @@
         function parseCharactersFromHTML(html) {
             characters = [];
 
-            // More flexible regex to handle whitespace variations
-            const cardRegex = /<div\s+class="character-card"\s+data-character="([^"]+)">\s*<div\s+class="character-image">\s*<img\s+src="([^"]+)"\s+alt="([^"]+)"([^>]*)>\s*<div\s+class="character-overlay">\s*<p>([\s\S]*?)<\/p>/g;
+            // Very flexible regex - just find the key parts
+            const cardRegex = /<div[^>]*class="character-card"[^>]*data-character="([^"]+)"[^>]*>[\s\S]*?<img[^>]*src="([^"]+)"[^>]*alt="([^"]+)"[^>]*>[\s\S]*?<div[^>]*class="character-overlay"[^>]*>\s*<p>([\s\S]*?)<\/p>/g;
 
             let match;
             while ((match = cardRegex.exec(html)) !== null) {
@@ -999,29 +999,27 @@
                     id: match[1],
                     imageUrl: match[2],
                     alt: match[3],
-                    sizeAttrs: extractSizeAttrs(match[4]),
-                    description: match[5].trim()
+                    description: match[4].trim().replace(/\s+/g, ' ')
                 });
             }
-            console.log('Parsed characters:', characters.length);
+            console.log('Parsed characters:', characters.length, characters.map(c => c.alt));
         }
 
         // Parse gallery images from HTML
         function parseGalleryFromHTML(html) {
             galleryImages = [];
 
-            // More flexible regex to handle whitespace variations
-            const galleryRegex = /<div\s+class="gallery-item">\s*<img\s+src="([^"]+)"\s+alt="([^"]+)"([^>]*)>/g;
+            // Very flexible regex
+            const galleryRegex = /<div[^>]*class="gallery-item"[^>]*>\s*<img[^>]*src="([^"]+)"[^>]*alt="([^"]+)"[^>]*>/g;
 
             let match;
             while ((match = galleryRegex.exec(html)) !== null) {
                 galleryImages.push({
                     imageUrl: match[1],
-                    alt: match[2],
-                    sizeAttrs: extractSizeAttrs(match[3])
+                    alt: match[2]
                 });
             }
-            console.log('Parsed gallery images:', galleryImages.length);
+            console.log('Parsed gallery images:', galleryImages.length, galleryImages.map(g => g.alt));
         }
 
         // Parse About section from HTML
@@ -1045,14 +1043,14 @@
         function parseStoriesFromHTML(html) {
             fanFicStories = [];
 
-            // More flexible regex pattern
-            const storyRegex = /<article\s+class="fanfic-item"[^>]*data-date="([^"]*)"[^>]*data-likes="([^"]*)"[^>]*>[\s\S]*?<h3>([^<]+)<\/h3>[\s\S]*?<span\s+class="author">by\s*([^<]+)<\/span>[\s\S]*?<span\s+class="date">([^<]+)<\/span>[\s\S]*?<p\s+class="fanfic-excerpt">\s*([\s\S]*?)\s*<\/p>[\s\S]*?<div\s+class="fanfic-tags">([\s\S]*?)<\/div>/g;
+            // Very flexible regex pattern
+            const storyRegex = /<article[^>]*class="fanfic-item"[^>]*data-date="([^"]*)"[^>]*data-likes="([^"]*)"[^>]*>[\s\S]*?<h3>([^<]+)<\/h3>[\s\S]*?<span[^>]*class="author"[^>]*>by\s*([^<]+)<\/span>[\s\S]*?<span[^>]*class="date"[^>]*>([^<]+)<\/span>[\s\S]*?<p[^>]*class="fanfic-excerpt"[^>]*>\s*([\s\S]*?)\s*<\/p>[\s\S]*?<div[^>]*class="fanfic-tags"[^>]*>([\s\S]*?)<\/div>/g;
 
             let match;
             while ((match = storyRegex.exec(html)) !== null) {
                 // Extract tags
                 const tagsHtml = match[7];
-                const tagMatches = tagsHtml.match(/<span\s+class="tag">([^<]+)<\/span>/g) || [];
+                const tagMatches = tagsHtml.match(/<span[^>]*class="tag"[^>]*>([^<]+)<\/span>/g) || [];
                 const tags = tagMatches.map(t => t.replace(/<[^>]+>/g, ''));
 
                 fanFicStories.push({
@@ -1061,7 +1059,7 @@
                     title: match[3].trim(),
                     author: match[4].trim(),
                     displayDate: match[5].trim(),
-                    excerpt: match[6].trim(),
+                    excerpt: match[6].trim().replace(/\s+/g, ' '),
                     tags: tags
                 });
             }
