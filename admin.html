@@ -637,7 +637,7 @@
 
                 <div class="form-group">
                     <label>Branch Name</label>
-                    <input type="text" id="github-branch" placeholder="claude/space-opera-website-fnVkw">
+                    <input type="text" id="github-branch" placeholder="main">
                     <small>The branch you want to commit to</small>
                 </div>
 
@@ -885,7 +885,6 @@
                 document.getElementById('github-token').value = config.token || '';
 
                 if (config.owner && config.repo && config.token) {
-                    updateConnectionStatus(true);
                     loadCharactersFromGitHub();
                 }
             }
@@ -904,22 +903,19 @@
             }
 
             localStorage.setItem('ratswars-github-config', JSON.stringify(config));
-            showAlert('✅ Configuration saved! Loading your website...', 'success');
-            updateConnectionStatus(true);
             loadCharactersFromGitHub();
         }
 
-        // Update connection status
-        function updateConnectionStatus(connected) {
+        function setSetupOpen(open) {
+            const section = document.getElementById('setup-section');
+            section.classList.toggle('collapsed', !open);
+            section.querySelector('.setup-toggle').textContent = open ? '▼' : '▶';
+        }
+
+        function updateConnectionStatus(state, text) {
             const status = document.getElementById('connection-status');
-            if (connected) {
-                status.className = 'status-badge status-connected';
-                status.textContent = '✅ Connected to GitHub';
-                document.getElementById('setup-section').classList.add('collapsed');
-            } else {
-                status.className = 'status-badge status-disconnected';
-                status.textContent = '⚠️ Setup Required';
-            }
+            status.className = 'status-badge ' + (state === 'ok' ? 'status-connected' : 'status-disconnected');
+            status.textContent = text;
         }
 
         // Toggle setup section
@@ -940,19 +936,24 @@
             container.innerHTML = '';
             container.appendChild(alert);
 
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 5000);
+            // Errors stay until the next message so they can't be missed
+            if (type !== 'error') {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000);
+            }
         }
 
         // Load characters from GitHub
         async function loadCharactersFromGitHub() {
             try {
                 showAlert('Loading your website data...', 'warning');
+                updateConnectionStatus('loading', '⏳ Connecting...');
 
                 const response = await fetch(
-                    `https://api.github.com/repos/${config.owner}/${config.repo}/contents/index.html?ref=${config.branch}`,
+                    `https://api.github.com/repos/${config.owner}/${config.repo}/contents/index.html?ref=${encodeURIComponent(config.branch || 'main')}`,
                     {
+                        cache: 'no-store',
                         headers: {
                             'Authorization': `token ${config.token}`,
                             'Accept': 'application/vnd.github.v3+json'
@@ -961,11 +962,17 @@
                 );
 
                 if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.status}`);
+                    if (response.status === 401) {
+                        throw new Error('GitHub rejected your token. It may have expired - create a new one and paste it in Setup.');
+                    }
+                    if (response.status === 404) {
+                        throw new Error(`Couldn't find index.html on branch "${config.branch}" in ${config.owner}/${config.repo}. Check the username, repository and branch (use "main").`);
+                    }
+                    throw new Error(`GitHub error ${response.status}.`);
                 }
 
                 const data = await response.json();
-                originalHTML = atob(data.content.replace(/\s/g, ''));
+                originalHTML = decodeBase64Utf8(data.content);
 
                 // Parse all content from HTML
                 parseCharactersFromHTML(originalHTML);
@@ -978,12 +985,27 @@
                 renderAbout();
                 renderStories();
                 renderFooter();
+
+                if (!characters.length && !galleryImages.length && !aboutContent.intro) {
+                    throw new Error('Loaded index.html but found no content in it. Make sure the branch is "main".');
+                }
+
+                updateConnectionStatus('ok', '✅ Connected to GitHub');
+                setSetupOpen(false);
                 showAlert('✅ Website loaded! Make your changes and click Publish.', 'success');
 
             } catch (error) {
                 console.error('Error loading from GitHub:', error);
-                showAlert(`❌ Error loading website: ${error.message}. Check your configuration.`, 'error');
+                updateConnectionStatus('error', '❌ Not loaded - see message below');
+                setSetupOpen(true);
+                showAlert(`❌ ${error.message}`, 'error');
             }
+        }
+
+        function decodeBase64Utf8(b64) {
+            const binary = atob(b64.replace(/\s/g, ''));
+            const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+            return new TextDecoder('utf-8').decode(bytes);
         }
 
         // Parse characters from HTML
@@ -999,6 +1021,7 @@
                     id: match[1],
                     imageUrl: match[2],
                     alt: match[3],
+                    sizeAttrs: extractSizeAttrs(match[0]),
                     description: match[4].trim().replace(/\s+/g, ' ')
                 });
             }
@@ -1016,7 +1039,8 @@
             while ((match = galleryRegex.exec(html)) !== null) {
                 galleryImages.push({
                     imageUrl: match[1],
-                    alt: match[2]
+                    alt: match[2],
+                    sizeAttrs: extractSizeAttrs(match[0])
                 });
             }
             console.log('Parsed gallery images:', galleryImages.length, galleryImages.map(g => g.alt));
