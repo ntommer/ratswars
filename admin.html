@@ -265,6 +265,12 @@
             border-color: #ffd700;
         }
 
+        .image-upload-btn.uploading {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #00ffff;
+            pointer-events: none;
+        }
+
         .image-upload-btn input[type="file"] {
             position: absolute;
             opacity: 0;
@@ -1212,30 +1218,50 @@
             characters.forEach((char, index) => {
                 const card = document.createElement('div');
                 card.className = 'character-card';
-                const previewSrc = char.previewUrl || char.imageUrl;
+                // Use previewUrl (base64) if available, otherwise construct full GitHub raw URL
+                const previewSrc = char.previewUrl || getImageUrl(char.imageUrl);
                 card.innerHTML = `
                     <button class="delete-btn" onclick="deleteCharacter(${index})" title="Delete character">×</button>
-                    <img src="${previewSrc}" class="character-image-preview" alt="${char.alt}">
+                    <img src="${previewSrc}" class="character-image-preview" alt="${escapeHtml(char.alt)}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%231a1a2e%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2250%22 fill=%22%2300ffff%22 text-anchor=%22middle%22 dy=%22.3em%22>No Image</text></svg>'">
 
-                    <label class="image-upload-btn">
+                    <label class="image-upload-btn" id="upload-btn-${index}">
                         📷 Upload New Image
                         <input type="file" accept="image/*" onchange="handleImageUpload(${index}, this)">
                     </label>
 
                     <div class="form-group">
                         <label>Character Name</label>
-                        <input type="text" value="${char.alt}" onchange="updateCharacter(${index}, 'alt', this.value)">
+                        <input type="text" value="${escapeHtml(char.alt)}" onchange="updateCharacter(${index}, 'alt', this.value)">
                     </div>
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea rows="3" onchange="updateCharacter(${index}, 'description', this.value)">${char.description}</textarea>
+                        <textarea rows="3" onchange="updateCharacter(${index}, 'description', this.value)">${escapeHtml(char.description)}</textarea>
                     </div>
 
                     <small style="color: #666; display: block; margin-top: 10px;">ID: ${char.id}</small>
                 `;
                 container.appendChild(card);
             });
+        }
+
+        // Get full URL for an image path
+        function getImageUrl(path) {
+            if (!path) return '';
+            // If it's already a full URL or data URL, return as is
+            if (path.startsWith('http') || path.startsWith('data:')) {
+                return path;
+            }
+            // Construct raw GitHub URL for the image
+            return `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${path}`;
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         // Render gallery
@@ -1246,10 +1272,11 @@
             galleryImages.forEach((img, index) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item-admin';
+                const previewSrc = img.previewUrl || getImageUrl(img.imageUrl);
                 item.innerHTML = `
                     <button class="delete-btn" onclick="deleteGalleryImage(${index})" title="Delete image">×</button>
-                    <img src="${img.imageUrl}" alt="${img.alt}">
-                    <div class="gallery-title">${img.alt}</div>
+                    <img src="${previewSrc}" alt="${escapeHtml(img.alt)}" onerror="this.style.background='#1a1a2e'">
+                    <div class="gallery-title">${escapeHtml(img.alt)}</div>
                 `;
                 container.appendChild(item);
             });
@@ -1307,7 +1334,7 @@
 
         // Add new character
         async function addNewCharacter() {
-            const id = document.getElementById('new-char-id').value.trim().toLowerCase().replace(/\s+/g, '-');
+            const id = document.getElementById('new-char-id').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-');
             const name = document.getElementById('new-char-name').value.trim();
             const description = document.getElementById('new-char-description').value.trim();
 
@@ -1323,18 +1350,21 @@
 
             // Check for duplicate ID
             if (characters.some(c => c.id === id)) {
-                showAlert('A character with this ID already exists', 'error');
+                showAlert('A character with this ID already exists. Choose a different ID.', 'error');
                 return;
             }
 
-            showAlert('Uploading character image...', 'warning');
+            showAlert('⏳ Uploading character...', 'warning');
 
             try {
                 // Upload image to GitHub
                 const base64 = await fileToBase64(pendingNewCharacterImage);
-                const ext = pendingNewCharacterImage.name.split('.').pop();
-                const filename = `${name.replace(/\s+/g, ' ')}.${ext}`;
+                const ext = pendingNewCharacterImage.name.split('.').pop().toLowerCase();
+                const safeName = name.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_');
+                const filename = `${safeName}_${Date.now()}.${ext}`;
                 const path = `images/characters/${filename}`;
+
+                console.log('Uploading new character image to:', path);
 
                 const response = await fetch(
                     `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`,
@@ -1354,13 +1384,15 @@
                 );
 
                 if (!response.ok) {
-                    throw new Error(`Upload failed: ${response.status}`);
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(`Upload failed: ${response.status} - ${errorData.message || 'Unknown error'}`);
                 }
 
-                // Add character to array
+                // Add character to array with preview
                 characters.push({
                     id: id,
                     imageUrl: path,
+                    previewUrl: base64,
                     alt: name,
                     sizeAttrs: await measureSizeAttrs(base64),
                     description: description
@@ -1373,7 +1405,7 @@
 
             } catch (error) {
                 console.error('Error adding character:', error);
-                showAlert(`❌ Error adding character: ${error.message}`, 'error');
+                showAlert(`❌ Error: ${error.message}`, 'error');
             }
         }
 
@@ -1419,14 +1451,17 @@
                 return;
             }
 
-            showAlert('Uploading gallery image...', 'warning');
+            showAlert('⏳ Uploading gallery image...', 'warning');
 
             try {
                 // Upload image to GitHub
                 const base64 = await fileToBase64(pendingNewGalleryImage);
-                const ext = pendingNewGalleryImage.name.split('.').pop();
-                const filename = `${title.replace(/\s+/g, ' ')}.${ext}`;
+                const ext = pendingNewGalleryImage.name.split('.').pop().toLowerCase();
+                const safeName = title.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_');
+                const filename = `${safeName}_${Date.now()}.${ext}`;
                 const path = `images/gallery/${filename}`;
+
+                console.log('Uploading gallery image to:', path);
 
                 const response = await fetch(
                     `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`,
@@ -1446,12 +1481,14 @@
                 );
 
                 if (!response.ok) {
-                    throw new Error(`Upload failed: ${response.status}`);
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(`Upload failed: ${response.status} - ${errorData.message || 'Unknown error'}`);
                 }
 
-                // Add image to gallery array
+                // Add image to gallery array with preview
                 galleryImages.push({
                     imageUrl: path,
+                    previewUrl: base64,
                     alt: title,
                     sizeAttrs: await measureSizeAttrs(base64)
                 });
@@ -1463,7 +1500,7 @@
 
             } catch (error) {
                 console.error('Error adding gallery image:', error);
-                showAlert(`❌ Error adding image: ${error.message}`, 'error');
+                showAlert(`❌ Error: ${error.message}`, 'error');
             }
         }
 
@@ -1473,7 +1510,7 @@
             markAsChanged();
         }
 
-        // Handle image upload
+        // Handle image upload for existing character
         async function handleImageUpload(index, input) {
             const file = input.files[0];
             if (!file) return;
@@ -1483,16 +1520,30 @@
                 return;
             }
 
-            showAlert('Uploading image to GitHub...', 'warning');
+            // Show loading state
+            const uploadBtn = document.getElementById(`upload-btn-${index}`);
+            const originalText = uploadBtn?.innerHTML;
+            if (uploadBtn) {
+                uploadBtn.innerHTML = '⏳ Uploading...';
+                uploadBtn.style.pointerEvents = 'none';
+            }
 
             try {
-                // Convert to base64
+                // Convert to base64 first (for immediate preview)
                 const base64 = await fileToBase64(file);
 
+                // Show preview immediately
+                characters[index].previewUrl = base64;
+                renderCharacters();
+
                 // Generate filename
-                const ext = file.name.split('.').pop();
-                const filename = `${characters[index].id}_${Date.now()}.${ext}`;
+                const ext = file.name.split('.').pop().toLowerCase();
+                const timestamp = Date.now();
+                const safeName = characters[index].id.replace(/[^a-z0-9-_]/gi, '_');
+                const filename = `${safeName}_${timestamp}.${ext}`;
                 const path = `images/characters/${filename}`;
+
+                console.log('Uploading to:', path);
 
                 // Upload to GitHub
                 const response = await fetch(
@@ -1513,22 +1564,24 @@
                 );
 
                 if (!response.ok) {
-                    throw new Error(`Upload failed: ${response.status}`);
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(`Upload failed: ${response.status} - ${errorData.message || 'Unknown error'}`);
                 }
 
-                const data = await response.json();
-
-                // Update character with new image URL and keep base64 for preview
+                // Update character with new image path
                 characters[index].imageUrl = path;
-                characters[index].previewUrl = base64;
                 characters[index].sizeAttrs = await measureSizeAttrs(base64);
-                renderCharacters();
+
                 markAsChanged();
-                showAlert('✅ Image uploaded successfully!', 'success');
+                showAlert('✅ Image uploaded! Click Publish to save changes.', 'success');
+                console.log('Upload successful:', path);
 
             } catch (error) {
                 console.error('Error uploading image:', error);
-                showAlert(`❌ Error uploading image: ${error.message}`, 'error');
+                // Revert preview on error
+                delete characters[index].previewUrl;
+                renderCharacters();
+                showAlert(`❌ Upload error: ${error.message}`, 'error');
             }
         }
 
