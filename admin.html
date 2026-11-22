@@ -1024,19 +1024,21 @@
 
         // Parse About section from HTML
         function parseAboutFromHTML(html) {
-            // Extract intro paragraph
-            const introMatch = html.match(/<p class="intro-text">\s*([\s\S]*?)\s*<\/p>/);
-            aboutContent.intro = introMatch ? introMatch[1].trim() : '';
+            // Extract intro paragraph - flexible regex
+            const introMatch = html.match(/<p[^>]*class="intro-text"[^>]*>\s*([\s\S]*?)\s*<\/p>/);
+            aboutContent.intro = introMatch ? introMatch[1].trim().replace(/\s+/g, ' ') : '';
 
-            // Extract story cards
-            const goodMatch = html.match(/<div class="story-card">\s*<h3>THE GOOD<\/h3>\s*<p>([\s\S]*?)<\/p>/);
-            aboutContent.good = goodMatch ? goodMatch[1].trim() : '';
+            // Extract story cards - flexible regex
+            const goodMatch = html.match(/<div[^>]*class="story-card"[^>]*>\s*<h3>THE GOOD<\/h3>\s*<p>([\s\S]*?)<\/p>/);
+            aboutContent.good = goodMatch ? goodMatch[1].trim().replace(/\s+/g, ' ') : '';
 
-            const badMatch = html.match(/<div class="story-card">\s*<h3>THE BAD<\/h3>\s*<p>([\s\S]*?)<\/p>/);
-            aboutContent.bad = badMatch ? badMatch[1].trim() : '';
+            const badMatch = html.match(/<div[^>]*class="story-card"[^>]*>\s*<h3>THE BAD<\/h3>\s*<p>([\s\S]*?)<\/p>/);
+            aboutContent.bad = badMatch ? badMatch[1].trim().replace(/\s+/g, ' ') : '';
 
-            const fuglyMatch = html.match(/<div class="story-card">\s*<h3>THE FUGLY<\/h3>\s*<p>([\s\S]*?)<\/p>/);
-            aboutContent.fugly = fuglyMatch ? fuglyMatch[1].trim() : '';
+            const fuglyMatch = html.match(/<div[^>]*class="story-card"[^>]*>\s*<h3>THE FUGLY<\/h3>\s*<p>([\s\S]*?)<\/p>/);
+            aboutContent.fugly = fuglyMatch ? fuglyMatch[1].trim().replace(/\s+/g, ' ') : '';
+
+            console.log('Parsed about:', { intro: aboutContent.intro.substring(0, 50), good: aboutContent.good.substring(0, 30) });
         }
 
         // Parse Fan Fiction stories from HTML
@@ -1068,13 +1070,15 @@
 
         // Parse Footer from HTML
         function parseFooterFromHTML(html) {
-            // Extract footer about text
-            const aboutMatch = html.match(/<div class="footer-section">\s*<h4>RATS WARS<\/h4>\s*<p>([^<]+)<\/p>/);
+            // Extract footer about text - flexible regex
+            const aboutMatch = html.match(/<div[^>]*class="footer-section"[^>]*>\s*<h4>RATS WARS<\/h4>\s*<p>([^<]+)<\/p>/);
             footerContent.about = aboutMatch ? aboutMatch[1].trim() : '';
 
-            // Extract footer tagline
-            const taglineMatch = html.match(/<p class="tagline-footer">([^<]+)<\/p>/);
+            // Extract footer tagline - flexible regex
+            const taglineMatch = html.match(/<p[^>]*class="tagline-footer"[^>]*>([^<]+)<\/p>/);
             footerContent.tagline = taglineMatch ? taglineMatch[1].trim() : '';
+
+            console.log('Parsed footer:', footerContent);
         }
 
         // Render About section
