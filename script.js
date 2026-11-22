@@ -718,77 +718,40 @@ function checkLandscape(img) {
 
 // === VISITOR COUNTER ===
 // The old counting service (CounterAPI v1) shut down; GoatCounter's tracking
-// script (in index.html) now records each visit. There's no plain fetchable
-// URL for the running total - GoatCounter's documented way to read it back
-// is the visit_count() widget function that the tracking script exposes
-// (https://www.goatcounter.com/help/countpage), which injects its own
-// styled box into the page. This calls it into a hidden host element, pulls
-// just the number out of the #gcvc-views element it creates, and displays
-// that - in this site's own styling - instead of GoatCounter's box.
-// PRIOR_COUNT carries over the tally from the old service, which had
-// reached 300 visits when it shut down; GoatCounter started counting from
-// zero.
+// script (in index.html) now records each visit. An earlier attempt tried
+// the documented visit_count() widget, but that renders into a cross-origin
+// <iframe> (for the 'html' type) whose content a page can never read back -
+// not a bug to fix, just how browsers isolate iframes. Reading GoatCounter's
+// own server source (github.com/arp242/goatcounter, handlers/vcounter.go)
+// confirms there's a plain JSON endpoint it serves specifically for this
+// use case, with CORS enabled: GET /counter/TOTAL.json ->
+// {"count": "1,234", ...}. It only works once "Allow adding visitor counts
+// on your website" is turned on in GoatCounter's site settings (off by
+// default) - the user has enabled this.
+// PRIOR_COUNT carries over the tally from the old counting service, which
+// had reached 300 visits when it shut down; GoatCounter started counting
+// from zero.
 const PRIOR_COUNT = 300;
 function initVisitorCounter() {
     const counterElement = document.getElementById('visitorCount');
     if (!counterElement) return;
 
-    // Add ?debug=1 to the URL to see which step failed, right in the footer
+    // Add ?debug=1 to the URL to see why it failed, right in the footer
     // text, instead of just "---". Regular visitors never see this.
     const debug = /(?:^|[?&])debug=1(?:&|$)/.test(location.search);
 
-    const hiddenHost = document.createElement('div');
-    hiddenHost.id = 'goatcounterWidgetHost';
-    hiddenHost.style.display = 'none';
-    document.body.appendChild(hiddenHost);
-
-    let settled = false;
-    function finish(total, reason) {
-        if (settled) return;
-        settled = true;
-        counterElement.textContent = total !== null
-            ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            : (debug ? '--- (' + reason + ')' : '---');
-        observer.disconnect();
-        hiddenHost.remove();
-    }
-
-    const observer = new MutationObserver(function() {
-        const viewsElement = hiddenHost.querySelector('#gcvc-views');
-        if (viewsElement && viewsElement.textContent.trim()) {
-            const digits = viewsElement.textContent.replace(/[^0-9]/g, '');
-            finish(digits ? Number(digits) + PRIOR_COUNT : null, 'views-text-no-digits');
-        }
-    });
-    observer.observe(hiddenHost, { childList: true, subtree: true, characterData: true });
-
-    // Safety net: if count.js never loads (e.g. blocked by an ad/content
-    // blocker) or the widget never populates, fall back after a few seconds
-    // instead of leaving the footer stuck on "...".
-    setTimeout(function() {
-        if (settled) return;
-        const raw = hiddenHost.innerHTML.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-        finish(null, raw ? 'bad-data: ' + raw.slice(0, 60) : 'no-response');
-    }, 6000);
-
-    let attempts = 0;
-    const waitForWidget = setInterval(function() {
-        attempts++;
-        if (window.goatcounter && window.goatcounter.visit_count) {
-            clearInterval(waitForWidget);
-            try {
-                window.goatcounter.visit_count({
-                    path: 'TOTAL',
-                    type: 'html',
-                    append: '#goatcounterWidgetHost',
-                    no_branding: true
-                });
-            } catch (e) {
-                finish(null, 'call-error: ' + e.message);
-            }
-        } else if (attempts > 50) { // ~5 seconds
-            clearInterval(waitForWidget);
-            finish(null, 'no-tracker');
-        }
-    }, 100);
+    fetch('https://ntommer.goatcounter.com/counter/TOTAL.json')
+        .then(function(response) {
+            if (!response.ok) throw new Error('http-' + response.status);
+            return response.json();
+        })
+        .then(function(data) {
+            const digits = String((data && data.count) || '').replace(/[^0-9]/g, '');
+            if (!digits) throw new Error('no-digits');
+            const total = Number(digits) + PRIOR_COUNT;
+            counterElement.textContent = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        })
+        .catch(function(err) {
+            counterElement.textContent = debug ? '--- (' + err.message + ')' : '---';
+        });
 }
