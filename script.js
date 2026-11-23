@@ -489,7 +489,7 @@ function initCharacterIntel() {
 
         const hint = document.createElement('span');
         hint.className = 'character-hint';
-        hint.textContent = 'INTEL';
+        hint.textContent = 'ABOUT';
         hint.setAttribute('aria-hidden', 'true');
         frame.appendChild(hint);
 
