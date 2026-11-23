@@ -474,6 +474,59 @@
             position: relative;
         }
 
+        .extra-pics-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .extra-pics-row:empty {
+            display: none;
+        }
+
+        .extra-pic {
+            position: relative;
+            width: 90px;
+        }
+
+        .extra-pic img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            display: block;
+        }
+
+        .extra-pic-remove {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 26px;
+            height: 26px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 0, 0, 0.85);
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .extra-pic-front {
+            width: 100%;
+            margin-top: 4px;
+            padding: 4px 0;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 6px;
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
         .about-editor, .footer-editor {
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid rgba(0, 255, 255, 0.3);
@@ -658,6 +711,7 @@
             <h3>How to Edit Characters</h3>
             <ul>
                 <li><strong>Upload Image:</strong> Click "Upload New Image" to select from your phone</li>
+                <li><strong>More Pictures:</strong> Click "Add More Pictures" to add extra pictures visitors can swipe through. Tap ⭐ Front to make one the main picture</li>
                 <li><strong>Edit Description:</strong> Type directly in the text box</li>
                 <li><strong>Save:</strong> Click "Publish Changes" at the bottom when you're done</li>
                 <li><strong>Changes are live:</strong> Your website updates automatically!</li>
@@ -1053,12 +1107,16 @@
 
             let match;
             while ((match = cardRegex.exec(html)) !== null) {
+                // Extra pictures (swiped through on the website) are listed in data-gallery="a.webp|b.webp"
+                const openTag = match[0].slice(0, match[0].indexOf('>') + 1);
+                const galleryAttr = openTag.match(/data-gallery="([^"]*)"/);
                 characters.push({
                     id: match[1],
                     imageUrl: match[2],
                     alt: match[3],
                     sizeAttrs: extractSizeAttrs(match[0]),
-                    description: match[4].trim().replace(/\s+/g, ' ')
+                    description: match[4].trim().replace(/\s+/g, ' '),
+                    gallery: galleryAttr ? decodeAttr(galleryAttr[1]).split('|').map(s => s.trim()).filter(Boolean).map(path => ({ path })) : []
                 });
             }
             console.log('Parsed characters:', characters.length, characters.map(c => c.alt));
@@ -1291,6 +1349,22 @@
                         <input type="file" accept="image/*" onchange="handleImageUpload(${index}, this)">
                     </label>
 
+                    <div class="form-group extra-pics">
+                        <label>More Pictures <small>(swipe left on the website to see them)</small></label>
+                        <div class="extra-pics-row">
+                            ${(char.gallery || []).map((pic, picIndex) => `
+                                <div class="extra-pic">
+                                    <img src="${escapeAttr(pic.previewUrl || getImageUrl(pic.path))}" alt="Extra picture ${picIndex + 2}">
+                                    <button class="extra-pic-remove" onclick="removeExtraImage(${index}, ${picIndex})" title="Remove this picture">×</button>
+                                    <button class="extra-pic-front" onclick="makeFrontImage(${index}, ${picIndex})" title="Use this as the main picture">⭐ Front</button>
+                                </div>`).join('')}
+                        </div>
+                        <label class="image-upload-btn" id="extra-upload-btn-${index}">
+                            ➕ Add More Pictures
+                            <input type="file" accept="image/*" multiple onchange="handleExtraImageUpload(${index}, this)">
+                        </label>
+                    </div>
+
                     <div class="form-group">
                         <label>Character Name</label>
                         <input type="text" value="${escapeHtml(char.alt)}" onchange="updateCharacter(${index}, 'alt', this.value)">
@@ -1316,6 +1390,15 @@
             }
             // Construct raw GitHub URL for the image
             return `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${path}`;
+        }
+
+        // For values written inside an HTML attribute (between quotes)
+        function escapeAttr(text) {
+            return String(text).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+        }
+
+        function decodeAttr(text) {
+            return text.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
         }
 
         // Escape HTML to prevent XSS
@@ -1456,7 +1539,8 @@
                     previewUrl: base64,
                     alt: name,
                     sizeAttrs: await measureSizeAttrs(base64),
-                    description: description
+                    description: description,
+                    gallery: []
                 });
 
                 renderCharacters();
@@ -1644,6 +1728,89 @@
             }
         }
 
+        // Upload extra pictures for a character (you can pick several at once)
+        async function handleExtraImageUpload(index, input) {
+            const files = Array.from(input.files || []).filter(f => f.type.startsWith('image/'));
+            if (!files.length) {
+                showAlert('Please select an image file', 'error');
+                return;
+            }
+
+            const char = characters[index];
+            const uploadBtn = document.getElementById(`extra-upload-btn-${index}`);
+            if (uploadBtn) uploadBtn.classList.add('uploading');
+
+            let done = 0;
+            try {
+                for (const file of files) {
+                    if (uploadBtn) uploadBtn.firstChild.textContent = `⏳ Uploading ${done + 1} of ${files.length}... `;
+                    const { dataUrl: base64, ext } = await prepareImage(file);
+                    const safeName = char.id.replace(/[^a-z0-9-_]/gi, '_');
+                    const filename = `${safeName}_extra_${Date.now()}.${ext}`;
+                    const path = `images/characters/${filename}`;
+
+                    const response = await fetch(
+                        `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`,
+                        {
+                            method: 'PUT',
+                            headers: {
+                                'Authorization': `token ${config.token}`,
+                                'Accept': 'application/vnd.github.v3+json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                message: `Add extra character picture: ${filename}`,
+                                content: base64.split(',')[1],
+                                branch: config.branch
+                            })
+                        }
+                    );
+
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(`Upload failed: ${response.status} - ${errorData.message || 'Unknown error'}`);
+                    }
+
+                    char.gallery = char.gallery || [];
+                    char.gallery.push({ path, previewUrl: base64 });
+                    done++;
+                    markAsChanged();
+                }
+                renderCharacters();
+                showAlert(`✅ ${done} picture${done === 1 ? '' : 's'} added to ${char.alt}! Click Publish to save changes.`, 'success');
+            } catch (error) {
+                console.error('Error uploading extra picture:', error);
+                renderCharacters();
+                const soFar = done ? ` (${done} of ${files.length} uploaded before the problem)` : '';
+                showAlert(`❌ ${friendlyError(error)}${soFar}`, 'error');
+            }
+        }
+
+        function removeExtraImage(index, picIndex) {
+            if (!confirm(`Remove this picture from "${characters[index].alt}"?`)) return;
+            characters[index].gallery.splice(picIndex, 1);
+            renderCharacters();
+            markAsChanged();
+            showAlert('Picture removed. Click Publish to save changes.', 'warning');
+        }
+
+        // Swap an extra picture with the main (front) picture
+        async function makeFrontImage(index, picIndex) {
+            const char = characters[index];
+            const pic = char.gallery[picIndex];
+            const oldFront = { path: char.imageUrl, previewUrl: char.previewUrl };
+
+            char.imageUrl = pic.path;
+            char.previewUrl = pic.previewUrl;
+            if (!char.previewUrl) delete char.previewUrl;
+            char.sizeAttrs = await measureSizeAttrs(pic.previewUrl || getImageUrl(pic.path));
+            char.gallery[picIndex] = oldFront;
+
+            renderCharacters();
+            markAsChanged();
+            showAlert(`⭐ New front picture for ${char.alt}. Click Publish to save changes.`, 'success');
+        }
+
         // width/height on published <img> tags reserve space so the page doesn't jump while images load
         function extractSizeAttrs(attrs) {
             const width = attrs.match(/\swidth="(\d+)"/);
@@ -1745,7 +1912,9 @@
             let newCharacterGrid = '            <div class="character-grid">\n';
 
             characters.forEach(char => {
-                newCharacterGrid += `                <div class="character-card" data-character="${char.id}">
+                const extraPaths = (char.gallery || []).map(g => g.path);
+                const galleryAttr = extraPaths.length ? ` data-gallery="${escapeAttr(extraPaths.join('|'))}"` : '';
+                newCharacterGrid += `                <div class="character-card" data-character="${char.id}"${galleryAttr}>
                     <div class="character-image">
                         <img src="${char.imageUrl}" alt="${char.alt}" loading="lazy"${char.sizeAttrs || ''}>
                         <div class="character-overlay">
