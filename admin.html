@@ -927,12 +927,20 @@
         }
 
         // Show alert message
-        function showAlert(message, type = 'success') {
+        function showAlert(message, type = 'success', action = null) {
             const container = document.getElementById('alert-container');
             const alert = document.createElement('div');
             alert.className = `alert alert-${type}`;
             alert.textContent = message;
             alert.style.display = 'block';
+            if (action) {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-primary';
+                btn.style.cssText = 'display: block; width: 100%; margin-top: 12px;';
+                btn.textContent = action.label;
+                btn.onclick = action.onClick;
+                alert.appendChild(btn);
+            }
             container.innerHTML = '';
             container.appendChild(alert);
 
@@ -998,7 +1006,35 @@
                 console.error('Error loading from GitHub:', error);
                 updateConnectionStatus('error', '❌ Not loaded - see message below');
                 setSetupOpen(true);
-                showAlert(`❌ ${error.message}`, 'error');
+                showAlert(`❌ ${friendlyError(error)}`, 'error', { label: '🔄 Try again', onClick: loadCharactersFromGitHub });
+            }
+        }
+
+        // fetch() throws a bare TypeError ("Failed to fetch") when the request never reaches GitHub
+        function friendlyError(error) {
+            if (error instanceof TypeError) {
+                return "Couldn't reach GitHub. Check your internet connection and try again.";
+            }
+            return error.message;
+        }
+
+        // Phone photos are often several MB; shrink to the site's ~1400px size so uploads are fast and reliable
+        async function prepareImage(file) {
+            const MAX = 1400;
+            try {
+                const bitmap = await createImageBitmap(file);
+                const scale = Math.min(1, MAX / Math.max(bitmap.width, bitmap.height));
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.round(bitmap.width * scale);
+                canvas.height = Math.round(bitmap.height * scale);
+                canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+                let dataUrl = canvas.toDataURL('image/webp', 0.85);
+                // Safari can't encode WebP and silently returns PNG
+                if (dataUrl.startsWith('data:image/webp')) return { dataUrl, ext: 'webp' };
+                return { dataUrl: canvas.toDataURL('image/jpeg', 0.85), ext: 'jpg' };
+            } catch (e) {
+                console.warn('Could not resize image, uploading original:', e);
+                return { dataUrl: await fileToBase64(file), ext: file.name.split('.').pop().toLowerCase() };
             }
         }
 
@@ -1384,8 +1420,7 @@
 
             try {
                 // Upload image to GitHub
-                const base64 = await fileToBase64(pendingNewCharacterImage);
-                const ext = pendingNewCharacterImage.name.split('.').pop().toLowerCase();
+                const { dataUrl: base64, ext } = await prepareImage(pendingNewCharacterImage);
                 const safeName = name.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_');
                 const filename = `${safeName}_${Date.now()}.${ext}`;
                 const path = `images/characters/${filename}`;
@@ -1431,7 +1466,7 @@
 
             } catch (error) {
                 console.error('Error adding character:', error);
-                showAlert(`❌ Error: ${error.message}`, 'error');
+                showAlert(`❌ ${friendlyError(error)}`, 'error');
             }
         }
 
@@ -1481,8 +1516,7 @@
 
             try {
                 // Upload image to GitHub
-                const base64 = await fileToBase64(pendingNewGalleryImage);
-                const ext = pendingNewGalleryImage.name.split('.').pop().toLowerCase();
+                const { dataUrl: base64, ext } = await prepareImage(pendingNewGalleryImage);
                 const safeName = title.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_');
                 const filename = `${safeName}_${Date.now()}.${ext}`;
                 const path = `images/gallery/${filename}`;
@@ -1526,7 +1560,7 @@
 
             } catch (error) {
                 console.error('Error adding gallery image:', error);
-                showAlert(`❌ Error: ${error.message}`, 'error');
+                showAlert(`❌ ${friendlyError(error)}`, 'error');
             }
         }
 
@@ -1556,14 +1590,13 @@
 
             try {
                 // Convert to base64 first (for immediate preview)
-                const base64 = await fileToBase64(file);
+                const { dataUrl: base64, ext } = await prepareImage(file);
 
                 // Show preview immediately
                 characters[index].previewUrl = base64;
                 renderCharacters();
 
                 // Generate filename
-                const ext = file.name.split('.').pop().toLowerCase();
                 const timestamp = Date.now();
                 const safeName = characters[index].id.replace(/[^a-z0-9-_]/gi, '_');
                 const filename = `${safeName}_${timestamp}.${ext}`;
@@ -1607,7 +1640,7 @@
                 // Revert preview on error
                 delete characters[index].previewUrl;
                 renderCharacters();
-                showAlert(`❌ Upload error: ${error.message}`, 'error');
+                showAlert(`❌ ${friendlyError(error)}`, 'error');
             }
         }
 
