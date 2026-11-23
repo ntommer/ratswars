@@ -607,6 +607,113 @@ body {
     }
 }
 
+/* Swipeable picture strip for characters with more than one picture */
+.character-slides {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+}
+
+.character-slides::-webkit-scrollbar {
+    display: none;
+}
+
+.character-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+}
+
+/* The front picture sets the card's height; the others fit inside it without cropping */
+.character-image .slide-extra-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.slide-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    line-height: 1;
+    transition: opacity 0.25s ease;
+}
+
+.slide-dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--color-cyan);
+    background: rgba(0, 0, 20, 0.6);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.slide-dot.active {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    transform: scale(1.2);
+}
+
+.slide-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    padding: 0 0 4px;
+    border-radius: 50%;
+    border: 1px solid var(--color-cyan);
+    background: rgba(0, 0, 20, 0.7);
+    color: var(--color-cyan);
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-arrow:hover {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+}
+
+.slide-arrow-prev { left: 10px; }
+.slide-arrow-next { right: 10px; }
+
+/* Arrows only for mouse users; on phones you swipe */
+@media (hover: hover) {
+    .character-card:hover .slide-arrow:not([hidden]) {
+        display: flex;
+    }
+}
+
+/* Keep the dots out of the way while the description is open */
+.character-overlay.show ~ .slide-dots,
+.character-card:focus-visible .slide-dots {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    .character-card:hover .slide-dots {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
 .character-card:focus-visible {
     outline: 2px solid var(--color-gold);
     outline-offset: 4px;

@@ -489,13 +489,17 @@ function initCharacterIntel() {
 
         const hint = document.createElement('span');
         hint.className = 'character-hint';
-        hint.textContent = 'INTEL';
+        hint.textContent = 'ABOUT';
         hint.setAttribute('aria-hidden', 'true');
         frame.appendChild(hint);
 
         card.tabIndex = 0;
 
-        card.addEventListener('click', function() {
+        const gallery = initCharacterSlides(card, frame, img);
+
+        card.addEventListener('click', function(e) {
+            // Arrows and dots move between pictures; they shouldn't also open the description
+            if (e.target.closest('.slide-arrow, .slide-dots')) return;
             closeAll(card);
             overlay.classList.toggle('show');
         });
@@ -507,6 +511,9 @@ function initCharacterIntel() {
                 overlay.classList.toggle('show');
             } else if (e.key === 'Escape') {
                 overlay.classList.remove('show');
+            } else if (gallery && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+                e.preventDefault();
+                gallery.go(gallery.current() + (e.key === 'ArrowRight' ? 1 : -1));
             }
         });
     });
@@ -514,6 +521,97 @@ function initCharacterIntel() {
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.character-card')) closeAll(null);
     });
+}
+
+// === CHARACTER PICTURE GALLERIES ===
+// A card can list extra pictures in data-gallery="path1|path2" (the admin editor writes this).
+// The main picture stays first; the rest sit beside it in a strip you swipe left through.
+// Swiping is the browser's own scroll-snap, so it feels native on phones; arrows and dots help mouse users.
+function initCharacterSlides(card, frame, mainImg) {
+    const extras = (card.dataset.gallery || '').split('|').map(s => s.trim()).filter(Boolean);
+    if (!extras.length) return null;
+
+    const name = mainImg.alt || 'Character';
+    const track = document.createElement('div');
+    track.className = 'character-slides';
+
+    const first = document.createElement('div');
+    first.className = 'character-slide';
+    mainImg.replaceWith(track);
+    first.appendChild(mainImg);
+    track.appendChild(first);
+
+    extras.forEach(function(src, i) {
+        const slide = document.createElement('div');
+        slide.className = 'character-slide character-slide-extra';
+        const pic = document.createElement('img');
+        pic.className = 'slide-extra-img';
+        pic.src = src;
+        pic.alt = name + ' - picture ' + (i + 2);
+        pic.loading = 'lazy';
+        pic.decoding = 'async';
+        slide.appendChild(pic);
+        track.appendChild(slide);
+    });
+
+    const total = extras.length + 1;
+    track.querySelectorAll('img').forEach(function(pic) { pic.draggable = false; });
+
+    const dots = document.createElement('div');
+    dots.className = 'slide-dots';
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'slide-dot';
+        dot.tabIndex = -1;
+        dot.setAttribute('aria-label', 'Show picture ' + (i + 1) + ' of ' + total);
+        dot.addEventListener('click', function() { go(i); });
+        dots.appendChild(dot);
+    }
+
+    function makeArrow(dir) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.tabIndex = -1;
+        btn.className = 'slide-arrow slide-arrow-' + (dir < 0 ? 'prev' : 'next');
+        btn.setAttribute('aria-label', dir < 0 ? 'Previous picture' : 'Next picture');
+        btn.textContent = dir < 0 ? '‹' : '›';
+        btn.addEventListener('click', function() { go(current() + dir); });
+        return btn;
+    }
+    const prev = makeArrow(-1);
+    const next = makeArrow(1);
+
+    frame.classList.add('has-slides');
+    frame.append(prev, next, dots);
+
+    function current() {
+        return Math.round(track.scrollLeft / (track.clientWidth || 1));
+    }
+
+    function go(i) {
+        i = Math.max(0, Math.min(total - 1, i));
+        track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+    }
+
+    function update() {
+        const i = current();
+        dots.querySelectorAll('.slide-dot').forEach(function(dot, n) {
+            dot.classList.toggle('active', n === i);
+        });
+        prev.hidden = i === 0;
+        next.hidden = i === total - 1;
+    }
+
+    let ticking = false;
+    track.addEventListener('scroll', function() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() { ticking = false; update(); });
+    }, { passive: true });
+    update();
+
+    return { go: go, current: current };
 }
 
 // === NOTIFICATION SYSTEM ===
@@ -694,7 +792,8 @@ console.log('%cTip: There are secret cheesy surprises hidden on this page...', '
 // === GALLERY & CHARACTER LAYOUT ===
 // Auto-detect landscape images and span them across 2 columns
 function initGalleryLayout() {
-    var images = document.querySelectorAll('.gallery-item img, .character-image img');
+    // Only a character's front picture decides whether its card is wide
+    var images = document.querySelectorAll('.gallery-item img, .character-image img:not(.slide-extra-img)');
     images.forEach(function(img) {
         if (img.complete || (img.getAttribute('width') && img.getAttribute('height'))) {
             checkLandscape(img);
