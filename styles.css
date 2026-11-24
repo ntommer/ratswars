@@ -221,10 +221,20 @@ body {
 .toys-title {
     font-size: clamp(3rem, 9vw, 6.5rem) !important;
     color: var(--color-orange) !important;
+    /* The first eight shadows draw a solid black outline around each letter
+       (outside the letter, so it doesn't thin it) so the glow behind can't wash it out */
     text-shadow:
+        -2px -2px 0 #000,
+        0 -2px 0 #000,
+        2px -2px 0 #000,
+        2px 0 0 #000,
+        2px 2px 0 #000,
+        0 2px 0 #000,
+        -2px 2px 0 #000,
+        -2px 0 0 #000,
+        4px 4px 0 rgba(0, 0, 0, 0.8),
         0 0 20px var(--color-orange),
-        0 0 40px var(--color-gold),
-        4px 4px 0px rgba(0, 0, 0, 0.8) !important;
+        0 0 40px var(--color-gold) !important;
     margin-bottom: 15px;
 }
 
